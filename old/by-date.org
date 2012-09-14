@@ -8,22 +8,6 @@ cat dupe.txt | xargs git rm
 #+end_src
 
 
-* TODO old/19XX
-
-| 06/05/1989  03:15 PM |  8808 | VIDEOU.PAS   |
-|----------------------+-------+--------------|
-| 08/14/1990  02:03 PM |  1650 | ATYPE.PAS    | may be mine with bad date?
-| 01/29/1990  11:52 AM |  3289 | VGA256.BGI   | borland
-|----------------------+-------+--------------|
-| 06/11/1991  06:00 AM | 10985 | TVEDIT.PAS   | borland
-| 08/31/1992  01:30 PM | 29429 | TVHC.PAS     | borland
-| 06/11/1991  06:00 AM |   686 | BGIFONT.PAS  | borland
-|----------------------+-------+--------------|
-| 01/15/1993  10:45 PM | 22533 | ANSIIO.PAS   | unknown
-| 07/23/1993  02:05 AM | 15489 | SPRITES.PAS  | shareware
-| 12/08/1993  09:28 PM |   759 | BGIDRIV.PAS  | borland
-
-
 * DONE old/1992
 
 | 03/18/1992  10:36 AM |  8385 | UNCRUNCH.PAS |
@@ -137,11 +121,11 @@ cat dupe.txt | xargs git rm
 |----------------------+-------+--------------|
 | 09/09/2012  11:46 PM |     8 | WINBAT.BAT   | wintest.pas generates. deleted.
 
-* TODO old/1993.10
+* DONE old/1993.10
 
 | 10/01/1993  08:50 PM | 15788 | STEPPER2.PAS | might be corrupted?
 
-* TODO old/1993.12
+* DONE old/1993.12
 
 | 12/30/1993  02:39 PM |  7926 | MYGAME.PAS   |
 | 12/30/1993  04:18 PM |  1922 | STARS.PAS    |
@@ -241,11 +225,11 @@ cat dupe.txt | xargs git rm
 | 12/15/1994  12:17 AM |  4096 | BLOCK.FNT    |
 | 12/27/1994  11:49 PM |  2088 | TXTWIN.TXT   |
 
-* TODO old/1994.06
+* DONE old/1994.06
 
 | 06/14/1994  10:52 AM | 11975 | SNDSTUFF.PAS |
 
-* TODO old/1994.10
+* DONE old/1994.10
 
 | 03/19/1994  09:26 PM |  3699 | 3D-THING.PAS |
 | 04/18/1994  07:23 AM |   781 | ENV-RUN.PAS  |
@@ -264,7 +248,7 @@ cat dupe.txt | xargs git rm
 | 10/24/1994  01:06 AM | 29310 | ZOKOLD.PAS   |
 | 10/30/1994  05:16 AM |  1050 | CHK2.PAS     |
 
-* TODO old/1994.11
+* DONE old/1994.11
 
 | 11/18/1994  01:02 PM | 5804 | BGISTUFF.PAS |
 
@@ -319,40 +303,48 @@ cat dupe.txt | xargs git rm
 | 06/02/1995  09:28 PM |  1144 | PNTDEMO.PAS  |
 | 06/03/1995  05:57 PM |   709 | INTEREST.PAS |
 | 06/28/1995  10:38 PM |  4567 | WINDERS.PAS  |
+| 07/16/1995  07:58 PM | 21872 | ALFSCREE.PAS |
+| 07/23/1995  10:21 PM |  1261 | STEREO.PAS   |
+| 07/25/1995  11:30 PM |  1198 | LUCID.PAS    |
 | 07/30/1995  03:18 PM |  5305 | ANIMALS.PAS  |
+| 09/01/1995  07:11 PM |  6836 | CEDIT.PAS    |
 | 09/07/1995  03:58 PM | 38375 | CRTSTUFF.PAS |
 | 09/26/1995  09:53 AM |  4603 | VUESTUFF.PAS |
 | 11/28/1995  07:34 PM |  2336 | PNTSTUFF.PAS |
 | 11/28/1995  07:47 PM | 16103 | XMEN.PAS     |
 | 11/28/1995  08:02 PM | 34856 | ZOKSTUFF.PAS |
 
-* TODO old/1996.08
-** TODO old/1996.08/inc
+* DONE old/1995.09
 
-| 07/16/1995  07:58 PM | 21872 | ALFSCREE.PAS |
-|----------------------+-------+--------------|
-| 03/29/1996  09:07 PM | 21893 | DOTHSCR.PAS  |
-| 04/08/1996  11:39 AM | 21860 | ALFSCR.PAS   |
-| 04/08/1996  11:39 AM |  1465 | ALFSCR.ANS   |
-| 04/08/1996  11:39 AM |   650 | THEDRAW.PCK  |
-
-               5 File(s)         67,740 bytes
-
-** TODO old/1996.08/progs
-
-| 07/23/1995  10:21 PM |  1261 | STEREO.PAS  |
-| 07/25/1995  11:30 PM |  1198 | LUCID.PAS   |
-| 09/01/1995  07:11 PM |  6836 | CEDIT.PAS   |
 | 09/05/1995  12:33 AM |   994 | BLAH.PAS    |
-|----------------------+-------+-------------|
+
+* DONE old/1996.08
+
+| 03/29/1996  09:07 PM | 21893 | DOTHSCR.PAS |
 | 03/29/1996  09:16 PM |  3881 | DOTH.PAS    |
 | 03/29/1996  09:20 PM | 49140 | DOTH-A.PAS  |
 | 04/08/1996  08:23 AM |  1059 | ALTERED.PAS |
+| 04/08/1996  11:39 AM |   650 | THEDRAW.PCK |
+| 04/08/1996  11:39 AM |  1465 | ALFSCR.ANS  |
+| 04/08/1996  11:39 AM | 21860 | ALFSCR.PAS  |
 | 04/08/1996  11:56 AM |  1005 | HERTZ.PAS   |
 | 04/11/1996  06:21 PM |  2767 | ALF.PAS     |
 | 05/19/1996  09:44 PM |  2064 | ADL2.PAS    |
 | 07/22/1996  09:44 PM | 16102 | XMEN.PAS    |
 | 08/04/1996  03:44 PM |  3346 | LIFE.PAS    |
 
-              12 File(s)         89,653 bytes
 
+* TODO old/19XX
+
+| 06/05/1989  03:15 PM |  8808 | VIDEOU.PAS   |
+|----------------------+-------+--------------|
+| 08/14/1990  02:03 PM |  1650 | ATYPE.PAS    | may be mine with bad date?
+| 01/29/1990  11:52 AM |  3289 | VGA256.BGI   | borland
+|----------------------+-------+--------------|
+| 06/11/1991  06:00 AM | 10985 | TVEDIT.PAS   | borland
+| 08/31/1992  01:30 PM | 29429 | TVHC.PAS     | borland
+| 06/11/1991  06:00 AM |   686 | BGIFONT.PAS  | borland
+|----------------------+-------+--------------|
+| 01/15/1993  10:45 PM | 22533 | ANSIIO.PAS   | unknown
+| 07/23/1993  02:05 AM | 15489 | SPRITES.PAS  | shareware
+| 12/08/1993  09:28 PM |   759 | BGIDRIV.PAS  | borland
