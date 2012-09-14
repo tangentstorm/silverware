@@ -268,7 +268,7 @@ cat dupe.txt | xargs git rm
 
 | 11/18/1994  01:02 PM | 5804 | BGISTUFF.PAS |
 
-* DONE old/1995.11
+* DONE old/1995
 
 | 01/05/1995  07:46 PM |  1027 | EYES2.PAS    |
 | 01/07/1995  02:42 PM | 64800 | BACKGRND.CEL |
@@ -325,7 +325,6 @@ cat dupe.txt | xargs git rm
 | 11/28/1995  07:34 PM |  2336 | PNTSTUFF.PAS |
 | 11/28/1995  07:47 PM | 16103 | XMEN.PAS     |
 | 11/28/1995  08:02 PM | 34856 | ZOKSTUFF.PAS |
-
 
 * TODO old/1996.08
 ** TODO old/1996.08/inc
