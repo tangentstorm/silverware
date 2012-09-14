@@ -11,6 +11,7 @@ cat dupe.txt | xargs git rm
 * TODO old/19XX
 
 | 08/14/1990  02:03 PM |  1650 | ATYPE.PAS    | may be mine with bad date?
+| 01/29/1990  11:52 AM |  3289 | VGA256.BGI   | borland
 |----------------------+-------+--------------|
 | 06/11/1991  06:00 AM | 10985 | TVEDIT.PAS   | borland
 | 08/31/1992  01:30 PM | 29429 | TVHC.PAS     | borland
@@ -19,6 +20,7 @@ cat dupe.txt | xargs git rm
 | 01/15/1993  10:45 PM | 22533 | ANSIIO.PAS   | unknown
 | 07/23/1993  02:05 AM | 15489 | SPRITES.PAS  | shareware
 | 12/08/1993  09:28 PM |   759 | BGIDRIV.PAS  | borland
+
 
 * DONE old/1992
 
@@ -221,38 +223,26 @@ cat dupe.txt | xargs git rm
 | 06/14/1994  10:52 AM | 11975 | SNDSTUFF.PAS |
 
 * TODO old/1994.10
-** TODO old/1994.10/prog
 
 | 03/19/1994  09:26 PM |  3699 | 3D-THING.PAS |
 | 04/18/1994  07:23 AM |   781 | ENV-RUN.PAS  |
+| 05/07/1994  11:43 AM |  5602 | BGISTUFF.PAS |
 | 05/08/1994  12:01 PM |    62 | SHOTIME.PAS  |
 | 06/06/1994  06:58 PM |  4358 | STARS3D.PAS  |
-| 06/30/1994  05:51 PM | 12370 | HPLOT1.PAS   |
-| 08/31/1994  06:49 PM | 24697 | YMEN.PAS     |
-| 10/01/1994  03:00 PM |  1130 | PRSPEC.PAS   |
-
-** TODO old/1994.10/unit
-
-| 05/07/1994  11:43 AM |  5602 | BGISTUFF.PAS |
 | 06/13/1994  12:11 AM |  4103 | MOUSTUFF.PAS |
+| 06/30/1994  05:51 PM | 12370 | HPLOT1.PAS   |
 | 08/22/1994  06:11 PM | 13377 | SNDSTUFF.PAS |
+| 08/31/1994  06:49 PM | 24697 | YMEN.PAS     |
 | 09/14/1994  04:20 AM | 29118 | ZOKSTUFF.PAS |
 | 09/30/1994  05:45 PM | 42088 | CRTSTUFF.PAS |
 | 10/01/1994  02:59 PM |  5336 | VGASTUFF.PAS |
-
-              13 File(s)        166,818 bytes
+| 10/01/1994  03:00 PM |  1130 | PRSPEC.PAS   |
+| 10/10/1994  03:20 PM |  1058 | BMPTEST.PAS  |
+| 10/30/1994  05:16 AM |  1050 | CHK2.PAS     |
 
 * TODO old/1995.11
 ** TODO old/1995.11/inc
 
-| 01/29/1990  11:52 AM |  3289 | VGA256.BGI   | borland
-|----------------------+-------+--------------|
-| 06/21/1993  05:18 PM |   650 | THEDRAW.PCK  | trash
-|----------------------+-------+--------------|
-| 02/13/1994  08:53 AM |   753 | COPYPAGE.OBJ |
-| 02/13/1994  08:53 AM |  1018 | HLINE.OBJ    |
-| 02/13/1994  08:54 AM |   804 | VLINE.OBJ    |
-| 02/13/1994  11:41 AM |  1197 | SMFONT.OBJ   |
 | 02/13/1994  02:38 PM |   489 | ASMCOMM.INC  |
 | 02/13/1994  02:46 PM |  1132 | COPYPAGE.ASM |
 | 02/13/1994  02:49 PM |  2184 | HLINE.ASM    |
@@ -262,17 +252,13 @@ cat dupe.txt | xargs git rm
 | 10/23/1994  10:13 PM | 15340 | DTITE.PIC    |
 | 10/23/1994  10:37 PM | 21856 | DPLAY.PIC    |
 | 10/29/1994  11:48 PM |  4096 | SABREN.FNT   |
-| 10/29/1994  11:49 PM |  4177 | SABFNT.OBJ   |
 | 10/30/1994  08:15 AM | 64768 | GRID.DAT     |
 | 10/31/1994  03:14 AM |  4096 | DIGI.FNT     |
-| 10/31/1994  03:15 AM |  4175 | DIGIFONT.OBJ |
 | 11/05/1994  11:24 PM | 64768 | GU-1.DAT     |
 | 11/25/1994  09:21 PM |  4096 | PABLO.FNT    |
-| 11/25/1994  09:23 PM |  4172 | PABLO.OBJ    |
 | 12/15/1994  12:15 AM |  4096 | DEFAULT.FNT  |
 | 12/15/1994  12:17 AM |  4096 | BLOCK.FNT    |
 | 12/27/1994  11:49 PM |  2088 | TXTWIN.TXT   |
-| 12/27/1994  11:49 PM |  2158 | TXTWIN.OBJ   |
 |----------------------+-------+--------------|
 | 01/07/1995  02:42 PM | 64800 | BACKGRND.CEL |
 | 01/07/1995  11:24 PM | 64800 | STARTUP.CEL  |
@@ -291,9 +277,6 @@ cat dupe.txt | xargs git rm
 
 ** TODO old/1995.11/prg
 
-| 10/30/1994  05:16 AM |  1050 | CHK2.PAS     |
-| 10/10/1994  03:20 PM |  1058 | BMPTEST.PAS  |
-|----------------------+-------+--------------|
 | 01/05/1995  07:46 PM |  1027 | EYES2.PAS    |
 | 01/07/1995  11:43 AM |  6069 | 3DCALC.PAS   |
 | 01/07/1995  03:22 PM |  3705 | DOTH.PAS     |
