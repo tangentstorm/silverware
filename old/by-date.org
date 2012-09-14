@@ -1,5 +1,15 @@
 #+title: silverware files by date
 
+
+* DONE locate and remove duplicates by md5 hash
+
+#+begin_src sh
+find -exec md5sum { } \; | sort > hash.txt
+awk 'x[$1]++ { print $2 }' hash.txt > dupe.txt
+cat dupe.txt | xargs git rm
+#+end_src
+
+
 * TODO old/1992
 
 03/18/1992  10:36 AM             8,385 UNCRUNCH.PAS
