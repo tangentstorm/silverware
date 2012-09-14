@@ -40,8 +40,12 @@ cat dupe.txt | xargs git rm
 | 02/19/1993  02:59 PM |  1330 | LIFE.PAS     |
 | 03/03/1993  01:38 PM |  1461 | FRAC1.BAK    |
 | 03/03/1993  01:39 PM |  1455 | FRAC1.PAS    |
+| 04/07/1993  06:16 PM |  2387 | SSWSTUFF.PAS |
+| 04/08/1993  04:36 PM |  2531 | THREED.PAS   |
 | 04/18/1993  11:40 AM |    53 | PROMPT1.BAT  |
+| 05/23/1993  01:07 PM |  6247 | CUBE1.PAS    |
 | 07/15/1993  10:54 PM |  1134 | ROBOT.PAS    |
+| 08/13/1993  04:44 PM |  1630 | YFRAC.PAS    |
 | 08/14/1993  07:20 PM |  4492 | FILSTUFF.PAS |
 | 09/01/1993  07:32 PM |    15 | FSORT.BAT    |
 | 09/01/1993  07:45 PM |   120 | AUTOEXEC.BAT |
@@ -61,20 +65,9 @@ cat dupe.txt | xargs git rm
 | 10/14/1993  01:29 PM |  3050 | ZC.PAS       |
 | 10/17/1993  01:03 PM | 16353 | ZOKSTUFF.PAS |
 | 10/17/1993  01:42 PM | 19329 | YMEN.PAS     |
-| 10/20/1993  12:43 PM |   365 | JWORLD.PAS   |
-|----------------------+-------+--------------|
-| 09/09/2012  11:46 PM |     8 | WINBAT.BAT   | wintest.pas generates. deleted.
-
-* TODO old/1994.03
-
-|----------------------+-------+--------------|
-| 04/07/1993  06:16 PM |  2387 | SSWSTUFF.PAS |
-| 04/08/1993  04:36 PM |  2531 | THREED.PAS   |
-| 05/23/1993  01:07 PM |  6247 | CUBE1.PAS    |
-| 08/13/1993  04:44 PM |  1630 | YFRAC.PAS    |
-| 10/01/1993  08:50 PM | 15788 | STEPPER2.PAS |
 | 10/18/1993  01:14 PM |  1465 | ZMEN.PAS     |
 | 10/19/1993  02:45 AM |  1016 | MMIND.PAS    |
+| 10/20/1993  12:43 PM |   365 | JWORLD.PAS   |
 | 12/01/1993  01:42 PM |  1028 | LINES.PAS    |
 | 12/01/1993  01:46 PM |   997 | PABLO-1.PAS  |
 | 12/02/1993  01:44 PM |   622 | PABLO-2.PAS  |
@@ -85,6 +78,13 @@ cat dupe.txt | xargs git rm
 | 12/22/1993  12:48 PM |  2048 | STARS.PAS    |
 | 12/22/1993  12:48 PM |  8192 | MYGAME.PAS   |
 | 12/25/1993  03:51 PM |  2748 | APPSTUFF.PAS |
+|----------------------+-------+--------------|
+| 09/09/2012  11:46 PM |     8 | WINBAT.BAT   | wintest.pas generates. deleted.
+
+* TODO old/1994.03
+
+|----------------------+-------+--------------|
+| 10/01/1993  08:50 PM | 15788 | STEPPER2.PAS | might be corrupted?
 |----------------------+-------+--------------|
 | 01/03/1994  09:17 PM |   751 | ENV-RUN.PAS  |
 | 01/04/1994  01:54 PM |  1959 | SDF.PAS      |
