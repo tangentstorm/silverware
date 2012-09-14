@@ -34,15 +34,12 @@ cat dupe.txt | xargs git rm
 
 * DONE old/1993
 
+| 01/03/1980  12:49 AM |   195 | TEST.PAS     | bad date. modem test.
+|----------------------+-------+--------------|
 | 02/19/1993  02:11 PM |   832 | QUESTION.PAS |
 | 02/19/1993  02:59 PM |  1330 | LIFE.PAS     |
 | 03/03/1993  01:38 PM |  1461 | FRAC1.BAK    |
 | 03/03/1993  01:39 PM |  1455 | FRAC1.PAS    |
-
-* TODO old/1993.10
-
-| 01/03/1980  12:49 AM |   195 | TEST.PAS     |
-|----------------------+-------+--------------|
 | 04/18/1993  11:40 AM |    53 | PROMPT1.BAT  |
 | 07/15/1993  10:54 PM |  1134 | ROBOT.PAS    |
 | 08/14/1993  07:20 PM |  4492 | FILSTUFF.PAS |
@@ -66,7 +63,7 @@ cat dupe.txt | xargs git rm
 | 10/17/1993  01:42 PM | 19329 | YMEN.PAS     |
 | 10/20/1993  12:43 PM |   365 | JWORLD.PAS   |
 |----------------------+-------+--------------|
-| 09/09/2012  11:46 PM |     8 | WINBAT.BAT   |
+| 09/09/2012  11:46 PM |     8 | WINBAT.BAT   | wintest.pas generates. deleted.
 
 * TODO old/1994.03
 
