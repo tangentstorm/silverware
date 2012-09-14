@@ -1,0 +1,486 @@
+ Volume in drive C has no label.
+ Volume Serial Number is 2050-522D
+
+ Directory of C:\michal\SILVER~1\old
+
+09/14/2012  09:14 AM    <DIR>          1992
+09/14/2012  09:14 AM    <DIR>          1993
+09/14/2012  09:15 AM    <DIR>          1993.10
+09/14/2012  09:15 AM    <DIR>          1994.06
+09/14/2012  09:15 AM    <DIR>          1995.11
+09/14/2012  09:15 AM    <DIR>          1995.11z
+09/14/2012  09:43 AM    <DIR>          1994.10
+09/14/2012  09:55 AM    <DIR>          1996.08
+09/14/2012  12:23 PM    <DIR>          1994.03
+09/14/2012  12:23 PM            27,037 by-date.org
+09/14/2012  12:25 PM                 0 by-date-purged.txt
+09/14/2012  12:25 PM    <DIR>          .
+09/14/2012  12:25 PM    <DIR>          ..
+               2 File(s)         27,037 bytes
+
+ Directory of C:\michal\SILVER~1\old\1992
+
+03/18/1992  10:36 AM             8,385 UNCRUNCH.PAS
+08/16/1992  09:02 PM            16,960 CRTSTUFF.PAS
+09/11/1992  01:42 PM               312 FRACTL.PAS
+09/15/1992  01:22 PM             1,144 ELMER.PAS
+09/17/1992  01:19 PM            19,808 FRAC1.EXE
+09/18/1992  02:14 PM               236 GAME.BAK
+09/14/2012  09:14 AM    <DIR>          ..
+09/14/2012  09:14 AM    <DIR>          .
+               6 File(s)         46,845 bytes
+
+ Directory of C:\michal\SILVER~1\old\1993
+
+10/23/1992  01:26 PM               239 PIGLAT.PAS
+11/06/1992  01:58 PM               214 GAME.PAS
+12/23/1992  07:05 PM            20,118 PAGE1.PIC
+12/24/1992  10:37 PM            27,552 TEST.MEG
+12/25/1992  07:50 PM            12,107 TCOBEM.PAS
+02/19/1993  02:11 PM               832 QUESTION.PAS
+02/19/1993  02:59 PM             1,330 LIFE.PAS
+03/03/1993  01:38 PM             1,461 FRAC1.BAK
+03/03/1993  01:39 PM             1,455 FRAC1.PAS
+09/14/2012  09:14 AM    <DIR>          .
+09/14/2012  09:14 AM    <DIR>          ..
+               9 File(s)         65,308 bytes
+
+ Directory of C:\michal\SILVER~1\old\1993.10
+
+01/03/1980  12:49 AM               195 TEST.PAS
+08/11/1992  10:40 PM             7,131 MODEM.PAS
+04/18/1993  11:40 AM                53 PROMPT1.BAT
+07/15/1993  10:54 PM             1,134 ROBOT.PAS
+08/14/1993  07:20 PM             4,492 FILSTUFF.PAS
+09/01/1993  07:32 PM                15 FSORT.BAT
+09/01/1993  07:45 PM               120 AUTOEXEC.BAT
+09/08/1993  01:46 PM                 5 WINYES.BAT
+09/08/1993  01:50 PM                64 WINNO.BAT
+09/08/1993  01:53 PM               666 WINTEST.PAS
+09/10/1993  01:13 PM            15,776 RADIO.PAS
+09/29/1993  04:42 PM             2,413 CNTRL.PAS
+09/29/1993  09:19 PM            10,580 STEPPER1.PAS
+09/30/1993  06:57 AM                18 PONG.BAT
+10/01/1993  08:50 PM            15,788 STEPPER2.PAS
+10/03/1993  11:11 AM             3,555 STEP2.PAS
+10/03/1993  12:37 PM             2,135 STEP1.PAS
+10/10/1993  07:56 PM               177 G.BAT
+10/12/1993  06:19 AM            21,587 CRTSTUFF.PAS
+10/12/1993  06:40 AM               191 YMENU.BAT
+10/14/1993  01:29 PM             3,050 ZC.PAS
+10/17/1993  01:03 PM            16,353 ZOKSTUFF.PAS
+10/17/1993  01:42 PM            19,329 YMEN.PAS
+10/20/1993  12:43 PM               365 JWORLD.PAS
+09/09/2012  11:46 PM                 8 WINBAT.BAT
+09/14/2012  09:15 AM    <DIR>          .
+09/14/2012  09:15 AM    <DIR>          ..
+              25 File(s)        125,200 bytes
+
+ Directory of C:\michal\SILVER~1\old\1994.03
+
+09/28/1992  08:53 AM             2,180 MATH.PAS
+04/07/1993  06:16 PM             2,387 SSWSTUFF.PAS
+04/08/1993  04:36 PM             2,531 THREED.PAS
+05/23/1993  01:07 PM             6,247 CUBE1.PAS
+08/13/1993  04:44 PM             1,630 YFRAC.PAS
+10/01/1993  08:50 PM            15,788 STEPPER2.PAS
+10/18/1993  01:14 PM             1,465 ZMEN.PAS
+10/19/1993  02:45 AM             1,016 MMIND.PAS
+12/01/1993  01:42 PM             1,028 LINES.PAS
+12/01/1993  01:46 PM               997 PABLO-1.PAS
+12/02/1993  01:44 PM               622 PABLO-2.PAS
+12/07/1993  01:20 PM               646 PABLO-3.PAS
+12/08/1993  08:17 PM               584 MTEST.PAS
+12/12/1993  08:43 AM             7,166 MTEST2.PAS
+12/12/1993  10:32 AM             8,758 MTEST3.PAS
+12/22/1993  12:48 PM             2,048 STARS.PAS
+12/22/1993  12:48 PM             8,192 MYGAME.PAS
+12/25/1993  03:51 PM             2,748 APPSTUFF.PAS
+01/03/1994  09:17 PM               751 ENV-RUN.PAS
+01/04/1994  01:54 PM             1,959 SDF.PAS
+01/10/1994  11:36 AM            43,592 HAPPLOT1.PAS
+01/13/1994  02:38 PM             2,001 SNDSTUFF.PAS
+01/15/1994  05:42 PM             1,127 PRSPEC.PAS
+01/16/1994  12:17 PM            12,368 HPLOT1.PAS
+01/16/1994  12:19 PM             5,422 BGISTUFF.PAS
+01/23/1994  06:32 PM             1,460 HYP1.PAS
+01/25/1994  06:12 AM            24,693 YMEN.PAS
+01/25/1994  05:37 PM             3,620 3D-THING.PAS
+01/29/1994  04:22 PM             3,348 MOUSTUFF.PAS
+01/30/1994  09:22 PM             2,312 VGASTUFF.PAS
+01/30/1994  09:38 PM             4,305 STARS3D.PAS
+02/17/1994  12:14 PM               716 SHOTIME.PAS
+03/19/1994  02:29 PM             5,824 FILSTUFF.PAS
+03/24/1994  05:29 PM            25,410 CRTSTUFF.PAS
+03/24/1994  05:33 PM             1,211 HYPERTXT.PAS
+03/25/1994  12:16 PM             1,256 ZMBARTES.PAS
+03/25/1994  12:41 PM            25,221 ZOKSTUFF.PAS
+09/14/2012  12:23 PM    <DIR>          .
+09/14/2012  12:23 PM    <DIR>          ..
+              37 File(s)        232,629 bytes
+
+ Directory of C:\michal\SILVER~1\old\1994.06
+
+01/29/1992  02:22 PM             6,172 NUTCRACK.MID
+02/21/1992  06:29 PM            40,189 SNDSGOOD.ZIP
+07/12/1992  06:22 PM             6,702 SBPROG.ZIP
+11/09/1992  12:50 AM            20,198 SBDTXT20.ZIP
+12/28/1992  10:37 AM             4,620 BACH.MID
+12/28/1992  10:46 AM             7,240 GREENSLV.MID
+02/07/1993  11:00 PM               860 BACHSOLF.MID
+07/28/1993  01:00 AM            12,800 Prelude3.mid
+07/28/1993  01:00 AM            19,224 MAPLERAG.MID
+07/28/1993  01:00 AM            12,373 Petewlf.mid
+07/28/1993  01:00 AM            25,729 MOOD2.MID
+07/28/1993  01:00 AM             9,361 HELLOMYB.MID
+07/28/1993  01:00 AM            23,136 ENTRTANR.MID
+07/28/1993  01:00 AM            29,096 CANNON_D.MID
+07/28/1993  01:00 AM            20,858 MINWLTZ.MID
+01/25/1994  06:09 AM                81 CHKLIST.MS
+06/06/1994  05:33 PM           452,732 POLYRAY.ARJ
+06/14/1994  10:52 AM            11,975 SNDSTUFF.PAS
+06/16/1994  11:11 PM             6,712 MUSIC.PAS
+09/14/2012  09:15 AM    <DIR>          .
+09/14/2012  09:15 AM    <DIR>          ..
+              19 File(s)        710,058 bytes
+
+ Directory of C:\michal\SILVER~1\old\1994.10
+
+09/14/2012  09:43 AM    <DIR>          ..
+09/14/2012  09:43 AM    <DIR>          .
+09/14/2012  09:53 AM    <DIR>          progzip
+09/14/2012  12:23 PM    <DIR>          prog
+09/14/2012  12:23 PM    <DIR>          unit
+09/14/2012  12:23 PM    <DIR>          inc
+               0 File(s)              0 bytes
+
+ Directory of C:\michal\SILVER~1\old\1994.10\inc
+
+11/26/1992  11:04 AM            17,342 DMAP1.PIC
+11/30/1992  09:47 AM            21,860 DMMTTL.PIC
+04/03/1993  03:47 AM            21,860 DTITLE.PIC
+04/09/1993  03:02 PM             2,025 BUG1.CEL
+04/09/1993  03:03 PM             2,025 BUG2.CEL
+04/09/1993  03:03 PM             2,025 BUG3.CEL
+04/09/1993  03:05 PM             2,025 BUG4.CEL
+04/09/1993  04:00 PM            64,800 BUG.CEL
+06/21/1993  05:18 PM            20,118 BLANK.PAS
+07/02/1993  11:41 PM             3,609 SHOP.PAS
+07/03/1993  11:10 AM             1,045 OWN2.PAS
+07/03/1993  11:13 AM             1,045 OWN1.PAS
+07/03/1993  11:13 AM             1,045 OWN3.PAS
+07/03/1993  11:14 AM             1,045 OWN4.PAS
+07/03/1993  01:15 PM             1,058 DBAR.PAS
+07/19/1993  03:13 PM            15,344 WIZARD.PAS
+07/20/1993  10:23 PM            15,340 STARS.PAS
+07/20/1993  11:25 PM            15,332 ICE.PAS
+07/23/1993  03:59 AM            64,281 DPLAY1.CEL
+07/23/1993  04:51 AM            64,281 DTITLE.CEL
+07/29/1993  06:29 PM            21,860 DMMSCR.PIC
+10/20/1993  07:36 PM            21,860 DPLAY1.PIC
+01/30/1994  03:09 PM             1,690 STARSHIP.CEL
+01/30/1994  03:10 PM             1,755 STARSHIP.OBJ
+05/23/1994  01:09 PM            21,852 GURU.PAS
+05/23/1994  03:28 PM            21,856 DBSCR.PAS
+06/04/1994  07:47 PM            64,800 STRFIELD.CEL
+06/05/1994  01:10 AM             1,185 STARCAR.CEL
+06/05/1994  01:17 AM             1,249 STARCAR.OBJ
+06/05/1994  01:17 AM             2,672 TURBO.DSK
+06/13/1994  12:26 PM             3,653 SHEETMUS
+06/14/1994  02:18 PM            21,860 MUSIC1.PAS
+06/14/1994  03:01 PM            21,860 MUSIC3.PAS
+06/14/1994  03:40 PM            21,860 MUSIC2.PAS
+09/10/2012  05:05 AM               650 THEDRAW.PCK
+09/14/2012  12:23 PM    <DIR>          .
+09/14/2012  12:23 PM    <DIR>          ..
+              35 File(s)        568,167 bytes
+
+ Directory of C:\michal\SILVER~1\old\1994.10\prog
+
+08/14/1990  02:03 PM             1,650 ATYPE.PAS
+06/11/1991  06:00 AM            10,985 TVEDIT.PAS
+08/31/1992  01:30 PM            29,429 TVHC.PAS
+10/24/1992  09:28 PM             3,677 PIGLAT.PAS
+11/30/1992  09:52 AM               976 DMM.PAS
+03/29/1993  07:39 AM               793 WORDZ.PAS
+04/04/1993  01:29 AM             4,826 LG1.PAS
+04/07/1993  06:13 PM             5,284 SG1.PAS
+04/08/1993  05:28 PM               252 TCONV.PAS
+04/09/1993  02:53 PM             2,255 SPRDEMO.PAS
+04/09/1993  04:44 PM               187 RND.PAS
+04/11/1993  01:50 PM               652 APP2.PAS
+04/24/1993  02:20 PM               254 TIMER.PAS
+05/29/1993  11:07 AM               879 SCAPE.PAS
+07/20/1993  08:49 PM             9,272 ARTY.PAS
+07/27/1993  09:34 PM             1,814 SPR2.PAS
+09/07/1993  05:08 PM               392 PROJECT.PAS
+11/12/1993  12:27 PM               724 APP1.PAS
+11/12/1993  12:30 PM             1,916 APP3.PAS
+12/08/1993  09:45 PM             1,768 FRCTL1.PAS
+12/25/1993  04:53 PM             5,607 APP4.PAS
+12/30/1993  02:39 PM             7,926 MYGAME.PAS
+12/30/1993  04:18 PM             1,922 STARS.PAS
+12/31/1993  08:23 PM             1,260 ET.PAS
+01/12/1994  05:46 PM             8,718 MTEST3.PAS
+01/21/1994  02:23 PM               292 KEY.PAS
+01/24/1994  08:51 PM             1,489 ZMEN.PAS
+01/29/1994  05:54 PM             6,210 CUBE1.PAS
+03/19/1994  09:26 PM             3,699 3D-THING.PAS
+04/06/1994  04:21 PM             1,210 GPROMPT.PAS
+04/13/1994  04:29 PM             1,007 ICONS.PAS
+04/18/1994  07:23 AM               781 ENV-RUN.PAS
+04/18/1994  06:23 PM               544 LOG-RUN.PAS
+04/29/1994  03:23 PM            12,844 BONK.PAS
+04/30/1994  08:22 PM             7,175 MTEST2.PAS
+05/08/1994  12:01 PM                62 SHOTIME.PAS
+05/16/1994  12:36 AM             3,411 ANIMALS.PAS
+05/28/1994  11:36 AM             2,257 LIFE.PAS
+05/28/1994  12:26 PM             1,384 DRAGON.PAS
+05/31/1994  02:49 PM             2,017 FILROUT.PAS
+06/04/1994  06:57 PM             1,196 POLYFIL.PAS
+06/05/1994  06:34 PM            49,071 DOTH-A.PAS
+06/06/1994  06:58 PM             4,358 STARS3D.PAS
+06/30/1994  05:51 PM            12,370 HPLOT1.PAS
+08/10/1994  06:00 PM             2,434 ELECTRO.PAS
+08/11/1994  10:42 PM             8,392 ADL.PAS
+08/14/1994  11:27 AM               798 NOTE.PAS
+08/14/1994  12:18 PM               721 BMPTEST.PAS
+08/14/1994  11:10 PM             2,525 PLOTTER.PAS
+08/14/1994  11:15 PM             8,197 DOTH.PAS
+08/20/1994  09:55 PM             3,585 WINDERS.PAS
+08/22/1994  06:34 PM               895 ALTERED.PAS
+08/31/1994  06:49 PM            24,697 YMEN.PAS
+09/28/1994  09:30 PM            12,369 XMEN.PAS
+10/01/1994  03:00 PM             1,130 PRSPEC.PAS
+10/01/1994  05:25 PM             1,363 CHK2.PAS
+10/03/1994  03:00 PM             5,942 WIRE.PAS
+09/14/2012  12:23 PM    <DIR>          .
+09/14/2012  12:23 PM    <DIR>          ..
+              57 File(s)        287,843 bytes
+
+ Directory of C:\michal\SILVER~1\old\1994.10\progzip
+
+09/14/2012  09:53 AM    <DIR>          ..
+09/14/2012  09:53 AM    <DIR>          .
+               0 File(s)              0 bytes
+
+ Directory of C:\michal\SILVER~1\old\1994.10\unit
+
+06/11/1991  06:00 AM               686 BGIFONT.PAS
+01/15/1993  10:45 PM            22,533 ANSIIO.PAS
+07/23/1993  02:05 AM            15,489 SPRITES.PAS
+12/08/1993  09:28 PM               759 BGIDRIV.PAS
+01/02/1994  02:45 PM            17,617 ZOKOLD.PAS
+01/25/1994  06:04 PM             2,907 THREED.PAS
+05/07/1994  11:43 AM             5,602 BGISTUFF.PAS
+06/13/1994  12:11 AM             4,103 MOUSTUFF.PAS
+08/22/1994  06:11 PM            13,377 SNDSTUFF.PAS
+09/04/1994  03:52 PM             7,203 CRTOLD.PAS
+09/14/1994  04:20 AM            29,118 ZOKSTUFF.PAS
+09/30/1994  05:45 PM            42,088 CRTSTUFF.PAS
+10/01/1994  02:59 PM             5,336 VGASTUFF.PAS
+09/14/2012  12:23 PM    <DIR>          .
+09/14/2012  12:23 PM    <DIR>          ..
+              13 File(s)        166,818 bytes
+
+ Directory of C:\michal\SILVER~1\old\1995.11
+
+09/14/2012  09:15 AM    <DIR>          ..
+09/14/2012  09:15 AM    <DIR>          .
+09/14/2012  12:23 PM    <DIR>          inc
+09/14/2012  12:23 PM    <DIR>          units
+09/14/2012  12:23 PM    <DIR>          prg
+               0 File(s)              0 bytes
+
+ Directory of C:\michal\SILVER~1\old\1995.11\inc
+
+01/29/1990  11:52 AM             3,289 VGA256.BGI
+06/21/1993  05:18 PM               650 THEDRAW.PCK
+02/13/1994  08:53 AM               753 COPYPAGE.OBJ
+02/13/1994  08:53 AM             1,018 HLINE.OBJ
+02/13/1994  08:54 AM               804 VLINE.OBJ
+02/13/1994  11:41 AM             1,197 SMFONT.OBJ
+02/13/1994  02:38 PM               489 ASMCOMM.INC
+02/13/1994  02:46 PM             1,132 COPYPAGE.ASM
+02/13/1994  02:49 PM             2,184 HLINE.ASM
+02/13/1994  02:53 PM             1,151 VLINE.ASM
+02/13/1994  09:23 PM            18,165 SMFONT.ASM
+10/10/1994  03:03 PM            65,078 GRID.BMP
+10/23/1994  10:13 PM            15,340 DTITE.PIC
+10/23/1994  10:37 PM            21,856 DPLAY.PIC
+10/29/1994  11:48 PM             4,096 SABREN.FNT
+10/29/1994  11:49 PM             4,177 SABFNT.OBJ
+10/30/1994  08:15 AM            64,768 GRID.DAT
+10/31/1994  03:14 AM             4,096 DIGI.FNT
+10/31/1994  03:15 AM             4,175 DIGIFONT.OBJ
+11/05/1994  11:24 PM            64,768 GU-1.DAT
+11/25/1994  09:21 PM             4,096 PABLO.FNT
+11/25/1994  09:23 PM             4,172 PABLO.OBJ
+12/15/1994  12:15 AM             4,096 DEFAULT.FNT
+12/15/1994  12:17 AM             4,096 BLOCK.FNT
+12/27/1994  11:49 PM             2,088 TXTWIN.TXT
+12/27/1994  11:49 PM             2,158 TXTWIN.OBJ
+01/07/1995  02:42 PM            64,800 BACKGRND.CEL
+01/07/1995  11:24 PM            64,800 STARTUP.CEL
+01/23/1995  07:56 PM             4,175 GUMBELLA.OBJ
+01/23/1995  09:11 PM             8,321 GURU.CEL
+01/23/1995  09:11 PM               768 GURU.COL
+01/23/1995  09:13 PM             8,434 GURUCEL.OBJ
+01/23/1995  09:21 PM               824 COLORS.OBJ
+01/29/1995  02:45 PM             3,635 XMTAG.PAS
+01/31/1995  09:25 AM             3,613 XMTAGG.PAS
+02/20/1995  11:52 PM            64,800 PARADOX.CEL
+03/22/1995  10:55 PM             4,173 GUMREV.OBJ
+03/22/1995  10:55 PM             4,173 SABREV.OBJ
+09/14/2012  12:23 PM    <DIR>          .
+09/14/2012  12:23 PM    <DIR>          ..
+              38 File(s)        532,408 bytes
+
+ Directory of C:\michal\SILVER~1\old\1995.11\prg
+
+02/13/1994  08:07 AM             5,377 PRF2ASM.PAS
+02/13/1994  01:46 PM             7,763 GEM2PRF.PAS
+05/23/1994  03:31 PM               470 DATABK.PAS
+10/10/1994  03:20 PM             1,058 BMPTEST.PAS
+10/18/1994  11:51 PM               724 BINARY.PAS
+10/22/1994  11:52 PM             9,058 DOTH-2.PAS
+10/30/1994  12:15 AM             1,219 SABEFNT.PAS
+10/30/1994  05:16 AM             1,050 CHK2.PAS
+10/30/1994  08:15 AM             3,744 GRID.PAS
+10/30/1994  11:19 AM             1,274 DIGIFONT.PAS
+11/22/1994  08:42 PM               366 PASS.PAS
+11/24/1994  06:32 PM               297 SHOWCEL.PAS
+12/14/1994  03:21 AM             2,509 MECREADE.PAS
+01/05/1995  07:46 PM             1,027 EYES2.PAS
+01/07/1995  11:43 AM             6,069 3DCALC.PAS
+01/07/1995  03:22 PM             3,705 DOTH.PAS
+01/08/1995  03:39 PM             2,897 F1.PAS
+01/15/1995  10:24 AM               186 DVORAK.PAS
+01/20/1995  10:08 PM             6,213 CUBE1.PAS
+01/21/1995  03:12 PM             2,758 FOBS.PAS
+01/22/1995  11:05 AM               807 TESTVGA.PAS
+01/22/1995  11:39 AM               633 FONTTEST.PAS
+01/28/1995  01:40 PM             6,069 WIRE.PAS
+01/28/1995  02:10 PM             2,529 TRI.PAS
+01/29/1995  03:58 PM             8,274 TUT.PAS
+01/29/1995  08:15 PM             4,209 SMOOTH.PAS
+01/30/1995  10:23 PM                86 C512.PAS
+02/04/1995  01:05 PM             4,955 SMOOTHER.PAS
+02/05/1995  06:17 PM               125 ADL.PAS
+02/20/1995  08:38 PM               893 ALTERED.PAS
+02/21/1995  12:36 AM               923 PARADOX.PAS
+02/25/1995  12:30 AM               553 STATIC.PAS
+02/25/1995  02:23 PM             3,261 VGAWRITE.PAS
+03/11/1995  05:20 PM             3,450 TXTWIN.PAS
+03/14/1995  12:36 PM             7,940 MYGAME.PAS
+03/18/1995  09:33 PM             3,346 FONT2.PAS
+03/19/1995  02:31 AM             1,355 VIEW.PAS
+03/22/1995  10:04 PM             1,030 W90.PAS
+04/16/1995  02:04 PM            11,358 MUSIC.PAS
+04/16/1995  10:37 PM            49,212 DOTH-A.PAS
+04/30/1995  02:29 AM             2,831 BLAH.PAS
+05/26/1995  08:02 PM             1,203 90.PAS
+06/02/1995  09:28 PM             1,144 PNTDEMO.PAS
+06/03/1995  05:57 PM               709 INTEREST.PAS
+06/28/1995  10:38 PM             4,567 WINDERS.PAS
+07/30/1995  03:18 PM             5,305 ANIMALS.PAS
+11/28/1995  07:47 PM            16,103 XMEN.PAS
+09/14/2012  12:23 PM    <DIR>          .
+09/14/2012  12:23 PM    <DIR>          ..
+              47 File(s)        200,634 bytes
+
+ Directory of C:\michal\SILVER~1\old\1995.11\units
+
+06/05/1989  03:15 PM             8,808 VIDEOU.PAS
+08/13/1992  08:50 AM             1,569 SSWSOUND.PAS
+11/30/1992  09:30 AM               879 THARRAY.PAS
+12/06/1992  05:47 PM             3,698 MNUSTUFF.PAS
+04/04/1993  02:32 AM               799 MUDSTUFF.PAS
+04/13/1993  09:09 PM                47 TVRSTUFF.PAS
+05/19/1993  04:28 PM               808 VRSTUFF.PAS
+01/12/1994  03:59 PM             1,152 GRAFX.PAS
+02/13/1994  09:42 AM               188 COMMON.PAS
+05/06/1994  08:34 PM             1,173 WINSTUFF.PAS
+06/13/1994  08:40 PM            11,839 ZOKSOUND.PAS
+10/24/1994  01:06 AM            29,310 ZOKOLD.PAS
+11/18/1994  01:02 PM             5,804 BGISTUFF.PAS
+01/22/1995  11:21 AM            68,844 MODEX.PAS
+02/25/1995  01:56 PM             5,832 VGASTUFF.PAS
+02/27/1995  09:08 PM            19,404 ADLSTUFF.PAS
+03/19/1995  12:20 AM            13,960 SNDSTUFF.PAS
+03/19/1995  02:26 AM                75 VIEWSTUF.PAS
+09/07/1995  03:58 PM            38,375 CRTSTUFF.PAS
+09/26/1995  09:53 AM             4,603 VUESTUFF.PAS
+11/28/1995  07:34 PM             2,336 PNTSTUFF.PAS
+11/28/1995  08:02 PM            34,856 ZOKSTUFF.PAS
+09/14/2012  12:23 PM    <DIR>          .
+09/14/2012  12:23 PM    <DIR>          ..
+              22 File(s)        254,359 bytes
+
+ Directory of C:\michal\SILVER~1\old\1995.11z
+
+09/14/2012  09:15 AM    <DIR>          ..
+09/14/2012  09:15 AM    <DIR>          .
+09/14/2012  09:49 AM    <DIR>          TPINC
+09/14/2012  09:50 AM    <DIR>          TPPROGS
+09/14/2012  09:50 AM    <DIR>          TPUNITS
+               0 File(s)              0 bytes
+
+ Directory of C:\michal\SILVER~1\old\1995.11z\TPINC
+
+09/14/2012  09:49 AM    <DIR>          ..
+09/14/2012  09:49 AM    <DIR>          .
+               0 File(s)              0 bytes
+
+ Directory of C:\michal\SILVER~1\old\1995.11z\TPPROGS
+
+09/14/2012  09:50 AM    <DIR>          ..
+09/14/2012  09:50 AM    <DIR>          .
+               0 File(s)              0 bytes
+
+ Directory of C:\michal\SILVER~1\old\1995.11z\TPUNITS
+
+09/14/2012  09:50 AM    <DIR>          ..
+09/14/2012  09:50 AM    <DIR>          .
+               0 File(s)              0 bytes
+
+ Directory of C:\michal\SILVER~1\old\1996.08
+
+09/14/2012  09:55 AM    <DIR>          ..
+09/14/2012  09:55 AM    <DIR>          .
+09/14/2012  12:23 PM    <DIR>          progs
+09/14/2012  12:23 PM    <DIR>          inc
+               0 File(s)              0 bytes
+
+ Directory of C:\michal\SILVER~1\old\1996.08\inc
+
+07/16/1995  07:58 PM            21,872 ALFSCREE.PAS
+03/29/1996  09:07 PM            21,893 DOTHSCR.PAS
+04/08/1996  11:39 AM            21,860 ALFSCR.PAS
+04/08/1996  11:39 AM             1,465 ALFSCR.ANS
+04/08/1996  11:39 AM               650 THEDRAW.PCK
+09/14/2012  12:23 PM    <DIR>          ..
+09/14/2012  12:23 PM    <DIR>          .
+               5 File(s)         67,740 bytes
+
+ Directory of C:\michal\SILVER~1\old\1996.08\progs
+
+07/23/1995  10:21 PM             1,261 STEREO.PAS
+07/25/1995  11:30 PM             1,198 LUCID.PAS
+09/01/1995  07:11 PM             6,836 CEDIT.PAS
+09/05/1995  12:33 AM               994 BLAH.PAS
+03/29/1996  09:16 PM             3,881 DOTH.PAS
+03/29/1996  09:20 PM            49,140 DOTH-A.PAS
+04/08/1996  08:23 AM             1,059 ALTERED.PAS
+04/08/1996  11:56 AM             1,005 HERTZ.PAS
+04/11/1996  06:21 PM             2,767 ALF.PAS
+05/19/1996  09:44 PM             2,064 ADL2.PAS
+07/22/1996  09:44 PM            16,102 XMEN.PAS
+08/04/1996  03:44 PM             3,346 LIFE.PAS
+09/14/2012  12:23 PM    <DIR>          .
+09/14/2012  12:23 PM    <DIR>          ..
+              12 File(s)         89,653 bytes
+
+     Total Files Listed:
+             327 File(s)      3,374,699 bytes
+              65 Dir(s)  45,617,754,112 bytes free
