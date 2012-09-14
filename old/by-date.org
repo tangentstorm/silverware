@@ -121,11 +121,12 @@ cat dupe.txt | xargs git rm
 |----------------------+-------+--------------|
 | 09/09/2012  11:46 PM |     8 | WINBAT.BAT   | wintest.pas generates. deleted.
 
-* TODO old/1994.03
+* TODO old/1993.10
 
-|----------------------+-------+--------------|
 | 10/01/1993  08:50 PM | 15788 | STEPPER2.PAS | might be corrupted?
-|----------------------+-------+--------------|
+
+* DONE old/1994
+
 | 01/03/1994  09:17 PM |   751 | ENV-RUN.PAS  |
 | 01/04/1994  01:54 PM |  1959 | SDF.PAS      |
 | 01/10/1994  11:36 AM | 43592 | HAPPLOT1.PAS |
@@ -134,8 +135,8 @@ cat dupe.txt | xargs git rm
 | 01/16/1994  12:17 PM | 12368 | HPLOT1.PAS   |
 | 01/16/1994  12:19 PM |  5422 | BGISTUFF.PAS |
 | 01/23/1994  06:32 PM |  1460 | HYP1.PAS     |
-| 01/25/1994  06:12 AM | 24693 | YMEN.PAS     |
 | 01/25/1994  05:37 PM |  3620 | 3D-THING.PAS |
+| 01/25/1994  06:12 AM | 24693 | YMEN.PAS     |
 | 01/29/1994  04:22 PM |  3348 | MOUSTUFF.PAS |
 | 01/30/1994  09:22 PM |  2312 | VGASTUFF.PAS |
 | 01/30/1994  09:38 PM |  4305 | STARS3D.PAS  |
@@ -145,17 +146,7 @@ cat dupe.txt | xargs git rm
 | 03/24/1994  05:33 PM |  1211 | HYPERTXT.PAS |
 | 03/25/1994  12:16 PM |  1256 | ZMBARTES.PAS |
 | 03/25/1994  12:41 PM | 25221 | ZOKSTUFF.PAS |
-
-* TODO old/1994.06
-
-| 06/14/1994  10:52 AM |  11975 | SNDSTUFF.PAS |
-| 06/16/1994  11:11 PM |   6712 | MUSIC.PAS    |
-
-              19 File(s)        710,058 bytes
-
-* TODO old/1994.10
-** TODO old/1994.10/inc
-
+| 06/16/1994  11:11 PM |  6712 | MUSIC.PAS    |
 | 01/30/1994  03:09 PM |  1690 | STARSHIP.CEL |
 | 01/30/1994  03:10 PM |  1755 | STARSHIP.OBJ |
 | 05/23/1994  01:09 PM | 21852 | GURU.PAS     |
@@ -168,8 +159,11 @@ cat dupe.txt | xargs git rm
 | 06/14/1994  03:01 PM | 21860 | MUSIC3.PAS   |
 | 06/14/1994  03:40 PM | 21860 | MUSIC2.PAS   |
 
-              35 File(s)        568,167 bytes
+* TODO old/1994.06
 
+| 06/14/1994  10:52 AM | 11975 | SNDSTUFF.PAS |
+
+* TODO old/1994.10
 ** TODO old/1994.10/prog
 
 | 08/14/1990  02:03 PM |  1650 | ATYPE.PAS    | may be mine with bad date?
