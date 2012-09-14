@@ -8,23 +8,21 @@ cat dupe.txt | xargs git rm
 #+end_src
 
 
-* TODO old/1992
+* DONE old/1992
 
 | 03/18/1992  10:36 AM |  8385 | UNCRUNCH.PAS |
 | 08/16/1992  09:02 PM | 16960 | CRTSTUFF.PAS |
 | 09/11/1992  01:42 PM |   312 | FRACTL.PAS   |
 | 09/15/1992  01:22 PM |  1144 | ELMER.PAS    |
-| 09/17/1992  01:19 PM | 19808 | FRAC1.EXE    |
 | 09/18/1992  02:14 PM |   236 | GAME.BAK     |
-
-* TODO old/1993
-
 | 10/23/1992  01:26 PM |   239 | PIGLAT.PAS   |
 | 11/06/1992  01:58 PM |   214 | GAME.PAS     |
 | 12/23/1992  07:05 PM | 20118 | PAGE1.PIC    |
 | 12/24/1992  10:37 PM | 27552 | TEST.MEG     |
 | 12/25/1992  07:50 PM | 12107 | TCOBEM.PAS   |
-|----------------------+-------+--------------|
+
+* DONE old/1993
+
 | 02/19/1993  02:11 PM |   832 | QUESTION.PAS |
 | 02/19/1993  02:59 PM |  1330 | LIFE.PAS     |
 | 03/03/1993  01:38 PM |  1461 | FRAC1.BAK    |
@@ -119,7 +117,7 @@ cat dupe.txt | xargs git rm
 | 07/28/1993  01:00 AM |  25729 | MOOD2.MID    |
 | 07/28/1993  01:00 AM |   9361 | HELLOMYB.MID |
 | 07/28/1993  01:00 AM |  23136 | ENTRTANR.MID |
-| 07/28/1993  01:00 AM |  29096 | CANNON_D.MID  |
+| 07/28/1993  01:00 AM |  29096 | CANNON_D.MID |
 | 07/28/1993  01:00 AM |  20858 | MINWLTZ.MID  |
 |----------------------+--------+--------------|
 | 01/25/1994  06:09 AM |     81 | CHKLIST.MS   |
