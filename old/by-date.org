@@ -1,23 +1,6 @@
- Volume in drive C has no label.
- Volume Serial Number is 2050-522D
+#+title: silverware files by date
 
- Directory of C:\michal\SILVER~1\old
-
-09/14/2012  09:14 AM    <DIR>          1992
-09/14/2012  09:14 AM    <DIR>          1993
-09/14/2012  09:15 AM    <DIR>          1993.10
-09/14/2012  09:15 AM    <DIR>          1994.03
-09/14/2012  09:15 AM    <DIR>          1994.06
-09/14/2012  09:15 AM    <DIR>          1995.11
-09/14/2012  09:15 AM    <DIR>          1995.11z
-09/14/2012  09:43 AM    <DIR>          1994.10
-09/14/2012  09:55 AM    <DIR>          1996.08
-09/14/2012  10:05 AM    <DIR>          .
-09/14/2012  10:05 AM    <DIR>          ..
-09/14/2012  10:05 AM                 0 by-date.txt
-               1 File(s)              0 bytes
-
- Directory of C:\michal\SILVER~1\old\1992
+* TODO old/1992
 
 03/18/1992  10:36 AM             8,385 UNCRUNCH.PAS
 08/16/1992  09:02 PM            16,960 CRTSTUFF.PAS
@@ -29,7 +12,7 @@
 09/14/2012  09:14 AM    <DIR>          .
                6 File(s)         46,845 bytes
 
- Directory of C:\michal\SILVER~1\old\1993
+* TODO old/1993
 
 10/23/1992  01:26 PM               239 PIGLAT.PAS
 11/06/1992  01:58 PM               214 GAME.PAS
@@ -44,7 +27,7 @@
 09/14/2012  09:14 AM    <DIR>          ..
                9 File(s)         65,308 bytes
 
- Directory of C:\michal\SILVER~1\old\1993.10
+* TODO old/1993.10
 
 01/03/1980  12:49 AM               195 TEST.PAS
 08/11/1992  10:40 PM             7,131 MODEM.PAS
@@ -75,7 +58,7 @@
 09/14/2012  09:15 AM    <DIR>          ..
               25 File(s)        125,200 bytes
 
- Directory of C:\michal\SILVER~1\old\1994.03
+* TODO old/19943.03
 
 09/28/1992  08:53 AM             2,180 MATH.PAS
 04/07/1993  06:16 PM             2,387 SSWSTUFF.PAS
@@ -121,7 +104,7 @@
 09/14/2012  09:15 AM    <DIR>          ..
               40 File(s)        248,899 bytes
 
- Directory of C:\michal\SILVER~1\old\1994.06
+* TODO old/1994.06
 
 01/29/1992  02:22 PM             6,172 NUTCRACK.MID
 02/21/1992  06:29 PM            40,189 SNDSGOOD.ZIP
@@ -146,17 +129,8 @@
 09/14/2012  09:15 AM    <DIR>          ..
               19 File(s)        710,058 bytes
 
- Directory of C:\michal\SILVER~1\old\1994.10
-
-09/14/2012  09:15 AM    <DIR>          unit
-09/14/2012  09:15 AM    <DIR>          inc
-09/14/2012  09:43 AM    <DIR>          ..
-09/14/2012  09:43 AM    <DIR>          .
-09/14/2012  09:53 AM    <DIR>          progzip
-09/14/2012  09:53 AM    <DIR>          prog
-               0 File(s)              0 bytes
-
- Directory of C:\michal\SILVER~1\old\1994.10\inc
+* TODO old/1994.10
+** TODO old/1994.10/inc
 
 11/26/1992  11:04 AM            17,342 DMAP1.PIC
 11/30/1992  09:47 AM            21,860 DMMTTL.PIC
@@ -201,7 +175,7 @@
 09/14/2012  09:15 AM    <DIR>          ..
               39 File(s)        658,245 bytes
 
- Directory of C:\michal\SILVER~1\old\1994.10\prog
+** TODO old/1994.10/prog
 
 08/14/1990  02:03 PM             1,650 ATYPE.PAS
 06/11/1991  06:00 AM            10,985 TVEDIT.PAS
@@ -273,13 +247,7 @@
 09/14/2012  09:53 AM    <DIR>          ..
               66 File(s)        318,371 bytes
 
- Directory of C:\michal\SILVER~1\old\1994.10\progzip
-
-09/14/2012  09:53 AM    <DIR>          ..
-09/14/2012  09:53 AM    <DIR>          .
-               0 File(s)              0 bytes
-
- Directory of C:\michal\SILVER~1\old\1994.10\unit
+** TODO old/1994.10/unit
 
 06/11/1991  06:00 AM               686 BGIFONT.PAS
 08/11/1992  10:40 PM             7,131 MODEM.PAS
@@ -301,16 +269,8 @@
 09/14/2012  09:15 AM    <DIR>          ..
               16 File(s)        181,953 bytes
 
- Directory of C:\michal\SILVER~1\old\1995.11
-
-09/14/2012  09:15 AM    <DIR>          ..
-09/14/2012  09:15 AM    <DIR>          .
-09/14/2012  09:49 AM    <DIR>          inc
-09/14/2012  09:50 AM    <DIR>          prg
-09/14/2012  09:50 AM    <DIR>          units
-               0 File(s)              0 bytes
-
- Directory of C:\michal\SILVER~1\old\1995.11\inc
+* TODO old/1995.11
+** TODO old/1995.11/inc
 
 01/29/1990  11:52 AM             3,289 VGA256.BGI
 11/26/1992  11:04 AM            17,342 DMAP1.PIC
@@ -391,7 +351,7 @@
 09/14/2012  09:49 AM    <DIR>          ..
               75 File(s)      1,187,331 bytes
 
- Directory of C:\michal\SILVER~1\old\1995.11\prg
+** TODO old/1995.11/prg
 
 08/14/1990  02:03 PM             1,650 ATYPE.PAS
 06/11/1991  06:00 AM            10,985 TVEDIT.PAS
@@ -497,7 +457,7 @@
 09/14/2012  09:50 AM    <DIR>          ..
              100 File(s)        404,211 bytes
 
- Directory of C:\michal\SILVER~1\old\1995.11\units
+** TODO old/1995.11/units
 
 06/05/1989  03:15 PM             8,808 VIDEOU.PAS
 06/11/1991  06:00 AM               686 BGIFONT.PAS
@@ -538,42 +498,8 @@
 09/14/2012  09:50 AM    <DIR>          ..
               35 File(s)        336,694 bytes
 
- Directory of C:\michal\SILVER~1\old\1995.11z
-
-09/14/2012  09:15 AM    <DIR>          ..
-09/14/2012  09:15 AM    <DIR>          .
-09/14/2012  09:49 AM    <DIR>          TPINC
-09/14/2012  09:50 AM    <DIR>          TPPROGS
-09/14/2012  09:50 AM    <DIR>          TPUNITS
-               0 File(s)              0 bytes
-
- Directory of C:\michal\SILVER~1\old\1995.11z\TPINC
-
-09/14/2012  09:49 AM    <DIR>          ..
-09/14/2012  09:49 AM    <DIR>          .
-               0 File(s)              0 bytes
-
- Directory of C:\michal\SILVER~1\old\1995.11z\TPPROGS
-
-09/14/2012  09:50 AM    <DIR>          ..
-09/14/2012  09:50 AM    <DIR>          .
-               0 File(s)              0 bytes
-
- Directory of C:\michal\SILVER~1\old\1995.11z\TPUNITS
-
-09/14/2012  09:50 AM    <DIR>          ..
-09/14/2012  09:50 AM    <DIR>          .
-               0 File(s)              0 bytes
-
- Directory of C:\michal\SILVER~1\old\1996.08
-
-09/14/2012  09:14 AM    <DIR>          progs
-09/14/2012  09:14 AM    <DIR>          inc
-09/14/2012  09:55 AM    <DIR>          ..
-09/14/2012  09:55 AM    <DIR>          .
-               0 File(s)              0 bytes
-
- Directory of C:\michal\SILVER~1\old\1996.08\inc
+* TODO old/1996.08
+** TODO old/1996.08/inc
 
 01/29/1990  11:52 AM             3,289 VGA256.BGI
 07/20/1993  11:25 PM            15,332 ICE.PAS
@@ -596,7 +522,7 @@
 09/14/2012  09:14 AM    <DIR>          ..
               17 File(s)        388,613 bytes
 
- Directory of C:\michal\SILVER~1\old\1996.08\progs
+** TODO old/1996.08/progs
 
 12/08/1993  09:45 PM             1,768 FRCTL1.PAS
 12/31/1993  08:23 PM             1,260 ET.PAS
@@ -641,6 +567,3 @@
 09/14/2012  09:14 AM    <DIR>          ..
               39 File(s)        188,685 bytes
 
-     Total Files Listed:
-             487 File(s)      4,860,413 bytes
-              65 Dir(s)  45,621,653,504 bytes free
