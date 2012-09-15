@@ -1,0 +1,45 @@
+uses filstuff;
+var
+ cfg : file;
+begin
+ filerewrite( cfg, 'YMENU.cfg');
+    { blinkon  }        saveboolean( cfg, false );
+    { banneron }        saveboolean( cfg, true );
+    { f1helpon }        saveboolean( cfg, false );
+    { clockon }         saveboolean( cfg, true );
+    { shadowson }       saveboolean( cfg, true );
+    { infoboxon }       saveboolean( cfg, true );
+    { startupPW }       saveboolean( cfg, true );
+    { menubarPW }       saveboolean( cfg, true );
+    { sPassword }       savestring( cfg, '' );
+    { mPassword }       savestring( cfg, '' );
+    { Pausestr  }       savestring( cfg, '|BPress any key to return to |WYM|Ge|WN|Gu|B...');
+    { background }      saveword( cfg, $0100 + 197 );
+    { bannerborder }    savebyte( cfg, 0 );
+    { bannerfore   }    savebyte( cfg, 0 );
+    { bannerback   }    savebyte( cfg, 15 );
+    { clockcol     }    savebyte( cfg, 9 );
+    { f1helpcol    }    savebyte( cfg, 9 );
+    { bannertext   }    savebyte( cfg, 9 );
+    { bannerstring }    savestring( cfg, 'Project HQ Command Center' );
+    { menuborder   }    savebyte( cfg, 0 );
+    { menufore     }    savebyte( cfg, 8 );
+    { menuback     }    savebyte( cfg, 0 );
+    { menutext     }    savebyte( cfg, 15 );
+    { highfore     }    savebyte( cfg, 14 );
+    { highback     }    savebyte( cfg, 4 );
+    { menunums     }    savebyte( cfg, 12 );
+    { menuparentheses}  savebyte( cfg, 13 );
+    { infoborder }      savebyte( cfg, 4 );
+    { infofore }        savebyte( cfg, 1 );
+    { infoback }        savebyte( cfg, 15 );
+    { diafore }         savebyte( cfg, 15 );
+    { diaback }         savebyte( cfg, 8 );
+    { diatext }         savebyte( cfg, 7);
+    { diahifore }       savebyte( cfg, 15 );
+    { diahiback }       savebyte( cfg, 1 );
+    { diafieldfore }    savebyte( cfg, 0 );
+    { diafieldback }    savebyte( cfg, 15 );
+    { diafieldcurs }    savebyte( cfg, 7 );
+ close( cfg );
+end.

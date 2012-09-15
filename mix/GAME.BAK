@@ -1,0 +1,20 @@
+Program Banana1;
+Uses Crt,Views;
+
+Var
+  TV : TView;
+
+Procedure SetUpScreen;
+Begin
+  TextMode(co80);
+  TV.HideCursor;
+End;
+
+
+Begin
+  SetUpScreen;
+  Repeat
+{    Sound(Random(20000)); }
+  Until Keypressed;
+  Nosound
+End.
