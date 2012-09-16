@@ -14,21 +14,82 @@ interface
   mpresent : boolean;
   mstatus  : boolean;
   nb : integer;
-  ms, mx, my, lms, lmx, lmy : integer;
+  ms, lms,   { mouse status, last mouse status }
+  mx, lmx,   { the others are for x,y in characters }
+  my, lmy  : integer;
 
  function mousethere : boolean;
  procedure resetmouse( var status : boolean; var numbtns : integer );
  procedure showmouse( yn : boolean );
  procedure mouseon;
- procedure getmpos;
  procedure gettextmpos;
  procedure setmpos( a, b : integer );
  procedure setmwin( a1, b1, a2, b2 : integer );
- procedure setgcurs( gcurs : gcursor );
- procedure setmaccel( t : integer );
  function mousemoved : boolean;
 
+ {$IFNDEF FPC}
+ { freepascal mouse doesn't do graphics }
+ procedure setgcurs( gcurs : gcursor );
+
+ { this one is also a graphical coordinates }
+ { gettextmpos uses characters.         }
+ procedure getmpos;
+
+
+ { the os handles mouse accelleration now}
+ procedure setmaccel( t : integer );
+ {$ENDIF}
+
+
 implementation
+
+{$IFDEF FPC}
+uses mouse;
+
+ function mousethere : boolean;
+ begin
+  mousethere := mouse.detectmouse > 0;
+ end;
+
+ procedure resetmouse( var status : boolean; var numbtns : integer );
+ begin
+  numbtns := mouse.detectmouse;
+  status  := numbtns > 0;
+ end;
+
+ procedure showmouse( yn : boolean );
+ begin
+  mvisible := yn;
+  if mvisible then mouse.showmouse else mouse.hidemouse;
+ end;
+
+ procedure mouseon;
+ begin
+  showmouse( true );
+ end;
+
+ { procedure getmpos; }
+ procedure gettextmpos;
+ begin
+   lms := ms;
+   lmx := mx;
+   lmy := my;
+   mx := mouse.GetMouseX;
+   my := mouse.GetMouseY;
+   ms := mouse.GetMouseButtons;
+ end;
+
+ procedure setmpos( a, b : integer );
+ begin
+   mouse.setmouseXY( a, b );
+ end;
+
+ procedure setmwin( a1, b1, a2, b2 : integer );
+ begin
+   writeln( 'setmwin called to trap the mouse. why? :)' );
+ end;
+
+{$ELSE} { old dos version }
 uses dos,crtstuff;
  var
   regs : registers;
@@ -37,6 +98,7 @@ uses dos,crtstuff;
   var
    dOff, dSeg : integer;
   begin
+   mousethere := false
    dOff := MemW[ 0000:0204 ];
    dSeg := MemW[ 0000:0206 ];
    if
@@ -75,7 +137,7 @@ uses dos,crtstuff;
       mvisible := false;
       intr( $33, regs );
      end
-  end;
+ end;
 
  procedure mouseon;
   begin
@@ -100,7 +162,7 @@ uses dos,crtstuff;
    ms := Regs.bx;
    mx := regs.cx;
    my := regs.dx;
-  end;
+ end;
 
  procedure gettextmpos;
   begin
@@ -159,6 +221,8 @@ uses dos,crtstuff;
     int 33h
    end;
   end;
+
+{$ENDIF}
 
  function mousemoved : boolean;
   begin
