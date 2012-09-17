@@ -1,5 +1,4 @@
 unit filstuff;   { file routines }
-
 interface
 
 const
@@ -42,7 +41,7 @@ var
  function fileerrorstring : string;
 
 implementation
-uses crtstuff;
+uses crtstuff {$IFDEF FPC}, sysutils{$ENDIF};
 
 procedure filereset  ( var f : file; s : string );
  begin
@@ -163,16 +162,23 @@ function idxcount( var f : file ) : longint;
   idxcount := nextlongint( f );
  end;
 
+
 function  fileexists ( s : string ) : boolean;
+ {$IFDEF FPC}
+ begin
+   fileexists := sysutils.fileexists( s )
+ end;
+ {$ELSE}
  var
   t : file;
  begin
 {$I-}
- filereset( t, s );
+   filereset( t, s );
  close( t );
 {$I+}
  fileexists := (ioresult = 0) and (s <> '');
  end;
+ {$ENDIF}
 
 function nextbyte( var f : file ) : byte;
  var
