@@ -3,4 +3,8 @@
 *.mid
 *.arj
 *.zip
+*.ppu
+*.o
+*.$$$
+fp.*
 
