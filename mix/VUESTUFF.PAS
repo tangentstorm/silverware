@@ -2,9 +2,6 @@ unit vuestuff;
 interface
 uses pntstuff, crtstuff, crt;
 
-var
-  screen : BScreenType absolute $B800:$0000;     { ega43  vga50 }
-
 type
  pstringobj = ^stringobj;
  stringobj = object ( node )
@@ -16,7 +13,7 @@ type
   nlstring : string[6];
   tcolorinit : byte;
   y1, y2, x1, x2 : integer;
-  work : bscreentype;
+  work : crtstuff.ScreenType;
   topline, bottomline : pnode;
   constructor init;
   procedure drawone( a, b : byte; s : string ); virtual;
@@ -26,7 +23,7 @@ type
   procedure arrowdown; virtual;
   procedure home; virtual;
   procedure _end;
-  procedure pageup; 
+  procedure pageup;
   procedure pagedown;
   procedure dowhilelooping; virtual;
   procedure view;
@@ -140,7 +137,7 @@ implementation
    fillbox(x1,y1,x2,y2,$0000);
    txpos := x1; typos := y2;
    for c := y2 downto y1 do
-   if (c=y2) or (topline <> last) then    
+   if (c=y2) or (topline <> last) then
      begin
       drawone( x1, c, pstringobj(topline)^.s );
       dec(thisline);
