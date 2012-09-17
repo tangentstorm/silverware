@@ -12,7 +12,7 @@ interface
 
 implementation
 {$IFDEF FPC}
-uses crt;d
+uses crt;
 {$ELSE}
 uses crt, crtstuff;
 {$ENDIF}
