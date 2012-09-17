@@ -1,12 +1,12 @@
 Unit Crtstuff;
 Interface
-{$G+}
+{$IFDEF FPC}
+uses dos, crt, fpcstuff, keyboard; { TODO video }
+{$ELSE}
+uses dos, crt;
+{$ENDIF}
+
 {note: (1,1) is ALWAYS top left corner of a screen or window }
-
-
-type
- _virtualarray = array[0..0] of byte;
- virtualarray = ^_virtualarray;
 
 Const
 { boolean synonyms }
@@ -71,27 +71,25 @@ Const
  inserton       = $80;
 
 Type
- ScreenType = array[  0..3999 ] of byte;          { 80x25 screen }
- BScreenType = array[ 0..7999 ] of byte;          { 80x50 screen }
- HScreenType = array[ 0..11615 ] of byte;         { 132x44 screen }
+ ScreenType  = array[ 0..7999 ] of byte;          { 80x50 screen }
  VGAtype = array [ 0..319, 0..200 ] of byte;
  DChar = array[ 1..2 ] of char;                   { double char }
  LongStr = array[ 1 .. 3 ] of string;             { about 7 lines }
  Cel = array[ 0 .. 0 ] of byte;
  PCel = ^Cel;                                     { ^TextPicture }
- screentypeptr = ^screentype;
+ ScreenTypePtr = ^ScreenType;
 
 Var
  sw      : word;                                 { width of screen * 2}
- Screen  : ScreenType absolute $B800:$0000;      { co80 screen  }
- Banner  : Screentype absolute $B800:$0FA0;      { page2  }
- MScreen : ScreenType absolute $B000:$0000;      { Mono Screen  }
- BScreen : BScreenType absolute $B800:$0000;     { ega43  vga50 }
- HScreen : HScreenType absolute $B800:$0000;     { screenmode51 }
- WriteTo : ScreenTypeptr;                        { Directs Writes }
- DOSscreen : screentype;                         { saved DOS screen }
- DOSxpos,                                        { saved xpos from DOS }
- DOSypos,                                        { saved ypos from DOS }
+ {$IFDEF TPC}
+ Screen  : ScreenType {absolute $B800:$0000};      { co80 screen  }
+ {$ELSE}
+ Screen  : ScreenType;
+ {$ENDIF}
+ WriteTo : ScreenTypePtr;                        { Directs Writes }
+ DOSscreen : ScreenTypePtr;                      { saved DOS screen }
+ DOSxPos,                                        { saved xpos from DOS }
+ DOSyPos,                                        { saved ypos from DOS }
  tColor,                                         { CWrite color }
  sColor,                                         { saved tColor }
  tXpos,                                          { CWrite X pos }
@@ -114,7 +112,7 @@ Var
  cwdigit4 : char;                                { 2nd digit of n2 }
 
 { þ string writing commands }
- procedure colorxy  ( a, b, c : byte; s : string );
+ procedure colorxy ( a, b, c : byte; s : string );
  procedure colorxyv ( a, b, c : byte; s : string );
  procedure colorxyc ( a, b, c : byte; s : string );
  Procedure cwcommand( cn : byte; s : string );
@@ -128,8 +126,8 @@ Var
  Function Boolchar( bool: boolean; t, f : char ) : Char;
 
 { þ screen/window handling commands }
- procedure setmode( mode : word );
- procedure settextheight( h : byte );
+{ procedure setmode( mode : word );
+ procedure settextheight( h : byte );  }
  procedure fillscreen( atch : word ); {ATTR then CHAR}
  procedure fillbox( a1, b1, a2, b2 : byte; atch : word );
  procedure slidedown( x1, x2, y1, y2 : byte; offwhat : screentypeptr );
@@ -192,8 +190,12 @@ Var
  procedure doscursoroff;
  procedure doscursoron;
  procedure doscursorbig;
+
+ {$IFNDEF FPC}
  procedure doscursorshape( top, bottom : byte );
  procedure blinking( b : boolean );
+ {$ENDIF}
+
  procedure getenter;
  function alt2normal( ch : char ) : char;
  function peekkey : char;  { doesn't work }
@@ -213,33 +215,54 @@ Var
  procedure loadfont(s: string);
  procedure SetWidth90;
 
+ {$IFDEF FPC}
+ function keypressed: boolean;
+ function readkey: char;
+ {$ENDIF}
+
+
 Implementation
 
-Uses
- Crt, Dos;
+ { origin: 0,0 }
+ procedure setScreenData( x, y : byte; ch : char; attr : byte );
+  var
+   p : integer;
+ begin
+  p := 2 * (( y * sw ) + x );
+  if p < sizeOf(WriteTo^) then
+  begin
+   WriteTo^[ p ] := byte(ch);
+   WriteTo^[ p + 1 ] := attr;
+  end
+ end;
 
 { þ string writing commands }
- Procedure ColorXY( a, b, c : byte; s : string);
-  Var
+ procedure ColorXY( a, b, c : byte; s : string);
+  var
    count : word;
-  Begin
-   for count := 1 to length(s) do
-    begin
-     WriteTo^[(2*(A+Count-2))+((B-1)*sw)  ] := Byte(s[count]);
-     WriteTo^[(2*(A+Count-2))+((B-1)*sw)+1] := c;
-    end;
-  End;
+   ox, oy : byte;
+ begin
+   { TODO : make colorxy callers (e.g., xmenu) manage own cursor position }
+   ox := wherex; oy := wherey;
+   { this actually draws it}
+   crt.gotoxy( a, b );
+   crt.textAttr := c;
+   write( s );
+   crt.gotoxy( ox, oy );
 
- Procedure Colorxyv( a, b, c : byte; s: string );
-  Var
-   count : word;
-  Begin
+   { this stores a copy in the buffer }
+   { TODO: migrate to fpc's video unit, so we can do both. }
    for count := 1 to length(s) do
-    begin
-     WriteTo^[(2*(A-1))+((B+count-2)*sw)  ] := Byte(s[count]);
-     WriteTo^[(2*(A-1))+((B+count-2)*sw)+1] := c;
-    end;
-   End;
+     setScreenData( a-1, b-1, s[count], c );
+ end;
+
+ procedure Colorxyv( a, b, c : byte; s: string );
+  var
+   count : integer;
+  begin
+   for count := 1 to length(s) do
+     setScreenData( a-1, b-1 + count, s[count], a );
+  end;
 
  procedure colorxyc( a, b, c : byte; s : string );
   begin
@@ -519,7 +542,7 @@ Uses
   end;
 
 { þ screen/window handling commands }
-
+{
  procedure setmode( mode : word );
   begin
    asm
@@ -527,10 +550,12 @@ Uses
     int 10h
    end;
   end;
-
+ }
  procedure settextheight( h : byte );
   begin
-   portw[$3D4] := h * 256 + 9;
+   { this just screws up the screen in xp, even in full screen }
+   { you wind up with giant gaps between the letters }
+   { portw[$3D4] := h * 256 + 9; }
   end;
 
  procedure FillScreen( atch : word ); {ATTR then CHAR}
@@ -594,9 +619,9 @@ Uses
   begin
    dec( x1 ); dec( x2 ); dec( y1 ); dec( y2 );
    len := (x2-x1+1) * 2;
-   offset := y1*sw + x1*2;
+   offset := ( y1 * sw + x1 * 2);
    {first, slide old screen section up 1 line}
-    for count := succ(y1) to y2 do
+    for count := 1 to (y2-y1) do
      begin
       move(writeto^[offset+sw], writeto^[offset], len);
       inc(offset, sw);
@@ -1097,11 +1122,11 @@ procedure stamp( a1, b1, a2, b2 : byte; pic : pcel );
 
 procedure rnd;
  var
-  tmp : bscreentype;
+  tmp : ScreenType;
   t  : byte;
   ch : char;
  begin
-  tmp := bscreen;
+  tmp := screen;
   t := shiftstate;
   while keypressed do ch := readkey;
   repeat
@@ -1111,7 +1136,7 @@ procedure rnd;
   while keypressed do ch := readkey;
   repeat until shiftstate and ( rshiftpressed or lshiftpressed or
                                 ctrlpressed or altpressed ) = 0;
-  bscreen := tmp;
+  screen := tmp;
  end;
 
 procedure rnd2;
@@ -1153,7 +1178,7 @@ procedure rnd2;
 Procedure SetUpCrt;
  Begin
   TextAttr := $0F;
-  setmode($03);
+  crt.textmode($03);
   DosCursorOff;
   txpos := 1;
   typos := 1;
@@ -1173,6 +1198,23 @@ Procedure HitAKey;
   tcolor := tc;
  end;
 
+{$IFDEF FPC}
+procedure doscursoroff;
+  begin
+   crt.cursoroff;
+  end;
+
+procedure doscursoron;
+ begin
+  crt.cursoron;
+ end;
+
+procedure doscursorbig;
+ begin
+  crt.cursorbig;
+ end;
+
+{$ELSE}
 
 procedure doscursoroff;
   Begin
@@ -1213,6 +1255,7 @@ procedure blinking( b : boolean );
    int 10h;
   end;
  end;
+{$ENDIF}
 
 procedure getenter;
  begin
@@ -1250,6 +1293,15 @@ function peekkey : char;
    peekkey := #255;
  end;
 
+{$IFDEF FPC}
+function shiftstate : byte;
+ var e : keyboard.TKeyEvent;
+begin
+ e := keyboard.pollShiftStateEvent;
+ shiftstate := keyboard.GetKeyEventShiftState(e);
+end;
+
+{$ELSE}
 function shiftstate : byte;
  var
   rgs : registers;
@@ -1258,6 +1310,7 @@ function shiftstate : byte;
   intr( $16, rgs );
   shiftstate := rgs.al;
  end;
+{$ENDIF}
 
 function enterpressed : boolean;
  var
@@ -1351,7 +1404,7 @@ function stardate : string;  { Sat 1218.93 12:40:00 }
 
 procedure error( msg : string );
  begin
-  setmode( 3 );
+  crt.textmode( 3 );
   cwritexy( 1, 1, msg );
   halt( 1 );
  end;
@@ -1377,6 +1430,7 @@ function paramline : string;
 
 procedure installfont( fontseg, fontofs : word );
  Begin
+  (* TODO: installfont
    fontofs := fontofs + 16;
    Asm;
 
@@ -1409,6 +1463,7 @@ procedure installfont( fontseg, fontofs : word );
 
    pop     bp                  { restore bp }
  end; {asm}
+ *)
 End;
 
 procedure installfont2( fontseg, fontofs : word );
@@ -1464,7 +1519,10 @@ const
         $6B00,$5901,$5A02,$8E03,$6004,$8D05,$2D13,$0101,$0800);
 
 
-procedure SetWidth90; assembler;
+procedure SetWidth90;
+begin
+ {assembler;
+
 asm
         mov     dx,03D4h
         mov     ax,02E11h
@@ -1485,14 +1543,41 @@ asm
         out     dx,al
         mov     al,20h
         out     dx,al
-        out     dx,al
+        out     dx,al  }
 end;
 
+{$IFDEF FPC}
+function keypressed : boolean;
+begin
+ keypressed := keyboard.pollKeyEvent <> 0;
+end;
 
+var readkeycache : char;
+function readkey : char;
+var
+ e : keyboard.TKeyEvent;
+ ch: char;
+begin
+ if readkeycache <> #0 then
+  begin
+   readkey := readkeycache;
+   readkeycache := #0
+  end
+ else
+  begin
+   e  := TranslateKeyEvent( GetKeyEvent );
+   ch := GetKeyEventChar( e );
+   if ch = #0 then
+     readkeycache := chr( lo( GetKeyEventCode( e )))
+  end;
+ readkey := ch;
+end;
 
-Begin
+{$ENDIF}
+
+begin
  sw := 160;
- DOSscreen := screen;
+ new(dosScreen);
  DOSxpos := wherex;
  DOSypos := wherey;
  tColor := $0007;
@@ -1504,16 +1589,11 @@ Begin
  tXmin := 1;
  tYmin := 1;
  tXmax := 80;
- tYmax := 25;
+ tYmax := 50;
  cwcommandmode := false;
  cwcurrenttask := cwnotask;
  cwnchexpected := 0;
  cursoron := false;
  cursorattr := lightred * 16 + ord('þ');
- If
-  Lastmode in [BW40,BW80,Mono]
- then
-  WriteTo := @MScreen
- else
-  writeto := @Screen;
-End.
+ WriteTo := @screen;
+end.
