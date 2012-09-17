@@ -1,6 +1,6 @@
 Unit ZokStuff;  { menus, dialogs, input, confirmation boxes, etc }
-Interface
-uses crtstuff, pntstuff;
+interface
+uses crtstuff, pntstuff, {sndstuff,} moustuff, kvm;
 { NOTE : ZOKSTUFF Considers (0,0) the top left corner! }
 
 { newsepbar( next : pzchoice ) }
@@ -11,8 +11,9 @@ uses crtstuff, pntstuff;
 { newmenubar( x, y, palette, esc, alt, menu ) }
 
 var
- ZokWork : screentype absolute $B800:$2000;
- ZokBack : screentype absolute $B800:$3000;
+ { TODO  : update zokwork/zokback using fpc's video module }
+ ZokWork : screentype;
+ ZokBack : screentype;
 
  Type
 
@@ -177,7 +178,7 @@ type
    constructor init( a, b, tc, ac : byte; mn, mx, strt : word );
    procedure show;
    procedure handle( ch : char );
-   procedure domousestuff; 
+   procedure domousestuff;
    function get : word;
    function showstring : string; virtual;
   end;
@@ -230,7 +231,17 @@ type
   end;
 
 Implementation
-uses crt,sndstuff,moustuff;
+
+{$IFNDEF FPC}
+procedure assert( fact : boolean; reason : string );
+begin
+  if not fact then
+  begin
+    writeln( reason );
+    halt( 1 );
+  end
+end;
+{$ENDIF}
 
 constructor Zobj.init( a, b, a2, b2 : byte );
  begin
@@ -271,7 +282,7 @@ function zobj.click : boolean;
     repeat until not pressed;
     shownormal;
     if
-     mouseover 
+     mouseover
     then
      click := true { clicked & released on box }
     else
@@ -395,8 +406,11 @@ procedure zmenu.add( z : pzchoice );
     l := pzchoice( l^.next );
     if l <> nil then l^.prev := t;
    end;
+  assert( l <> nil, 'cannot be nil b/c z<> nil' );
   if last = nil then last := l else l^.next := last^.next;
-  first^.prev := l;
+  assert( last <> nil, 'this follows from the above' );
+  if first <> nil then { list.first = last^.next or nil }
+    first^.prev := l;
   last^.next := z;
   z^.prev := last;
   last := l;
@@ -462,7 +476,7 @@ procedure zmenu.settofirst;
 procedure zmenu.handle( ch : char );
  begin
   if (ch = #0) then
-    begin handlestripped( readkey ); exit; end;
+    begin handlestripped( kvm.readkey ); exit; end;
   if (ch = #27) then { hitting esc anywhere will exit }
     begin
      if escexits then begin high := nil; endloop := true; end;
@@ -654,7 +668,7 @@ function zmenu.get : byte;
   ta : byte;
   mv : boolean;
  begin
-  ta := textattr;
+  ta := tcolor;
   if empty then begin get := 0; exit; end;
   topmenu := true;
   mv := mvisible;
@@ -683,7 +697,6 @@ function zmenu.get : byte;
   zokback := writeto^;
   if mv then showmouse( on );
   writeto := @screen;
-  textattr := ta;
   tcolor := ta;
  end;
 
@@ -930,7 +943,7 @@ Procedure ZInput.Show;
   v := copy( strg, d1st, dlen );
   while length( v ) < dlen do v := v + ' ';
   colorxy( x, y, tcol, v );
-  gotoxy( x + cpos - d1st, y );
+  kvm.gotoxy( x + cpos - d1st, y );
  end;
 
 Procedure ZInput.Delete;
@@ -1088,7 +1101,7 @@ Procedure zinput.handlestripped( ch : char );
            (cpos <= length(strg)) and not (strg[cpos] in bullets)
           do
            handlestripped( #77 );
-          while   
+          while
            (cpos > 1) and (not (strg[cpos-1] in bullets))
           do
            backspace;
@@ -1206,7 +1219,7 @@ procedure zcounter.domousestuff;
    pressed
   then
    begin
-    delay( 50 );
+    kvm.delay( 50 );
     if mx = x then handle( #75 );
     if mx = x2 then handle( #77 );
    end;
