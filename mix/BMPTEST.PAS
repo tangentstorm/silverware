@@ -7,6 +7,10 @@ var
  z : byte;
  f : file;
 
+type
+ _virtualarray = array[0..0] of byte;
+ virtualarray = ^_virtualarray;
+
 const
  fix : array [black..white] of byte =
   ( 0, 4, 2, 6, 1, 5, 3, 7, 8, 12, 10, 14, 9, 13, 11, 15 );
