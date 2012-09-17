@@ -1,13 +1,15 @@
-{$M 20284,0,20000} {needs larger than normal stack, not as much heap}
-{$R-}
-{$S-}
-program xmen;
-uses vuestuff,crtstuff, zokstuff, crt, filstuff, moustuff, dos;
+program xmenu;
+uses crt, vuestuff,crtstuff, zokstuff, filstuff, moustuff, dos;
 
 {$I XMTAGG}
 
 const
- version = '1.9à';
+ version = '1.9.1à';
+ kXmenuPath = 'c:\michal\xmenu\';    { TODO: find home directory }
+ kXmCfgPath = kXmenuPath + 'xmenu.cfg';
+ kZmCfgPath = kXmenuPath + 'zmenu.dat';
+ kTrashPath = kXmenuPath + 'trash';     { more like recycling bin }
+ kBatchPath = kXmenuPath + 'xmenu.bat';
 
 procedure savestuff; forward;
 
@@ -161,7 +163,8 @@ procedure drawclock;
 
 function pwok : boolean;
  begin
-{  if (data[choice].password = '') then begin pwok := true; exit; end;
+ {
+  if (data[choice].password = '') then begin pwok := true; exit; end;
   showmouse(false);
   refresh := true;
   bar( 25, 10, 53, 12, diaback * 16 + diafore );
@@ -169,7 +172,9 @@ function pwok : boolean;
   colorxy( 26, 11, diaback * 16 + diatext, ' Password: ');
     p.init( 37, 11, 15, 15, diafieldback * 16 + diafieldfore,
                             diaback * 16 + diafore, 'þ', '' );
-  pwok := upstr( p.get) = upstr( data[choice].password); }
+  pwok := upstr( p.get) = upstr( data[choice].password);
+  }
+  pwok := true
  end;
 
 procedure Navigator;
@@ -183,15 +188,29 @@ procedure Navigator;
   blah : pointer;
  begin
   x := txpos; y := typos;
-  dosscreen := screen;
+  dosscreen^ := screen;
   tymin := 1;
   doscursoroff;
   quitdir := no;
   repeat
-   mark( blah );
+
+   {$IFDEF TPC}
+   mark(blah);
+   {$ENDIF}
+   { TODO: mark( blah ); -- freepascal doesn't have this.
+       mark( ) was a tp procedure that remembered a
+       a status for the heap.
+       later you call release(), and everything you've
+       allocated since then goes away.
+       so by disabling this,
+       I'm introducing a memory leak.
+       TODO : fix the memory leak. :)
+   }
+
    showmouse(off);
-   screen := dosscreen;
+   screen := dosScreen^;
    showmouse(on);
+
    dirmenu.init( on, on, on,
     newchoicexy( 1, 2, '|!w|kÚ|#Ä10¿|!k ', '', false, #255, 0, nil, nil ));
    numentries := 0;
@@ -212,7 +231,11 @@ procedure Navigator;
      findnext(dirinfo);
      derror := doserror;
     end;
-   for i := 3 to 26 do
+   for i := 3 to 4 do { TODO: cache this, and set it back to 26. }
+     { what it's doing is looping through the alphabet, skipping a and b   }
+     { unfortunately, if you're using network drives, this can be really   }
+     { really unbearably slow. so it needs to be cached. until i can solve }
+     { that, i'm just having it skip everything but drive c and d          }
      if (disksize(i) <> -1) then
       begin
        dirmenu.add( newchoicexy( 1, numentries + 3,
@@ -230,11 +253,15 @@ procedure Navigator;
    50 : {$i-} chdir( wordn(cstrip(dirmenu.high^.st1),2)); {$i+}
    3..26 :{$i-} chdir( char(i+ord('a')-1)+':' );{$i+}
   end; {case}
-  release( blah );
+
+  {$IFDEF TPC}
+  release( blah ); {TODO : release in fpc/gpc }
+  {$ENDIF}
+
  until quitdir;
   showmouse( off );
   tymin := 2;
-  screen := dosscreen;
+  screen := dosscreen^;
   gotoxy( x + txmin - 1, y + tymin - 1);
   doscursoron;
  end;
@@ -264,6 +291,11 @@ procedure help( cline : string );
 
 procedure moo( cline : string );
  begin
+  { what is this?? }
+  { i think the whole thing about setting the text height }
+  { was causing an extra 3 lines to apear on scren. those three }
+  { lines had the status message from xmtag.pas / xmagg.pas }
+  { it looks like this is meant to clear that. }
   word(writeto) := word(@screen) + 4000;
   colorxy( 1, 1, 8, chntimes( 'Ä', 80 ) );
   colorxy( 1, 2, 8, chntimes( ' ', 80 ) );
@@ -288,12 +320,14 @@ procedure cls( cline : string );
 
 procedure del( cline : string );
  begin
-  exec( getenv( 'COMSPEC' ), '/c move '+ cline + ' c:\extras\trash')
+  exec( getenv( 'COMSPEC' ),  { todo: don't need command to delete anymore }
+        '/c move '+ cline + ' ' + kTrashPath )
  end;
 
 procedure empty( cline : string );
  begin
-  exec( getenv( 'COMSPEC' ), '/c del c:\extras\trash');
+  exec( getenv( 'COMSPEC' ),
+        '/c del ' + kTrashPath );
  end;
 
 procedure echo( cline : string );
@@ -303,7 +337,8 @@ procedure echo( cline : string );
 
 procedure trash( cline : string );
  begin
-  exec( getenv( 'COMSPEC' ), '/c adl c:\extras\trash' );
+  exec( getenv( 'COMSPEC' ),
+       '/c adl ' + kTrashPath );
  end;
 
 procedure ver( cline : string );
@@ -332,7 +367,7 @@ procedure prompt( cline : string );
 
 procedure quit( cline : string );
  begin
-  settextheight(15);
+  { settextheight(15);  }
   done := true;
  end;
 
@@ -401,7 +436,7 @@ procedure parse( s : string );
      z.history[z.historyr] := z.strg;
      savestuff;
      delete( s, 1, 1 );
-     assign( xf, 'c:\extras\xtemp.bat' );
+     assign( xf, kBatchPath );
      rewrite( xf );
      writeln( xf, '@Call ' + s );
      writeln( xf, '@XMENU !');
@@ -417,7 +452,6 @@ procedure parse( s : string );
        found := true;
        commandset[i].p( cl );
       end;
-  if not found then settextheight(15);
   if not (found or done) then
    begin
     Exec( getenv('COMSPEC'), '/c ' + s );
@@ -436,11 +470,11 @@ procedure makemenu;
      newchoicexy( 1, 3, '|!w|k³ |bþ|k Navigator   ...  ³|!k ',
                         '|!w|k³|!b |Yþ|W Navigator   ...  |!w|k³|!k ',
                        on, ' ', 253, nil, nil ));
-  if fileexists( 'c:\extras\zmenu.dat') then
+  if fileexists( kZmCfgPath ) then
    begin
     appmenu.add(
      newchoicexy(1, 4, '|!w|kÃ|#Ä20´|!k ', '', no, #255, 0, nil, nil ));
-    assign( xf, 'C:\extras\zmenu.dat');
+    assign( xf, kZmCfgPath);
     reset( xf );
     numentries := 0;
     while
@@ -460,6 +494,7 @@ procedure makemenu;
                padstr( MenuText, 16, ' ') + '|!w|k³|!k ',
                true, shortcut[1], numentries, nil, nil ));
      end;
+     close( xf );
   end; { if fileexists }
   if exitchoice then
    begin
@@ -474,7 +509,6 @@ procedure makemenu;
    appmenu.add (
     newchoicexy( 1, numentries+5, '|!w|kÀ|#Ä20Ù|!k ', '', false, ' ', 0, nil,
     newchoicexy( 2, numentries+6, '|!k|# 22', '', false, #255, 0, nil, nil )));
-   close( xf );
  end;
 
 procedure loadstuff;
@@ -482,15 +516,19 @@ procedure loadstuff;
   stuff : file;
   cnt : byte;
  begin
-  if not fileexists( 'c:\extras\xmenu.cfg' ) then exit;
-  filereset( stuff, 'c:\extras\xmenu.cfg');
-  xprompt := nextstring( stuff );
-  for cnt := 0 to $F do
+  if fileexists( kXmCfgPath ) then
    begin
-    z.history[z.historyx] := nextstring( stuff );
-    z.historyx := incwrap( z.historyx, 1, $0, $F );
-   end;
-  close( stuff );
+    filereset( stuff, kXmCfgpath );
+    xprompt := nextstring( stuff );
+    for cnt := 0 to $F do
+      begin
+      z.history[z.historyx] := nextstring( stuff );
+      z.historyx := incwrap( z.historyx, 1, $0, $F );
+     end;
+    close( stuff )
+   end
+  else
+   writeln( 'define your menu in: ' + kXmCfgPath );
  end;
 
 procedure savestuff;
@@ -498,7 +536,7 @@ procedure savestuff;
   stuff : file;
   cnt : byte;
  begin
-  filerewrite( stuff, 'c:\extras\xmenu.cfg');
+  filerewrite( stuff, kXmCfgPath );
   savestring( stuff, xprompt );
   for cnt := 0 to $F do
    begin
@@ -511,14 +549,15 @@ procedure savestuff;
 
 procedure init;
  begin
-  {If VGA Then} settextheight( 400 div 30 );
+  clrscr;
+  gotoxy( 1, 2 );
   clockcol := blue;
   bannerback := lightgray;
   bannertext := black;
   xprompt := prompt1;
   z.inithist;
   loadstuff;
-  checkbreak := false;
+  {$IFNDEF DEBUG}checkbreak := false;{$ENDIF}
   done := false;
   if paramstr(1) <> '!' then
    begin
@@ -540,7 +579,7 @@ procedure init;
   showmouse( off );
  end;
 
-
+var ox, oy, i:integer;
 begin
  init;
  repeat
@@ -550,9 +589,25 @@ begin
   tymin := 1;
   cwritexy( 1,1, '|!w  |bð  X|kMenu |# 47|b|^D |!k');
   tymin := 2;
-  settextheight( 13 );
-  move( xmtag, banner, sizeof( xmtag ));
+
+  ox := txpos; oy := typos;
+
+  crt.gotoxy( 1, tYMax - xmtag_depth + 1 );
+  i := 1;
+  { TODO : fix -2 on next line to skip last char. (it prevents scrolling) }
+  while i < sizeof( xmtag ) - 2 do
+  begin
+    { screen[ i ] := byte( xmtag[ i ]); }
+    crt.textattr := byte( xmtag[ i + 1 ]);
+    write( xmtag[ i ]);
+    inc( i, 2 );
+  end;
+
+  { TODO: consolidate the cursor-tracking vars :/ }
+  txpos := ox; typos := oy;
+  gotoxy( txpos, typos );
   cwrite( '|_'+xprompt );
+
   greyshadow( 1, 1, 80, 1 );
   z.init( txpos, typos+1, 255, 79-txpos, $0F, $0A, false, '' );
   doscursoron;
@@ -566,7 +621,7 @@ begin
      if not keypressed then
       begin
        showmouse( off );
-       dosscreen := screen;
+       dosscreen^ := screen;
        showmouse( on );
        tymin := 1;
        doscursoroff;
@@ -574,7 +629,7 @@ begin
        appmenu.reset;
        result := appmenu.get;
        showmouse( off );
-       screen := dosscreen;
+       screen := dosscreen^;
        tymin := 2;
        z.reset;
        if result = 253 then
