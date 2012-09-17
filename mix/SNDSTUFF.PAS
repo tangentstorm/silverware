@@ -232,11 +232,14 @@ Implementation
   var
    sbcounter, sbnothing : byte;
   begin
-   port[ $0388 ] := reg;
+  {
+   port
+   [ $0388 ] := reg;
    for sbcounter := 1 to 6 do sbnothing := port[ $0388 ];
    port[ $0389 ] := val;
    for sbcounter := 1 to 35 do sbnothing := port[ $0388 ];
-  end;
+  }
+ end;
 
  procedure soundsystem.sbSetleftReg( reg, val : byte );
   var
