@@ -22,18 +22,16 @@ interface
  procedure resetmouse( var status : boolean; var numbtns : integer );
  procedure showmouse( yn : boolean );
  procedure mouseon;
+ procedure getmpos; { poll() basically. }
  procedure gettextmpos;
  procedure setmpos( a, b : integer );
+
  procedure setmwin( a1, b1, a2, b2 : integer );
  function mousemoved : boolean;
 
  {$IFNDEF FPC}
  { freepascal mouse doesn't do graphics }
  procedure setgcurs( gcurs : gcursor );
-
- { this one is also a graphical coordinates }
- { gettextmpos uses characters.         }
- procedure getmpos;
 
 
  { the os handles mouse accelleration now}
@@ -68,7 +66,11 @@ uses mouse;
   showmouse( true );
  end;
 
- { procedure getmpos; }
+ procedure getmpos;
+ begin
+  gettextmpos;
+ end;
+
  procedure gettextmpos;
  begin
    lms := ms;
@@ -89,7 +91,8 @@ uses mouse;
    writeln( 'setmwin called to trap the mouse. why? :)' );
  end;
 
-{$ELSE} { old dos version }
+{$else} { old dos version }
+
 uses dos,crtstuff;
  var
   regs : registers;
@@ -98,7 +101,7 @@ uses dos,crtstuff;
   var
    dOff, dSeg : integer;
   begin
-   mousethere := false
+   mousethere := false;
    dOff := MemW[ 0000:0204 ];
    dSeg := MemW[ 0000:0206 ];
    if
@@ -159,6 +162,7 @@ uses dos,crtstuff;
    lmy := my;
    regs.ax := $03;
    intr( $33, regs );
+
    ms := Regs.bx;
    mx := regs.cx;
    my := regs.dx;
@@ -238,4 +242,8 @@ begin
  lmx := 0;
  lmy := 0;
  lms := 0;
+
+ {$IFDEF FPC}
+ mouse.InitMouse;
+ {$ENDIF}
 end.
