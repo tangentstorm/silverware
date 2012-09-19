@@ -1,0 +1,1 @@
+find -name '*.pas' -exec fpc -Fu../units -Fi../other -Mtp -dFPC -Rintel {} \;
