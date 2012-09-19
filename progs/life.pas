@@ -1,39 +1,60 @@
 program life;           { implements the game of life }
-uses crt, crtstuff;
+uses crt, crtstuff, keyboard;
 
+var
+  have_cached : boolean;
+  cached_key : char;
 
-const 
-   up	 = #72;
-   down	 = #80;
-   right = #77;
-   left	 =  #75;
+FUNCTION READKEY : CHAR;
+  var Key: TKeyEvent;
+BEGIN
+  if have_cached then begin
+    have_cached := false;
+    readkey := cached_key
+  end else begin
+    key := TranslateKeyEvent(GetKeyEvent);
+    case GetKeyEventFlags(Key) of
+      kbASCII: readkey := GetKeyEventChar(Key);
+    else
+      begin
+        cached_key := chr( GetKeyEventCode(Key));
+        have_cached := true;
+        readkey := #0;
+      end
+    end
+  end
+END;
+
+const
+   up	 = #33; { #72; }
+   down	 = #39; { #80; }
+   right = #37; { #77; }
+   left	 = #35; { #75; }
 
 {--[ Defines & Variables ]--------------------------------}
 
 const
-   maxx = 80;
-   maxy = 20;
+  maxx = 80;
+  maxy = 20;
+  dead  = #249; { cp437 : dot operator }
+  alive = #240; { cp437 : small square }
 
-  dead  = ' ';
-  alive = '*';
-   
 type
-   agrid = array[ 0..maxx+1, 0..maxy+1 ] of char; { grid + "dead" border }
-   
+  agrid = array[ 0..maxx+1, 0..maxy+1 ] of char; { grid + "dead" border }
+
 var
-   grid : agrid;
+  grid : agrid;
   iteration : integer;
-   
+
 {--[ Procedures ]-----------------------------------------}
 
 procedure drawthegrid;
-var
-   a, b : integer;
+  var a, b : integer;
 begin
-   for b := 1 to maxy do
-      for a := 1 to maxx do
-	 colorxy( a, b, green, grid[ a, b ] )
-  end;
+  for b := 1 to maxy do
+    for a := 1 to maxx do
+      colorxy( a, b, green, grid[ a, b ] )
+end;
 
 procedure seedthegrid;
 var
@@ -47,11 +68,17 @@ begin
    doscursoron;
    repeat ch := readkey;
       case ch of
-	#0 : case readkey of
+	#0 : begin
+               ch := readkey;
+               case ch of
                 up: b := decwrap( b, 1, 1, maxy );
                 down: b :=incwrap( b, 1, 1, maxy );
                 left: a := decwrap( a, 1, 1, maxx );
                 right: a := incwrap( a, 1, 1, maxx );
+                else
+                  writeln( 'don''t know how  to handle key #', ord(ch));
+                  writeln( 'readkey:', ord(readkey));
+              end;
              end;
 	#32 : begin
                  if grid[ a, b ] = alive then
@@ -83,15 +110,15 @@ var
    counter : byte;
 begin
    counter := 0;                                   { keypad direction }
-   if grid[ x-1, y-1 ] = alive then inc( counter); { 7 }
-   if grid[ x-1, y   ] = alive then inc( counter); { 4 }
-   if grid[ x-1, y+1 ] = alive then inc( counter); { 1 }
-   if grid[ x  , y-1 ] = alive then inc( counter); { 8 }
-   
-   if grid[ x  , y+1 ] = alive then inc( counter); { 2 }
-   if grid[ x+1, y-1 ] = alive then inc( counter); { 9 }
-   if grid[ x+1, y   ] = alive then inc( counter); { 6 }
-   if grid[ x+1, y+1 ] = alive then inc( counter); { 3 }
+   if grid[ x-1, y-1 ] = alive then inc( counter); { 7 nw }
+   if grid[ x-1, y   ] = alive then inc( counter); { 4 w  }
+   if grid[ x-1, y+1 ] = alive then inc( counter); { 1 sw }
+   if grid[ x  , y-1 ] = alive then inc( counter); { 8 n  }
+
+   if grid[ x  , y+1 ] = alive then inc( counter); { 2 s  }
+   if grid[ x+1, y-1 ] = alive then inc( counter); { 9 ne }
+   if grid[ x+1, y   ] = alive then inc( counter); { 6 e  }
+   if grid[ x+1, y+1 ] = alive then inc( counter); { 3 se }
    numliveneighbors := counter;
 end;
 
@@ -100,57 +127,55 @@ var
    a, b : integer;
    tempgrid : agrid;
 begin
-   tempgrid := grid; {to snag the borders}
-   for a := 1 to maxx do
-      for b := 1 to maxy do
-         case grid[ a, b ] of
-            alive:
-               case numliveneighbors( a, b ) of		{ using case to allow }
-                  2,3: tempgrid[ a, b ] := alive;		{ messing with the rules }
-               else tempgrid[ a, b ] := dead;		{ later on.}
-               end;
-            dead:
-               case numliveneighbors( a, b ) of		{ see above }
-                  3 : tempgrid[ a, b ] := alive;
-               else
-                  tempgrid[ a, b ] := dead;
-               end;
-         else
-         end;
-   inc( iteration );
-   grid := tempgrid;
+  tempgrid := grid; {to snag the borders}
+  for a := 1 to maxx do
+    for b := 1 to maxy do
+      case grid[ a, b ] of
+        alive:
+          case numliveneighbors( a, b ) of		{ using case to allow }
+            2,3: tempgrid[ a, b ] := alive;	{ messing with the rules }
+          else tempgrid[ a, b ] := dead;		{ later on.}
+          end;
+        dead:
+          case numliveneighbors( a, b ) of		{ see above }
+            3 : tempgrid[ a, b ] := alive;
+          else
+            tempgrid[ a, b ] := dead;
+          end;
+        else
+        end;
+  inc( iteration );
+  grid := tempgrid;
 end;
 
 procedure run;
-var
-   ch : char;
+  var ch : char;
 begin
-   ch := #0;
-   repeat
-      drawthegrid;
-      iterate;
-      if keypressed then
-      begin
-         ch := readkey;
-         case ch of
-            #32 : seedthegrid;
-         end;
+  ch := #0;
+  repeat
+    drawthegrid;
+    iterate;
+    if keypressed then
+    begin
+      ch := readkey;
+      case ch of
+        #32 : seedthegrid;
       end;
-   until (ch in [#27,#13])
+    end;
+  until (ch in [#27,#13])
 end;
 
 procedure done;
 begin
-   textmode( co80 );
-   doscursoron;
+  textmode( co80 );
+  doscursoron;
 end;
 
 
 {--[ Main Program ]---------------------------------------}
 
 begin
-   init;
-   run;
-   done;
+ init;
+ run;
+ done;
 end.
-   
