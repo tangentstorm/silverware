@@ -1,0 +1,226 @@
+#+TITLE: silverware tasklist
+
+* [0/3] implement kvm module (crtstuff/moustuff atop keyboard/video/mouse)
+** TODO implement primitives from crt
+*** keyboard
+**** TODO [#A] KeyPressed - 
+**** TODO [#A] ReadKey
+*** colors (expand to 256 color palette)
+**** TODO [#A] TextColor
+**** TODO [#A] TextBackground
+**** TODO [#A] replace all direct access to textattr
+*** replace with time module
+**** TODO Delay
+*** sound module ( synth? )
+**** TODO Sound
+**** TODO NoSound
+*** windowing ( vt? )
+**** TODO [#A] ClrScr
+**** TODO [#A] GotoXY
+**** TODO [#A] ClrEol
+**** TODO [#C] WhereX/WhereY-> really should be vector2d
+**** TODO [#C] Window
+**** TODO [#C] DelLine
+**** TODO [#C] InsLine
+*** obsolete
+**** TextMode
+**** HighVideo
+**** NormVideo
+**** LowVideo
+**** AssignCrt
+** TODO crtstuff
+*** TODO string stuff
+VGAtype = array [ 0..319, 0..200 ] of byte;
+procedure colorxy ( a, b, c : byte; s : string );
+procedure colorxyv ( a, b, c : byte; s : string );
+procedure colorxyc ( a, b, c : byte; s : string );
+*** TODO [#C] transitions
+procedure setmode( mode : word );
+procedure settextheight( h : byte );  }
+procedure fillscreen( atch : word ); {ATTR then CHAR}
+procedure fillbox( a1, b1, a2, b2 : byte; atch : word );
+procedure slidedown( x1, x2, y1, y2 : byte; offwhat : screentypeptr );
+procedure slidedownoff( offwhat : screentypeptr );
+procedure scrollup1( x1, x2, y1, y2 : byte; offwhat : screentypeptr );
+procedure scrolldown1( x1, x2, y1, y2 : byte; offwhat : screentypeptr );
+procedure scrolldown( x1, x2, y1, y2 : byte; offwhat : screentypeptr );
+procedure scrolldownoff( offwhat : screentypeptr );
+procedure scrollright(  x1, x2, y1, y2 : byte; offwhat : screentypeptr );
+procedure scrollrightoff( offwhat : screentypeptr );
+function cLength( s : string ) : byte;                { length - color codes }
+
+function cstrip( s : string ) : string;
+function normaltext( s : string ) : string;
+function strtrunc( s : string; len : byte ) : string;
+function UpStr( s : string ) : String;
+function DnCase( ch : char ) : Char;
+function DnStr( s : string ) : String;
+function chntimes( c : char; n : byte ) : string;
+function flushrt( s : string; n : byte; ch : char ) : string;
+function padstr( s : string; len : byte; ch : char ) : string;
+function unpadstr( s : string; ch : char ) : string;
+function cpadstr( s : string; len : byte; ch : char ) : string;
+function min( p, q : longint ) : longint;
+function max( p, q : longint ) : longint;
+function inc2( goesto, amt, max : longint ) : longint;
+function dec2( from, amt, min : longint ) : longint;
+function incwrap( goesto, amt, min, max : longint ) : longint;
+function decwrap( from, amt, min, max : longint ) : longint;
+function stepwrap( x, amt, min, max : longint ) : longint;
+function h2s( w : word ) : string;
+function s2h( s : string ) : word;
+function n2s( x : longint ) : string;
+function s2n( s : string ) : longint;
+function truth( p : longint ) : byte;
+function power( a, b : longint ) : longint;
+function sgn( x : longint ) : shortint;
+procedure txtline( a, b, x, y, c : byte );
+procedure Rectangle( a, b, x, y, c : byte );
+procedure Bar( a, b, x, y, at: byte );
+procedure metalbar( a1, b1, a2, b2 : byte );
+procedure metalbox( a1, b1, a2, b2 : byte );
+procedure Button( a1, b1, a2, b2 : byte );
+procedure greyshadow( a1, b1, a2, b2 : byte );
+procedure blackshadow( a1, b1, a2, b2 : byte );
+procedure stamp( a1, b1, a2, b2 : byte; pic : pcel );
+procedure rnd;
+procedure rnd2;
+procedure SetupCrt;
+procedure hitakey;
+procedure doscursoroff;
+procedure doscursoron;
+procedure doscursorbig;
+procedure doscursorshape( top, bottom : byte );
+procedure blinking( b : boolean );
+procedure getenter;
+function alt2normal( ch : char ) : char;
+function peekkey : char;  { doesn't work }
+function shiftstate : byte;
+function enterpressed : boolean;
+function yesno : Boolean;
+function wordn( s : string; index : byte ) : string;
+function nwords( s : string ) : byte;
+function time : string;
+function date : string;
+function stardate : string;
+procedure error( msg : string );
+function thisdir : string;
+function paramline : string;
+procedure installfont( fontseg, fontofs : word );
+procedure installfont2( fontseg, fontofs : word );
+procedure loadfont(s: string);
+procedure SetWidth90;
+function keypressed: boolean;
+function readkey: char;
+procedure setScreenData( x, y : byte; ch : char; attr : byte );
+procedure ColorXY( a, b, c : byte; s : string);
+  { TODO: migrate to fpc's video unit, so we can do both. }
+procedure Colorxyv( a, b, c : byte; s: string );
+procedure colorxyc( a, b, c : byte; s : string );
+procedure cwcommand( cn : byte; s : string );
+procedure cwrite( s : string );
+ procedure write( s : string );
+procedure cwriteln( s : string );
+procedure cwritexy( a, b : byte; s : string );
+procedure ccenterxy( a, b : byte; s : string );
+procedure StWriteln( s : string );
+procedure StWritexy( a, b : byte; s : string );
+procedure setmode( mode : word );
+procedure settextheight( h : byte );
+procedure FillScreen( atch : word ); {ATTR then CHAR}
+procedure fillbox( a1, b1, a2, b2 : byte; atch : word );
+procedure slidedown( x1, x2, y1, y2 : byte; offwhat : screentypeptr );
+procedure slidedownoff( offwhat : screentypeptr );
+procedure scrollup1( x1, x2, y1, y2 : byte; offwhat : screentypeptr );
+procedure scrolldown1( x1, x2, y1, y2 : byte; offwhat : screentypeptr );
+procedure scrolldown( x1, x2, y1, y2 : byte; offwhat : screentypeptr );
+procedure scrolldownoff( offwhat : screentypeptr );
+procedure scrollright(  x1, x2, y1, y2 : byte; offwhat : screentypeptr );
+procedure scrollrightoff( offwhat : screentypeptr );
+function clength( s : string ) : byte;
+function cstrip( s : string ) : string;
+function normaltext( s : string ) : string;
+function strtrunc( s : string; len : byte ) : string;
+function upstr( s : string ) : string;
+function dncase( ch: char ) :char;
+function dnstr( s : string ) : string;
+function chntimes( c : char; n : byte ) : string;
+function flushrt( s : string; n : byte; ch : char ) : string;
+function padstr( s : string; len : byte; ch : char ) : string;
+function unpadstr( s : string; ch : char ) : string;
+function cpadstr( s : string; len : byte; ch : char ) : string;
+function min( p, q : longint ) : longint;
+function max( p, q : longint ) : longint;
+function Inc2( goesto, amt, max : longint ) : longint;
+function dec2( from, amt, min : longint ) : longint;
+function incwrap( goesto, amt, min, max : longint ) : longint;
+function decwrap( from, amt, min, max : longint ) : longint;
+function stepwrap( x, amt, min, max : longint ) : longint;
+function h2s( w : word ) : string;
+function s2h( s : string ) : word;
+function n2s( x : longint ) : string;
+function s2n( s : String ) : longint;
+function truth( p : longint ) : byte;
+function power( a, b : longint ) : longint;
+988:function sgn( x : longint ) : shortint;
+997:procedure txtline( a, b, x, y, c : byte );
+1040:procedure metalbar( a1, b1, a2, b2 : byte );
+1059:procedure metalbox( a1, b1, a2, b2 : byte );
+1086:procedure greyshadow( a1, b1, a2, b2 : byte );
+1105:procedure blackshadow( a1, b1, a2, b2 : byte );
+1111:procedure stamp( a1, b1, a2, b2 : byte; pic : pcel );
+1123:procedure rnd;
+1142:procedure rnd2;
+1144:  tmp : screentype;
+1202:procedure doscursoroff;
+1207:procedure doscursoron;
+1212:procedure doscursorbig;
+1219:procedure doscursoroff;
+1229:procedure doscursoron;
+1234:procedure doscursorbig;
+1239:procedure doscursorshape( top, bottom :  byte );
+1249:procedure blinking( b : boolean );
+1260:procedure getenter;
+1265:function alt2normal( ch : char ) : char;
+1281:function peekkey : char;
+1297:function shiftstate : byte;
+1305:function shiftstate : byte;
+1315:function enterpressed : boolean;
+1327:function yesno : boolean;
+1332:function wordn( s : string; index:  byte ) : string;
+1344:function nwords( s : string ) : byte;
+1360:function time : string;
+1373:function date : string;
+1384:function stardate : string;  { Sat 1218.93 12:40:00 }
+1405:procedure error( msg : string );
+1412:function thisdir : string;
+1420:function paramline : string;
+1431:procedure installfont( fontseg, fontofs : word );
+1458:   int     10h                 { and set up the printscreen procedure }
+1469:procedure installfont2( fontseg, fontofs : word );
+1495:   int     10h                 { and set up the printscreen procedure }
+1505: procedure loadfont( s : string );
+1522:procedure SetWidth90;
+1550:function keypressed : boolean;
+1556:function readkey : char;
+
+** TODO replace all uses of crt with crt
+* TODO extract cw from crtstuff
+* [0/17] get the ui widgets working
+** TODO zbouncemenu
+** TODO zchoice
+** TODO zcolor
+** TODO zconfirmbox
+** TODO zcounter
+** TODO zhexcounter
+** TODO zinputbox
+** TODO zinput
+** TODO zmenubar
+** TODO zmenu
+** TODO zobj
+** TODO zpassword
+** TODO ztext
+** TODO ztoggle
+** TODO zvscroller
+** TODO zyesno
+** TODO vuestuff.pas
