@@ -1,3 +1,5 @@
+{$WARNING pntstuff is deprecated. please use ../clean/ll.pas instead }
+{$WAIT}
 Unit PntStuff;
 {$S-}
 
