@@ -12,6 +12,7 @@ type
   next, prev : pnode;
  end;
  ListAction = Procedure( N : pnode );
+
  plist = ^List;
  List = object( Base )
   last : pnode;
@@ -27,20 +28,20 @@ type
   function prev( n : pnode ) : pnode;
   destructor done; virtual;
  end;
-
+
 implementation
 
  destructor base.done;
   begin
   end;
-
+
  {$F+}
   procedure killnode( n : pnode );
    begin
     dispose( n, done );
    end;
  {$F-}
-
+
  constructor list.init;
   begin
    last := nil;
@@ -59,10 +60,10 @@ implementation
    last^.next := n;
    n^.prev := last;
   end;
-
+
  procedure list.killall;
   begin
-   foreachdo( killnode );
+   foreachdo( @killnode );
    last := nil;
   end;
 
