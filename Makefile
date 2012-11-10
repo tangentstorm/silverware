@@ -1,25 +1,30 @@
 FPC = fpc -Fu./units -Fi/other. -Mobjfpc  -FE./bin
 PROGS = ./progs
-UNITS = ./units
+UNITS = ./clean
 OTHER = ./other
 
-cedit: pntstuff crtstuff filstuff zokstuff crt  bin/cedit
+default: cedit
+
+bin/%.ppu: $(UNITS)/%.pas
+	$(FPC) $<
 
 bin/%: $(PROGS)/%.pas
 	$(FPC) $<
 
-#---------------------------------------
-
-pntstuff: $(UNITS)/pntstuff.pas
-crtstuff: $(UNITS)/crtstuff.pas
-filstuff: $(UNITS)/filstuff.pas
-zokstuff: $(UNITS)/zokstuff.pas
-crt:
-
-#---------------------------------------
 
 clean:
 	rm *~ *.gpi *.o *.pyc
 
 test:
 	echo "no tests yet... :("
+
+#-- units -------------------------------------
+
+ll: bin/ll.ppu
+
+#-- progs -------------------------------------
+
+cedit: ll bin/cedit
+	@bin/cedit Makefile
+	@echo ok
+
