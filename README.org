@@ -1,0 +1,21 @@
+#+title: sterling silverware
+
+* about
+
+This repository contains turbo pascal code written from 1992 to 1996 by michal j wallace.
+
+It primarily consists of text-mode MS-DOS programs, including a user interface widget library, many string routines, etc.
+
+I am currently in the process of reviewing and reviving this code with the help of the [[http://freepascal.org/][free pascal compiler]].
+
+* repository layout
+
+| path  | contents                                                     |
+|-------+--------------------------------------------------------------|
+| [[./old][old]]   | the orignal code ( duplicates from multiple partial backups) |
+| [[./progs][progs]] | all programs                                                 |
+| [[./units][units]] | the original units ( latest version of each )                |
+| [[./clean][clean]] | the modern refactored versions of the units                  |
+| [[./other][other]] | data files, duplicates, etc                                  |
+
+
