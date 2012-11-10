@@ -1,22 +1,22 @@
-program edit;
-{uses pntstuff,crtstuff,crt,filstuff,zokstuff;
+program cedit;
+  uses ll, fs; {,crtstuff,crt,filstuff,zokstuff; }
 
 type
- listviewer = object( list )
-  y1, y2 : integer;
-  work : screentype;
-  topline, bottomline : pnode;
-  constructor init;
-  procedure show; virtual;
-  procedure arrowup; virtual;
-  procedure arrowdown; virtual;
-  procedure home; virtual;
-  procedure _end; virtual;
-  procedure pageup; virtual;
-  procedure pagedown; virtual;
-  procedure run; virtual;
- end;
- listeditor = object( listviewer )
+  listviewer = class( list )
+{  y1, y2 : integer;
+   work	: screentype;
+   topline, bottomline : pnode;
+   constructor init;
+   procedure show; virtual;
+   procedure arrowup; virtual;
+   procedure arrowdown; virtual;
+   procedure home; virtual;
+   procedure _end; virtual;
+   procedure pageup; virtual;
+   procedure pagedown; virtual;
+   procedure run; virtual;   }
+  end;
+{ listeditor = object( listviewer )
   lightbar : pnode;
   constructor init;
   procedure show; virtual;
@@ -24,11 +24,10 @@ type
   procedure arrowdown; virtual;
   procedure home; virtual;
   procedure _end; virtual;
- end;
-}
+end; }
 
 var
- Thisline, numlines : longint;
+ thisline, numlines : longint;
  nlstring : string[6];
 {
  constructor stringobj.init( st : string );
@@ -286,15 +285,15 @@ BEGIN
 END;
 
 var
-// viewer : listeditor;
- i : byte;
- t : text;
- s : string;
- done: boolean;
+  // viewer : listeditor;
+  i	    : byte;
+  txt	    : text;
+  path, s   : string;
+  done	    : boolean;
 
 begin
- randseed := 193;
- Numlines := 0;
+  randseed := 193;
+  Numlines := 0;
 {
   doscursoroff;
   setupcrt;
@@ -302,13 +301,17 @@ begin
   colorxyc( 40, 6, 7, 'Loading...');
   viewer.init;
 }
-assign( t, paramstr(1)); reset(t);
- while not eof(t) do
-  begin
-   readln( t, s ); Inc(Numlines);
-   // viewer.append( new( pstringobj, init( s ) ));
+  path := paramstr( 1 );
+  if fs.exists( path ) then begin
+    fs.reset( txt, path );
+    while not eof( txt ) do
+    begin
+      readln( txt, s );
+      inc( numlines );
+      // viewer.append( new( pstringobj, init( s ) ));
+    end;
+    close( txt );
   end;
- close( t );
 {
   nlstring := flushrt(n2s(numlines),6,'.');
   viewer.run;
