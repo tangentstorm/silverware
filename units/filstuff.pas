@@ -1,3 +1,5 @@
+{$WARNING pntstuff is deprecated. please use ../clean/fs.pas instead }
+{$WAIT}
 unit filstuff;   { file routines }
 interface
 
