@@ -22,10 +22,12 @@ test:
 #-- units -------------------------------------
 
 ll: bin/ll.ppu
+fs: stri bin/fs.ppu
+stri: bin/stri.ppu
 
 #-- progs -------------------------------------
 
-cedit: ll bin/cedit
+cedit: ll fs bin/cedit
 	@bin/cedit Makefile
 	@echo ok
 
