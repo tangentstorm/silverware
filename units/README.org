@@ -1,0 +1,5 @@
+
+| old name | new name |                              |
+|----------+----------+------------------------------|
+| pntstuff | [[../clean/ll.pas][ll]]       | a linked list data structure |
+
