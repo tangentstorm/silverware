@@ -1,5 +1,5 @@
 program edit;
-uses pntstuff,crtstuff,crt,filstuff,zokstuff;
+{uses pntstuff,crtstuff,crt,filstuff,zokstuff;
 
 type
  listviewer = object( list )
@@ -25,12 +25,12 @@ type
   procedure home; virtual;
   procedure _end; virtual;
  end;
-
-
+}
+
 var
  Thisline, numlines : longint;
  nlstring : string[6];
-
+{
  constructor stringobj.init( st : string );
   begin
    s := st;
@@ -55,7 +55,7 @@ var
     writeto := @screen;
     screen := work;
   end;
-
+
  procedure listviewer.arrowup;
   begin
    if topline <> first then
@@ -71,7 +71,7 @@ var
      show;
     end;
   end;
-
+
  procedure listviewer.arrowdown;
   begin
    if bottomline^.next <> first then
@@ -87,7 +87,7 @@ var
      show;
     end;
   end;
-
+
  procedure listviewer.home;
   var
    c : byte;
@@ -107,7 +107,7 @@ var
      end;
    show;
   end;
-
+
  procedure listviewer._end;
   var
    c : byte;
@@ -130,8 +130,7 @@ var
      cwriteln('|w'+pstringobj(topline)^.s);
     show;
   end;
-
-
+
  procedure listviewer.pageup;
   var
    c : byte;
@@ -145,7 +144,7 @@ var
   begin
    for c := y1 to y2-1 do arrowdown;
   end;
-
+
  procedure listviewer.run;
   var
    alldone : boolean;
@@ -156,8 +155,8 @@ var
     if keypressed then case readkey of
      #27 : alldone := true;
      #0  : case readkey of
-            #72: arrowup; {when you press the UP arrow!}
-            #80: arrowdown; {when you press the DOWN arrow!}
+            #72: arrowup; // when you press the UP arrow!
+            #80: arrowdown; // when you press the DOWN arrow!
             #71: home;
             #79: _end;
             #73: pageup;
@@ -166,7 +165,7 @@ var
      end;
    until alldone;
  end;
-
+
  constructor listeditor.init;
   begin
    listviewer.init;
@@ -261,14 +260,14 @@ var
      cwriteln('|w'+pstringobj(topline)^.s);
     show;
   end;
+
 
+procedure prints( n : pnode );
+begin
+  cwriteln( pstringobj(n)^.s );
+end;
 
-{$F+}
- procedure prints( n : pnode );
-  begin
-   cwriteln( pstringobj(n)^.s );
-  end;
-{$F-}
+}
 
 FUNCTION Cipher (St, Passwd: String): String;
 VAR
@@ -286,9 +285,8 @@ BEGIN
    Cipher := St;
 END;
 
-
 var
- viewer : listeditor;
+// viewer : listeditor;
  i : byte;
  t : text;
  s : string;
@@ -297,20 +295,24 @@ var
 begin
  randseed := 193;
  Numlines := 0;
- doscursoroff;
- setupcrt;
- colorxy(1,13,1,chntimes('Ä',80));
- colorxyc( 40, 6, 7, 'Loading...');
- viewer.init;
- assign( t, paramstr(1)); reset(t);
+{
+  doscursoroff;
+  setupcrt;
+  colorxy(1,13,1,chntimes('Ä',80));
+  colorxyc( 40, 6, 7, 'Loading...');
+  viewer.init;
+}
+assign( t, paramstr(1)); reset(t);
  while not eof(t) do
   begin
    readln( t, s ); Inc(Numlines);
-   viewer.append( new( pstringobj, init( s ) ));
+   // viewer.append( new( pstringobj, init( s ) ));
   end;
  close( t );
- nlstring := flushrt(n2s(numlines),6,'.');
- viewer.run;
- viewer.done;
- doscursoron;
+{
+  nlstring := flushrt(n2s(numlines),6,'.');
+  viewer.run;
+  viewer.done;
+  doscursoron;
+}
 end.
