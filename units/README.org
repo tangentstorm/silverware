@@ -1,5 +1,7 @@
 
-| old name | new name |                              |
-|----------+----------+------------------------------|
-| pntstuff | [[../clean/ll.pas][ll]]       | a linked list data structure |
+| old name | new name |                                       |
+|----------+----------+---------------------------------------|
+| pntstuff | [[../clean/ll.pas][ll]]       | a linked list data structure          |
+| filstuff | [[../clean/fs.pas][fs]]       | file tools ( including binary files ) |
+|          |          |                                       |
 

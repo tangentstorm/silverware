@@ -1,4 +1,5 @@
-FPC = fpc -Fu./units -Fi/other. -Mobjfpc  -FE./bin
+B4  = ~/b
+FPC = fpc -Fu./units -Fi/other. -Mobjfpc  -FE./bin -Fu$(B4) -Fi$(B4)
 PROGS = ./progs
 UNITS = ./clean
 OTHER = ./other
