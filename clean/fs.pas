@@ -4,9 +4,9 @@ interface uses stri
 
   { these do assign and the system version in one step }
   function exists( path : string ) : boolean;
-  procedure reset  ( var f : file; path : string );
-  procedure rewrite( var f : file; path : string );
-  procedure append ( var f : file; path : string );
+  procedure filereset  ( var f : file; path : string );
+  procedure filerewrite( var f : file; path : string );
+  procedure fileappend ( var f : file; path : string );
   {  TODO : replace these with python-style open( ) }
   // function open( path : string ) : file;
 
@@ -37,7 +37,7 @@ interface uses stri
   procedure idxload( var f : file; index : longint; var v );
   function idxcount( var f : file ) : longint;
 
-  function errorstring : string;
+  function errormsg : string;
 
 
 const
@@ -53,28 +53,28 @@ const
 
 implementation
 
-  procedure filereset( var f : file; s : string );
+  procedure filereset( var f : file; path : string );
   begin
     {$I-}
-    assign( f, s );
+    assign( f, path );
     reset( f, 1 );
     {$I+}
     error := ioresult;
   end;
 
-  procedure filerewrite(var f : file; s : string );
+  procedure filerewrite(var f : file; path : string );
   begin
     {$I-}
-    assign( f, s );
+    assign( f, path );
     rewrite( f, 1 );
     {$I+}
     error := ioresult;
   end;
 
-  procedure fileappend ( var f : file; s : string );
+  procedure fileappend ( var f : file; path : string );
   begin
     {$I-}
-    assign( f, s );
+    assign( f, path );
     rewrite( f, 1 );
     {$I+}
     error := ioresult;
@@ -171,16 +171,16 @@ implementation
     idxcount := nextlongint( f );
   end;
 
-  function  exists ( s : string ) : boolean;
+  function  exists ( path : string ) : boolean;
   {$IFDEF FPC}
   begin
-    result := sysutils.fileexists( s )
+    result := sysutils.fileexists( path )
   end;
   {$ELSE}
   var t : file;
   begin
     {$I-}
-    filereset( t, s );
+    filereset( t, path );
     close( t );
     {$I+}
     fileexists := (ioresult = 0) and (s <> '');
@@ -229,16 +229,16 @@ implementation
     nextstring := n;
   end;
 
-  function fileerrorstring : string;
+  function errormsg : string;
   begin
     case error of
-      fileok		    : fileerrorstring := 'No problems...';
-      filenotfound	    : fileerrorstring := 'File not found.';
-      pathnotfound	    : fileerrorstring := 'Path not found.';
-      toomanyopenfiles	    : fileerrorstring := 'Too many open files.';
-      fileaccessdenied	    : fileerrorstring := 'File access denied.';
-      invalidfilehandle	    : fileerrorstring := 'Invalid file handle.';
-      invalidfileaccesscode : fileerrorstring := 'Invalid file access code.';
+      fileok		    : result := 'No problems...';
+      filenotfound	    : result := 'File not found.';
+      pathnotfound	    : result := 'Path not found.';
+      toomanyopenfiles	    : result := 'Too many open files.';
+      fileaccessdenied	    : result := 'File access denied.';
+      invalidfilehandle	    : result := 'Invalid file handle.';
+      invalidfileaccesscode : result := 'Invalid file access code.';
     end;
   end;
 
