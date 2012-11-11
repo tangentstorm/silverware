@@ -1,51 +1,56 @@
 program cedit;
-  uses ll, fs, stri, num; {,crtstuff,crt,filstuff,zokstuff; }
+uses ll, fs, stri, num; {,crtstuff,crt,filstuff,zokstuff; }
 
-type
-  listviewer = class( list )
-{  y1, y2 : integer;
-   work	: screentype;
-   topline, bottomline : pnode;
-   constructor init;
-   procedure show; virtual;
-   procedure arrowup; virtual;
-   procedure arrowdown; virtual;
-   procedure home; virtual;
-   procedure _end; virtual;
-   procedure pageup; virtual;
-   procedure pagedown; virtual;
-   procedure run; virtual;   }
-  end;
-{ listeditor = object( listviewer )
-  lightbar : pnode;
-  constructor init;
-  procedure show; virtual;
-  procedure arrowup; virtual;
-  procedure arrowdown; virtual;
-  procedure home; virtual;
-  procedure _end; virtual;
-end; }
+  type
+    //  duplicated in vuestuff
+    pstringobj = ^stringobj;
+    stringobj  = class ( node )
+      s	: string[ 180 ];
+      constructor new( st : string );
+    end;
+    listviewer = class( list )
+      thisline, numlines  : longint;
+      y1, y2		  : integer;
+      //   work	  : screentype;
+      topline, bottomline : pnode;
+      constructor new; override;
+      //   procedure show; virtual;
+      //   procedure arrowup; virtual;
+      //   procedure arrowdown; virtual;
+      procedure home; virtual;
+      //   procedure _end; virtual;
+      //   procedure pageup; virtual;
+      //   procedure pagedown; virtual;
+      procedure run; virtual;
+    end;
+    listeditor = class ( listviewer )
+      //  lightbar : pnode;
+      constructor new; override;
+      //  procedure show; virtual;
+      //  procedure arrowup; virtual;
+      //  procedure arrowdown; virtual;
+      procedure home; override;
+      //  procedure _end; virtual;
+    end;
 
-var
- thisline, numlines : longint;
- nlstring : string[6];
+  var nlstring : string[ 6 ];
+
+  constructor stringobj.new( st : string );
+  begin self.s := st;
+  end;
+
+  constructor listviewer.new;
+  begin
+    inherited.new;
+    y1 := 2;
+    y2 := 24;
+    //  work := screen;
+    topline := nil;
+    bottomline := nil;
+    //  lightbar := nil;
+  end;
+
 {
- constructor stringobj.init( st : string );
-  begin
-   s := st;
-  end;
-
- constructor listviewer.init;
-  begin
-   list.init;
-   y1 := 2;
-   y2 := 24;
-   work := screen;
-   topline := nil;
-   bottomline := nil;
-   lightbar := nil;
-  end;
-
  procedure listviewer.show;
   begin
    if topline = nil then home;
@@ -86,27 +91,28 @@ var
      show;
     end;
   end;
+}
 
- procedure listviewer.home;
-  var
-   c : byte;
+  procedure listviewer.home;
+    var c : byte;
   begin
-   if first = nil then exit;
-   thisline := 1;
-   topline := first;
-   bottomline := topline;
-   writeto := @work;
-   fillbox(1,y1,80,y2,$0F20);
-   txpos := 1; typos := y1;
-   for c := y1 to y2-1 do
-    if bottomline^.next <> first then
-     begin
-      cwriteln('|w'+pstringobj(bottomline)^.s);
-      bottomline := bottomline^.next;
-     end;
-   show;
+    if self.first = nil then exit;
+    self.thisline := 1;
+    self.topline := self.first;
+    self.bottomline := self.topline;
+    //  writeto := @work;
+    //  fillbox(1,y1,80,y2,$0F20);
+    //  vt.txpos := 1;
+    //  vt.typos := y1;
+    for c := y1 to y2-1 do
+      if bottomline^.next <> first then begin
+	{c}writeln( '|w' +pstringobj( bottomline )^.s );
+	self.bottomline := self.bottomline^.next;
+      end;
+   //  self.show;
   end;
 
+{
  procedure listviewer._end;
   var
    c : byte;
@@ -143,34 +149,36 @@ var
   begin
    for c := y1 to y2-1 do arrowdown;
   end;
+}
 
- procedure listviewer.run;
-  var
-   alldone : boolean;
+  procedure listviewer.run;
+    var done : boolean = false;
   begin
-   home;
-   alldone := false;
-   repeat
-    if keypressed then case readkey of
-     #27 : alldone := true;
-     #0  : case readkey of
-            #72: arrowup; // when you press the UP arrow!
-            #80: arrowdown; // when you press the DOWN arrow!
-            #71: home;
-            #79: _end;
-            #73: pageup;
-            #81: pagedown;
-           end;
-     end;
-   until alldone;
- end;
-
- constructor listeditor.init;
-  begin
-   listviewer.init;
-   y1 := 1;
-   y2 := 12;
+    self.home;
+    { 
+    repeat
+      if keypressed then case readkey of
+	#27 : done := true;
+	#0  : case readkey of
+		#72 :; //  arrowup; // when you press the UP arrow!
+		#80 :; //  arrowdown; // when you press the DOWN arrow!
+		#71 :; //  home;
+		#79 :; //  _end;
+		#73 :; //  pageup;
+		#81 :; //  pagedown;
+	      end
+      end
+    until done;
+    }
   end;
+
+  constructor listeditor.new;
+  begin
+    listviewer.new;
+    self.y1 := 1;
+    self.y2 := 12;
+  end;
+{
 
  procedure listeditor.show;
   begin
@@ -216,27 +224,27 @@ var
      show;
     end;
   end;
-
- procedure listeditor.home;
-  var
-   c : byte;
+}
+  procedure listeditor.home;
+    var
+      c	: byte;
   begin
-   if first = nil then exit;
-   thisline := 1;
-   topline := first;
-   bottomline := topline;
-   writeto := @work;
-   fillbox(1,y1,80,y2,$0F20);
-   txpos := 1; typos := y1;
-   for c := y1 to y2-1 do
-    if bottomline^.next <> first then
-     begin
-      cwriteln('|w'+pstringobj(bottomline)^.s);
-      bottomline := bottomline^.next;
-     end;
-   show;
+    //  if first = nil then exit;
+    //  thisline := 1;
+    //  topline := first;
+    //  bottomline := topline;
+    //  writeto := @work;
+    //  fillbox(1,y1,80,y2,$0F20);
+    //  txpos := 1; typos := y1;
+    //  for c := y1 to y2-1 do
+    //    if bottomline^.next <> first then
+    //    begin
+    //  	cwriteln('|w'+pstringobj(bottomline)^.s);
+    //  	bottomline := bottomline^.next;
+    //  end;
+    //  show;
   end;
-
+{
  procedure listeditor._end;
   var
    c : byte;
@@ -285,38 +293,36 @@ BEGIN
 END;
 
 var
-  // viewer : listeditor;
-  i	    : byte;
-  txt	    : text;
-  path, s   : string;
-  done	    : boolean;
+  ed	  : listeditor;
+  i	  : byte;
+  txt	  : text;
+  path, s : string;
+  done	  : boolean;
 
 begin
   randseed := 193;
-  Numlines := 0;
-{
-  doscursoroff;
-  setupcrt;
-  colorxy(1,13,1,chntimes('Ä',80));
-  colorxyc( 40, 6, 7, 'Loading...');
-  viewer.init;
-}
+  //  doscursoroff;
+  //  setupcrt;
+  //  colorxy(1,13,1,chntimes('Ä',80));
+  //  colorxyc( 40, 6, 7, 'Loading...');
+
+  ed := listeditor.new;
+
   path := paramstr( 1 );
   if fs.exists( path ) then begin
     assign( txt, path );
     reset( txt );
     while not eof( txt ) do begin
       readln( txt, s );
-      inc( numlines );
-      // viewer.append( new( pstringobj, init( s ) ));
+      inc( ed.numlines ); //  move to listeditor
+      ed.append( stringobj.new( s ) );
     end;
     close( txt );
   end;
 
-  nlstring := flushrt(n2s(numlines),6,'.');
-{
-  viewer.run;
-  viewer.done;
-  doscursoron;
-}
+  nlstring := flushrt( n2s( ed.numlines ), 6, '.' ); //  move to listview
+
+  ed.run;
+  ed.destroy;
+  //  doscursoron;
 end.

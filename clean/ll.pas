@@ -4,58 +4,59 @@ interface uses xpc;
 
 type
   base	     = class
-    constructor create; virtual;
+    constructor new; virtual;
   end;
 
   pnode	     = ^node;
   node	     = class( base )
     next, prev : pnode;
   end;
-  listaction = procedure( n : pnode );
+  listaction = procedure( var n : node );
 
   plist	     = ^list;
   list	     = class( base )
     last : pnode;
-    constructor init;
-    procedure append( n : pnode );
-    procedure insert( n : pnode );
-    procedure remove( n : pnode );
+    constructor new; override;
+    procedure append( const n : node );
+    procedure insert( const n : node );
+    procedure remove( const n : node );
     procedure foreachdo( what : listaction ); deprecated;
     procedure foreach( what : listaction );
     function empty : boolean;
     function first : pnode;
-    function next( n : pnode ) : pnode;
-    function prev( n : pnode ) : pnode;
+    function next( const n : pnode ) : pnode;
+    function prev( const n : pnode ) : pnode;
   end;
 
 implementation
 
   { empty base class }
-  constructor base.create;
+  constructor base.new;
   begin
   end;
 
-  constructor list.init;
+  constructor list.new;
   begin
     last := nil;
   end;
 
-  procedure list.append( n : pnode );
+  procedure list.append( const n : node );
   begin
     insert( n );
-    last := n;
+    last := @n;
   end;
 
-  procedure list.insert( n : pnode ); { be sure to change zmenu.add }
+  procedure list.insert( const n : node ); { be sure to change zmenu.add }
   begin                              { if you change this!!! }
-    if last = nil then last := n else n^.next := last^.next;
-    first^.prev := n;
-    last^.next := n;
-    n^.prev := last;
+    if last = nil then last := @n
+    else n.next := last^.next;
+    first^.prev := @n;
+    last^.next := @n;
+    n.prev := last;
   end;
 
 
-  procedure list.foreachdo( what : listaction );
+  procedure list.foreachdo( what : listaction ); inline; deprecated;
   begin foreach( what )
   end;
 
@@ -67,21 +68,21 @@ implementation
     begin
       q := p;
       p := next( p );
-      what( q );
+      what( q^ );
     end;
   end;
 
-  procedure list.remove( n: pnode );
+  procedure list.remove( const n : node );
     var p : pnode;
   begin
     if last <> nil then
     begin
       p := first;
-      while (p^.next <> n) and (p^.next <> last) do p := p^.next;
-      if p^.next = n then
+      while (p^.next <> @n) and (p^.next <> @last) do p := p^.next;
+      if p^.next = @n then
       begin
-	p^.next := n^.next;
-	if last = n then if p = n then last := nil else last := p;
+	p^.next := n.next;
+	if last = @n then if p = @n then last := nil else last := @p;
       end;
     end;
   end;
@@ -96,12 +97,12 @@ implementation
     if last = nil then first := nil else first := last^.next;
   end;
 
-  function list.next( n : pnode ) : pnode;
+  function list.next( const n : pnode ) : pnode;
   begin
     if n = last then next := nil else next := n^.next;
   end;
 
-  function list.prev( n : pnode ) : pnode;
+  function list.prev( const n : pnode ) : pnode;
   begin
     if n = first then prev := nil else prev := n^.prev;
   end;
