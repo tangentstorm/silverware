@@ -1,21 +1,23 @@
 B4  = ~/b
 PROGS = ./progs
-UNITS = ./clean
+CLEAN = ./clean
 OTHER = ./other
 FPC = fpc  -Mobjfpc  -FE./bin -Fu$(B4) -Fi$(B4) \
-	   -Fu./units -Fi/other. -Fu./clean
+	   -Fu./units -Fi/other. -Fu./clean \
+	   -gl
 
 default: cedit
 
-bin/%.ppu: $(UNITS)/%.pas
+bin/%.ppu: $(CLEAN)/%.pas
 	$(FPC) $<
 
 bin/%: $(PROGS)/%.pas
 	$(FPC) $<
 
 
-clean:
-	rm *~ *.gpi *.o *.pyc
+cleanup:
+	@rm -f *~ *.gpi *.o *.pyc
+	@rm -f bin/*
 
 test:
 	echo "no tests yet... :("
