@@ -1,10 +1,10 @@
 {$i xpc}
-unit ll; { linked list }
+unit ll; { linked list support }
 interface uses xpc;
 
 type
   base	     = class
-    constructor new; virtual;
+    constructor init; virtual;
   end;
 
   pnode	     = ^node;
@@ -13,52 +13,86 @@ type
   end;
   listaction = procedure( var n : node );
 
+  {$ifdef FPC}
+  predicate	     = function( n : pNode ) : boolean is nested;
+  {$else}
+  predicate	     = function( n : pNode ) : Boolean;
+  {$endif}
+
   plist	     = ^list;
   list	     = class( base )
-    last : pnode;
-    constructor new; override;
-    procedure append( const n : node );
-    procedure insert( const n : node );
-    procedure remove( const n : node );
-    procedure foreachdo( what : listaction ); deprecated;
+   private
+    mLast, mFirst : pnode;
+   public constructor init; override;
+    procedure append( n : pnode );
+    procedure insert( n : pnode );
+    procedure remove( n : pnode );
     procedure foreach( what : listaction );
-    function empty : boolean;
+    function find( pred : predicate ) : pnode;
+    function is_empty: boolean;
     function first : pnode;
-    function next( const n : pnode ) : pnode;
-    function prev( const n : pnode ) : pnode;
+    function last : pNode;
+    function next( const n : pnode ) : pnode; deprecated;
+    function prev( const n : pnode ) : pnode; deprecated;
+
+    { -- old interface --}
+    function empty: boolean; deprecated;
+    procedure foreachdo( what : listaction ); deprecated;
+    //  procedure killall; deprecated;
   end;
+
+  var NullNode : pNode;
 
 implementation
 
   { empty base class }
-  constructor base.new;
+  constructor base.init;
   begin
   end;
 
-  constructor list.new;
+  constructor list.init;
   begin
-    last := nil;
+    mLast := nil;
   end;
 
-  procedure list.append( const n : node );
+  function List.find( pred : Predicate ) : pNode;
   begin
-    insert( n );
-    last := @n;
-  end;
+    if not self.is_empty then
+    begin
+      result := self.mFirst;
+      repeat result := result^.Next;
+      until pred( result ) or ( result = nil )
+    end
+    else result := nil
+  end; { find }
 
-  procedure list.insert( const n : node ); { be sure to change zmenu.add }
-  begin                              { if you change this!!! }
-    if last = nil then last := @n
-    else n.next := last^.next;
-    first^.prev := @n;
-    last^.next := @n;
-    n.prev := last;
-  end;
+
+  procedure List.insert(n: pNode);
+    { be sure to change zmenu.add IF you change this!!! }
+  begin
+    if mFirst = nil then
+    begin
+      mLast := n;
+      mFirst := n;
+    end
+    else
+    begin
+      n^.next := mFirst;
+      mFirst := n;
+      n^.prev := mFirst;
+    end;
+  end; { insert }
 
 
   procedure list.foreachdo( what : listaction ); inline; deprecated;
   begin foreach( what )
   end;
+
+  procedure list.append( n: pNode );
+  begin
+    self.insert( n );
+    mLast := n;
+  end; { append }
 
   procedure list.foreach( what : listaction );
     var p, q : pnode;
@@ -67,44 +101,64 @@ implementation
     while p <> nil do
     begin
       q := p;
-      p := next( p );
+      p := p^.next;
       what( q^ );
     end;
   end;
 
-  procedure list.remove( const n : node );
-    var p : pnode;
+
+  procedure List.remove(n: pNode);
+    var
+      p: pNode;
   begin
     if last <> nil then
     begin
       p := first;
-      while (p^.next <> @n) and (p^.next <> @last) do p := p^.next;
-      if p^.next = @n then
+      while (p^.next <> n) and (p^.next <> last) do
+	p := p^.next;
+      if p^.next = n then
       begin
-	p^.next := n.next;
-	if last = @n then if p = @n then last := nil else last := @p;
+	p^.next := n^.next;
+	if last = n then
+	begin
+	  if p = n then
+	    mLast := nil
+	  else
+	    mLast := p;
+	end;
       end;
     end;
+  end; { remove }
+
+  function list.empty : boolean; inline; deprecated;
+  begin result := self.is_empty;
+  end;
+  function list.is_empty : boolean;
+  begin result := mLast = nil;
   end;
 
-  function list.empty : boolean;
+  function list.first: pnode;
   begin
-    empty := last = nil;
-  end;
+    result := mFirst;
+  end; { first }
 
-  function list.first : pnode;
+  function list.last: pNode;
   begin
-    if last = nil then first := nil else first := last^.next;
+    result := mLast;
+  end; { last }
+
+
+  { i don't really see the point of these }
+  function list.next( const n: pnode ): pnode; inline; deprecated;
+  begin result := n^.next;
   end;
 
-  function list.next( const n : pnode ) : pnode;
-  begin
-    if n = last then next := nil else next := n^.next;
+
+  function list.prev( const n: pNode): pNode; inline; deprecated;
+  begin result := n^.prev;
   end;
 
-  function list.prev( const n : pnode ) : pnode;
-  begin
-    if n = first then prev := nil else prev := n^.prev;
-  end;
-
-end.
+
+begin
+  nullnode := new( pnode, create );
+end. { unit }
