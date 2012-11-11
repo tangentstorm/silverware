@@ -1,9 +1,9 @@
 Unit Crtstuff;
 Interface
 {$IFDEF FPC}
-uses dos, crt, fpcstuff, keyboard; { TODO video }
+uses stri, dos, crt, fpcstuff, keyboard; { TODO video }
 {$ELSE}
-uses dos, crt;
+uses stri, dos, crt;
 {$ENDIF}
 
 {note: (1,1) is ALWAYS top left corner of a screen or window }
@@ -33,12 +33,12 @@ Const
  ccolset  = ['k','b','g','c','r','m','y','w',
               'K','B','G','C','R','M','Y','W'];
  digits = ['0','1','2','3','4','5','6','7','8','9'];
-
+
 { string constants }
- Enter      = 'Ù';
+ Enter      = 'â”˜';
  BoNK       = '|WB|Go|WNK|Y!';
- Sterling   = '|KÄ|WS|wÅîâL³NG|KÄ';
- SilverWare = '|KÄ|WS|w³LVîâWêâî|KÄ';
+ Sterling   = '|Kâ”€|WS|wâ”¼ÎµÎ“Lâ”‚NG|Kâ”€';
+ SilverWare = '|Kâ”€|WS|wâ”‚LVÎµÎ“WÎ©Î“Îµ|Kâ”€';
 
 { cwrite commands }
  cwnotask     = $00;
@@ -69,7 +69,7 @@ Const
  numlockon      = $20;
  capslockon     = $40;
  inserton       = $80;
-
+
 Type
  ScreenType  = array[ 0..7999 ] of byte;          { 80x50 screen }
  VGAtype = array [ 0..319, 0..200 ] of byte;
@@ -78,7 +78,7 @@ Type
  Cel = array[ 0 .. 0 ] of byte;
  PCel = ^Cel;                                     { ^TextPicture }
  ScreenTypePtr = ^ScreenType;
-
+
 Var
  sw      : word;                                 { width of screen * 2}
  {$IFDEF TPC}
@@ -111,7 +111,7 @@ Var
  cwdigit3,                                       { 1st digit of n2 }
  cwdigit4 : char;                                { 2nd digit of n2 }
 
-{ þ string writing commands }
+{ â–  string writing commands }
  procedure colorxy ( a, b, c : byte; s : string );
  procedure colorxyv ( a, b, c : byte; s : string );
  procedure colorxyc ( a, b, c : byte; s : string );
@@ -125,7 +125,7 @@ Var
  Procedure StWritexy( a, b : byte; s : String );
  Function Boolchar( bool: boolean; t, f : char ) : Char;
 
-{ þ screen/window handling commands }
+{ â–  screen/window handling commands }
 { procedure setmode( mode : word );
  procedure settextheight( h : byte );  }
  procedure fillscreen( atch : word ); {ATTR then CHAR}
@@ -139,21 +139,23 @@ Var
  procedure scrollright(  x1, x2, y1, y2 : byte; offwhat : screentypeptr );
  procedure scrollrightoff( offwhat : screentypeptr );
 
-{ þ string formatting commands }
+{ â–  string formatting commands }
  function cLength( s : string ) : byte;                { length - color codes }
  function cstrip( s : string ) : string;
  function normaltext( s : string ) : string;
- function strtrunc( s : string; len : byte ) : string;
  function UpStr( s : string ) : String;
  function DnCase( ch : char ) : Char;
  function DnStr( s : string ) : String;
  function chntimes( c : char; n : byte ) : string;
  function flushrt( s : string; n : byte; ch : char ) : string;
- function padstr( s : string; len : byte; ch : char ) : string;
  function unpadstr( s : string; ch : char ) : string;
  function cpadstr( s : string; len : byte; ch : char ) : string;
 
-{ þ number/conversion commands }
+ // moved to stri.pas :
+ function padstr( s : string; len : byte; ch : char ) : string; deprecated;
+ function strtrunc( s : string; len : byte ) : string; deprecated;
+
+{ â–  number/conversion commands }
  function min( p, q : longint ) : longint;
  function max( p, q : longint ) : longint;
  function inc2( goesto, amt, max : longint ) : longint;
@@ -169,7 +171,7 @@ Var
  function power( a, b : longint ) : longint;
  function sgn( x : longint ) : shortint;
 
-{ þ ascii graphics }
+{ â–  ascii graphics }
  procedure txtline( a, b, x, y, c : byte );
  procedure Rectangle( a, b, x, y, c : byte );
  procedure Bar( a, b, x, y, at: byte );
@@ -180,11 +182,11 @@ Var
  procedure blackshadow( a1, b1, a2, b2 : byte );
  procedure stamp( a1, b1, a2, b2 : byte; pic : pcel );
 
-{ þ screen savers }
+{ â–  screen savers }
  procedure rnd;
  procedure rnd2;
 
-{ þ misc other commands }
+{ â–  misc other commands }
  procedure SetupCrt;
  procedure hitakey;
  procedure doscursoroff;
@@ -195,7 +197,7 @@ Var
  procedure doscursorshape( top, bottom : byte );
  procedure blinking( b : boolean );
  {$ENDIF}
-
+
  procedure getenter;
  function alt2normal( ch : char ) : char;
  function peekkey : char;  { doesn't work }
@@ -222,7 +224,7 @@ Var
 
 
 Implementation
-
+
  { origin: 0,0 }
  procedure setScreenData( x, y : byte; ch : char; attr : byte );
   var
@@ -236,7 +238,7 @@ Implementation
   end
  end;
 
-{ þ string writing commands }
+{ â–  string writing commands }
  procedure ColorXY( a, b, c : byte; s : string);
   var
    count : word;
@@ -268,7 +270,7 @@ Implementation
   begin
    colorxy( a + 1 - length( s ) div 2, b, c, s );
   end;
-
+
  procedure cwcommand( cn : byte; s : string );
   var
    ground : boolean;
@@ -357,7 +359,7 @@ Implementation
     cwrenegade : tcolor := s2n( s );
    end; { of case cn }
   end; { of cwcommand }
-
+
  procedure cwrite( s : string );
   var
    b : byte;
@@ -482,9 +484,7 @@ Implementation
   gotoxy( txmin+txpos-1, tymin+typos-1 );
   textattr := tcolor;
  end;
-
-
-
+
  procedure cwriteln( s : string );
   begin
    cwrite( s + #13 );
@@ -507,7 +507,7 @@ Implementation
   begin
    cwritexy( a + 1 - clength( s ) div 2, b, s );
   end;
-
+
  Procedure StWrite(S: string);
   var
     counter : byte;
@@ -517,7 +517,7 @@ Implementation
        case S[counter] of
         'a'..'z','0'..'9','A'..'Z',' ' : TColor := $0F;
         '[',']','(',')','{','}','<','>','"' : TColor := $09;
-        '°'..'ß' : TColor := $08;
+        'â–‘'..'â–€' : TColor := $08;
         else TColor := $07;
        end;
        cwrite(s[counter]);
@@ -535,13 +535,13 @@ Implementation
    typos := b;
    stwrite( s );
   end;
-
+
  Function Boolchar( bool: boolean; t, f : char ) : Char;
   begin
    if bool then boolchar := t else boolchar := f;
   end;
 
-{ þ screen/window handling commands }
+{ â–  screen/window handling commands }
 {
  procedure setmode( mode : word );
   begin
@@ -557,7 +557,7 @@ Implementation
    { you wind up with giant gaps between the letters }
    { portw[$3D4] := h * 256 + 9; }
   end;
-
+
  procedure FillScreen( atch : word ); {ATTR then CHAR}
   var
     count : word;
@@ -585,7 +585,7 @@ Implementation
    do
     colorxy( a1, count, a, s );
   end;
-
+
  procedure slidedown( x1, x2, y1, y2 : byte; offwhat : screentypeptr );
   var
    count, count2 : byte;
@@ -611,7 +611,7 @@ Implementation
   begin
    slidedown( 1, 80, 1, 25, offwhat );
   end;
-
+
  procedure scrollup1( x1, x2, y1, y2 : byte; offwhat : screentypeptr );
   var
    count : byte;
@@ -650,7 +650,7 @@ Implementation
        move( offwhat^[ (sw*y1)+(x1*2) ], writeto^[ (sw*y1)+(x1*2) ], len );
     end;
 
-
+
 
  procedure scrolldown( x1, x2, y1, y2 : byte; offwhat : screentypeptr );
   var
@@ -679,7 +679,7 @@ Implementation
   begin
    slidedown( 1, 80, 1, 25, offwhat );
   end;
-
+
  procedure scrollright(  x1, x2, y1, y2 : byte; offwhat : screentypeptr );
   var
    count, count2 : byte;
@@ -704,7 +704,7 @@ Implementation
 
 
 
-{ þ string formatting commands }
+{ â–  string formatting commands }
 
  function clength( s : string ) : byte;
   var
@@ -728,7 +728,7 @@ Implementation
      end;
    clength := c;
   end;
-
+
  function cstrip( s : string ) : string;
   var
    i : byte;
@@ -753,7 +753,7 @@ Implementation
    cstrip := c;
   end;
 
-
+
  function normaltext( s : string ) : string;
    var
     c : byte;
@@ -770,10 +770,9 @@ Implementation
      normaltext := t;
    end;
 
- function strtrunc( s : string; len : byte ) : string;
+  function strtrunc( s : string; len : byte ) : string; inline;
   begin
-   if ord( s[ 0 ] ) > len then s[ 0 ] := chr( len );
-   strtrunc := s;
+    result := stri.trunc( s, len );
   end;
 
  function upstr( s : string ) : string;
@@ -824,11 +823,9 @@ Implementation
    flushrt := s;
   end;
 
- function padstr( s : string; len : byte; ch : char ) : string;
+  function padstr( s : string; len : byte; ch : char ) : string; inline;
   begin
-   if length( s ) > len then s := strtrunc( s, len );
-   while length( s ) < len do s := s + ch;
-   padstr := s;
+    result := stri.pad( s, len, ch );
   end;
 
  function unpadstr( s : string; ch : char ) : string;
@@ -844,7 +841,7 @@ Implementation
    cpadstr := s;
   end;
 
-{ þ number/conversion commands }
+{ â–  number/conversion commands }
 
  function min( p, q : longint ) : longint;
   begin
@@ -877,7 +874,7 @@ Implementation
     from := min;
     dec2 := from;
   end;
-
+
  function incwrap( goesto, amt, min, max : longint ) : longint;
   begin
    if
@@ -915,7 +912,7 @@ Implementation
     x := min;
     stepwrap := x;
   end;
-
+
  function h2s( w : word ) : string;
   var
    h : string;
@@ -945,7 +942,7 @@ Implementation
     end;
    s2h := v;
   end;
-
+
  function n2s( x : longint ) : string;
   var
    s : string;
@@ -961,7 +958,7 @@ Implementation
     val( s, i, e );
     if e <> 0 then s2n := 0 else s2n := i;
   End;
-
+
  function truth( p : longint ) : byte;
   begin
    if
@@ -984,7 +981,7 @@ Implementation
      d := d * a;
    power := d;
   end;
-
+
 function sgn( x : longint ) : shortint;
  begin
   if x > 0 then sgn :=  1;
@@ -992,39 +989,39 @@ function sgn( x : longint ) : shortint;
   if x < 0 then sgn := -1;
  end;
 
-{ þ ascii graphics }
+{ â–  ascii graphics }
 
 procedure txtline( a, b, x, y, c : byte );
  begin
   if
    a = x
   then
-   colorxyv( a, b, c, chntimes( '³',  y - b + 1 ) )
+   colorxyv( a, b, c, chntimes( 'â”‚',  y - b + 1 ) )
   else
    if
     b = y
    then
-    colorxy( a, b, c, chntimes( 'Ä', x - a + 1 ) );
+    colorxy( a, b, c, chntimes( 'â”€', x - a + 1 ) );
  end;
-
+
 Procedure Rectangle( a, b, x, y, c : byte);
  var
   count : byte;
  begin
   for count := a + 1 to x - 1 do
    begin
-    ColorXY( count, b, c, 'Ä' );
-    ColorXY( count, y, c, 'Ä' );
+    ColorXY( count, b, c, 'â”€' );
+    ColorXY( count, y, c, 'â”€' );
    end;
   for count := B+1 to Y-1 do
    begin
-    ColorXY( a, count, c, '³' );
-    ColorXY( x, count, c, '³' );
+    ColorXY( a, count, c, 'â”‚' );
+    ColorXY( x, count, c, 'â”‚' );
    end;
-  ColorXY( a, b, c, 'Ú' );
-  ColorXY( a, y, c, 'À' );
-  ColorXY( x, b, c, '¿' );
-  ColorXY( x, y, c, 'Ù' );
+  ColorXY( a, b, c, 'â”Œ' );
+  ColorXY( a, y, c, 'â””' );
+  ColorXY( x, b, c, 'â”' );
+  ColorXY( x, y, c, 'â”˜' );
  end;
 
 Procedure Bar(a,b,x,y,at: byte);
@@ -1036,7 +1033,7 @@ Procedure Bar(a,b,x,y,at: byte);
       For cx := a +1 to x-1 do
         Colorxy(cx,cy,at,' ');
   End;
-
+
 procedure metalbar( a1, b1, a2, b2 : byte );
  var
   i, w, c  : byte;
@@ -1045,13 +1042,13 @@ procedure metalbar( a1, b1, a2, b2 : byte );
   c := tcolor;
   w := a2 - a1 - 1;
   z := chntimes( ' ', w );
-  cwritexy( a1, b1, '|W|!wÛ' + chntimes( 'ß', w ) + '|KÛ');
+  cwritexy( a1, b1, '|W|!wâ–ˆ' + chntimes( 'â–€', w ) + '|Kâ–ˆ');
   for i := 2 to b2 - b1 do
    begin
-    colorxy( a1, b1 + i, $7F ,'Û' + z );
-    colorxy( a2, b1 + i, $78, 'Û' );
+    colorxy( a1, b1 + i, $7F ,'â–ˆ' + z );
+    colorxy( a2, b1 + i, $78, 'â–ˆ' );
    end;
-  cwritexy( a1, b2, '|W|!wÛ|K' + chntimes( 'Ü', w ) + '|KÛ');
+  cwritexy( a1, b2, '|W|!wâ–ˆ|K' + chntimes( 'â–„', w ) + '|Kâ–ˆ');
   greyshadow(a1,b1+1,a2,b2+1);
   tcolor := c;
  end;
@@ -1061,26 +1058,24 @@ procedure metalbox( a1, b1, a2, b2 : byte );
   i, w  : byte;
  begin
   w := a2 - a1 - 1;
-  cwritexy( a1, b1, '|W~wÛ' + chntimes( 'ß', w ) + '|KÛ');
+  cwritexy( a1, b1, '|W~wâ–ˆ' + chntimes( 'â–€', w ) + '|Kâ–ˆ');
   for i := 1 to b2 - b1 - 1 do
    begin
-    colorxy( a1, b1 + i, $7F ,'Û' );
-    colorxy( a2, b1 + i, $78, 'Û' );
+    colorxy( a1, b1 + i, $7F ,'â–ˆ' );
+    colorxy( a2, b1 + i, $78, 'â–ˆ' );
    end;
-  cwritexy( a1, b2, '|W~wÛ|K' + chntimes( 'Ü', w ) + '|KÛ');
+  cwritexy( a1, b2, '|W~wâ–ˆ|K' + chntimes( 'â–„', w ) + '|Kâ–ˆ');
  end;
-
-
-
+
 Procedure Button(A1,B1,A2,B2 : byte);
  Var
   Count : Byte;
  Begin
   Bar(A1,B1,A2,B2,$70);
-  For Count := A1 to A2-1 do ColorXY(Count,B1,$7F,'Ä');
-  For Count := B1 to B2-1 do ColorXY(A1,Count,$7F,'³');
-  ColorXY(A1,B1,$7F,'Ú');
-  ColorXY(A1,B2,$7F,'À');
+  For Count := A1 to A2-1 do ColorXY(Count,B1,$7F,'â”€');
+  For Count := B1 to B2-1 do ColorXY(A1,Count,$7F,'â”‚');
+  ColorXY(A1,B1,$7F,'â”Œ');
+  ColorXY(A1,B2,$7F,'â””');
  End;
 
 procedure greyshadow( a1, b1, a2, b2 : byte );
@@ -1101,7 +1096,7 @@ procedure greyshadow( a1, b1, a2, b2 : byte );
    do
     writeto^[ (a2 * 2) + 1 + ( b1 + i ) * sw ] := $08;
  end;
-
+
 procedure blackshadow( a1, b1, a2, b2 : byte );
  begin
   colorxy ( a1 + 1, b2 + 1, $0F, chntimes( ' ', a2 - a1 ) );
@@ -1118,7 +1113,7 @@ procedure stamp( a1, b1, a2, b2 : byte; pic : pcel );
     move( pic^[ ( i * w * 2 ) ], writeto^[(( b1 + i ) * sw ) + ( a1 * 2 )], w * 2 );
  end;
 
-{ þ screen savers }
+{ â–  screen savers }
 
 procedure rnd;
  var
@@ -1138,7 +1133,7 @@ procedure rnd;
                                 ctrlpressed or altpressed ) = 0;
   screen := tmp;
  end;
-
+
 procedure rnd2;
  var
   tmp : screentype;
@@ -1173,7 +1168,7 @@ procedure rnd2;
  end;
 
 
-{ þ misc other commands }
+{ â–  misc other commands }
 
 Procedure SetUpCrt;
  Begin
@@ -1197,7 +1192,7 @@ Procedure HitAKey;
   txpos := 1;
   tcolor := tc;
  end;
-
+
 {$IFDEF FPC}
 procedure doscursoroff;
   begin
@@ -1213,50 +1208,46 @@ procedure doscursorbig;
  begin
   crt.cursorbig;
  end;
-
+
 {$ELSE}
-
-procedure doscursoroff;
-  Begin
-   asm
-     mov ah, $01;
-     mov ch, $FF;
-     mov cl, $FF;
-     int 10h
-   end;
+  procedure doscursoroff;
+  begin asm
+    mov ah, $01;
+    mov ch, $FF;
+    mov cl, $FF;
+    int 10h
+    end;
   end;
 
-procedure doscursoron;
- begin
-  doscursorshape( 7, 8 );
- end;
-
-procedure doscursorbig;
- begin
-  doscursorshape( 1, 8 );
- end;
-
-procedure doscursorshape( top, bottom :  byte );
- begin
-  asm
-   mov AH,$01;
-   mov CH,Top;
-   mov CL,Bottom;
-   int 10h;
+  procedure doscursoron;
+  begin
+    doscursorshape( 7, 8 );
   end;
- end;
 
-procedure blinking( b : boolean );
- begin
-  asm
-   mov ah,$10;
-   mov al,$03;
-   mov bl,b;
-   int 10h;
+  procedure doscursorbig;
+  begin
+    doscursorshape( 1, 8 );
   end;
- end;
+
+  procedure doscursorshape( top, bottom :  byte );
+  begin asm
+    mov AH,$01;
+    mov CH,Top;
+    mov CL,Bottom;
+    int 10h;
+    end;
+  end;
+
+  procedure blinking( b : boolean );
+  begin asm
+    mov ah,$10;
+    mov al,$03;
+    mov bl,b;
+    int 10h;
+    end;
+  end;
 {$ENDIF}
-
+
 procedure getenter;
  begin
   repeat until enterpressed;
@@ -1292,7 +1283,7 @@ function peekkey : char;
   else
    peekkey := #255;
  end;
-
+
 {$IFDEF FPC}
 function shiftstate : byte;
  var e : keyboard.TKeyEvent;
@@ -1311,7 +1302,7 @@ function shiftstate : byte;
   shiftstate := rgs.al;
  end;
 {$ENDIF}
-
+
 function enterpressed : boolean;
  var
   ch : Char;
@@ -1328,7 +1319,7 @@ function yesno : boolean;
  begin
   yesno := upcase( readkey ) = 'Y';
  end;
-
+
 function wordn( s : string; index:  byte ) : string;
  var
   c, c2, j : byte;
@@ -1356,7 +1347,7 @@ function nwords( s : string ) : byte;
    end;
   nwords := n;
  end;
-
+
 function time : string;
  var
   h, m, s, n : word;
@@ -1380,7 +1371,7 @@ function date : string;
           flushrt( n2s( d ), 4, '0' ) +
           flushrt( n2s( y ), 4, '0' );
  end;
-
+
 function stardate : string;  { Sat 1218.93 12:40:00 }
  var
   w,mo,d,y,h,h2,mi,s,n: word;
@@ -1401,7 +1392,7 @@ function stardate : string;  { Sat 1218.93 12:40:00 }
   stardate := sdate;
  end;
 
-
+
 procedure error( msg : string );
  begin
   crt.textmode( 3 );
@@ -1427,7 +1418,7 @@ function paramline : string;
   s := s + paramstr( i )+ ' ';
   paramline := s;
  end;
-
+
 procedure installfont( fontseg, fontofs : word );
  Begin
   (* TODO: installfont
@@ -1465,7 +1456,7 @@ procedure installfont( fontseg, fontofs : word );
  end; {asm}
  *)
 End;
-
+
 procedure installfont2( fontseg, fontofs : word );
  Begin
    fontofs := fontofs + 16;
@@ -1501,7 +1492,7 @@ procedure installfont2( fontseg, fontofs : word );
    pop     bp                  { restore bp }
  end; {asm}
 End;
-
+
  procedure loadfont( s : string );
   var
    f: file;
@@ -1513,7 +1504,7 @@ End;
    close( f );
    installfont(seg(t),ofs(t));
   end;
-
+
 const
     Vga90: array [1..9] of word = (
         $6B00,$5901,$5A02,$8E03,$6004,$8D05,$2D13,$0101,$0800);
@@ -1545,7 +1536,7 @@ asm
         out     dx,al
         out     dx,al  }
 end;
-
+
 {$IFDEF FPC}
 function keypressed : boolean;
 begin
@@ -1574,7 +1565,7 @@ begin
 end;
 
 {$ENDIF}
-
+
 begin
  sw := 160;
  new(dosScreen);
@@ -1594,6 +1585,6 @@ begin
  cwcurrenttask := cwnotask;
  cwnchexpected := 0;
  cursoron := false;
- cursorattr := lightred * 16 + ord('þ');
+ cursorattr := lightred * 16 + ord('â– ');
  WriteTo := @screen;
 end.
