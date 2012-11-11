@@ -277,8 +277,8 @@ begin
   randseed := 193;
   //  doscursoroff;
   //  setupcrt;
-  colorxy(1,13,1,chntimes('Ä',80));
-  colorxyc( 40, 6, 7, 'Loading...');
+  colorxy( 1, 13, 1, stri.ntimes( 'â”€', 80 ));
+  colorxyc( 40, 6, 7, 'Loading...' );
 
   ed := listeditor.init;
 
