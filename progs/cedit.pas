@@ -1,6 +1,6 @@
 {$i xpc.inc }
 program cedit;
-uses xpc, ll, fs, stri, num; {,crtstuff,crt,filstuff,zokstuff; }
+uses xpc, ll, fs, stri, num, cw, crt; {,crtstuff,crt,filstuff,zokstuff; }
 
   type
     //  duplicated in vuestuff
@@ -15,22 +15,20 @@ uses xpc, ll, fs, stri, num; {,crtstuff,crt,filstuff,zokstuff; }
       //   work	  : screentype;
       topline, bottomline : pnode;
       constructor init; override;
-      //   procedure show; virtual;
+      procedure show;
       //   procedure arrowup; virtual;
       //   procedure arrowdown; virtual;
-      procedure home; virtual;
+      procedure home;
       //   procedure _end; virtual;
       //   procedure pageup; virtual;
       //   procedure pagedown; virtual;
-      procedure run; virtual;
+      procedure run;
     end;
     listeditor = class ( listviewer )
       //  lightbar : pnode;
       constructor init; override;
-      //  procedure show; virtual;
       //  procedure arrowup; virtual;
       //  procedure arrowdown; virtual;
-      procedure home; override;
       //  procedure _end; virtual;
     end;
 
@@ -51,16 +49,18 @@ uses xpc, ll, fs, stri, num; {,crtstuff,crt,filstuff,zokstuff; }
     //  lightbar := nil;
   end;
 
-{
- procedure listviewer.show;
+  procedure listviewer.show;
   begin
-   if topline = nil then home;
-    cwritexy(65,1, '|B[|C'+flushrt(n2s(thisline),6,'.')+
-                   '|w/|c'+nlstring+'|B]' );
-    writeto := @screen;
-    screen := work;
+    if self.topline = nil then home;
+    cwritexy( 1, 1,
+	     '|B[|C' + flushrt( n2s( self.thisline ), 6, '.') +
+	     '|w/|c' + nlstring + '|B]' );
+    //  writeto := @screen;
+    //  screen := work;
   end;
+
 
+{
  procedure listviewer.arrowup;
   begin
    if topline <> first then
@@ -107,10 +107,10 @@ uses xpc, ll, fs, stri, num; {,crtstuff,crt,filstuff,zokstuff; }
     //  vt.typos := y1;
     for c := y1 to y2-1 do
       if bottomline^.next <> first then begin
-	{c}writeln( '|w' + pstringobj( bottomline )^.s );
+	cwriteln( '|w' + pstringobj( bottomline )^.s );
 	self.bottomline := self.bottomline^.next;
       end;
-   //  self.show;
+    self.show;
   end;
 
 {
@@ -156,11 +156,10 @@ uses xpc, ll, fs, stri, num; {,crtstuff,crt,filstuff,zokstuff; }
     var done : boolean = false;
   begin
     self.home;
-    { 
     repeat
-      if keypressed then case readkey of
-	#27 : done := true;
-	#0  : case readkey of
+      if crt.keypressed then case crt.readkey of
+	#27, ^C : done := true;
+	#0  : case crt.readkey of
 		#72 :; //  arrowup; // when you press the UP arrow!
 		#80 :; //  arrowdown; // when you press the DOWN arrow!
 		#71 :; //  home;
@@ -170,7 +169,6 @@ uses xpc, ll, fs, stri, num; {,crtstuff,crt,filstuff,zokstuff; }
 	      end
       end
     until done;
-    }
   end;
 
   constructor listeditor.init;
@@ -179,17 +177,8 @@ uses xpc, ll, fs, stri, num; {,crtstuff,crt,filstuff,zokstuff; }
     y1 := 1;
     y2 := 12;
   end;
+
 {
-
- procedure listeditor.show;
-  begin
-   if topline = nil then home;
-    cwritexy(65,13, '|B[|C'+flushrt(n2s(thisline),6,'.')+
-                   '|w/|c'+nlstring+'|B]' );
-    writeto := @screen;
-    screen := work;
-  end;
-
  procedure listeditor.arrowup;
   begin
    if topline <> first then
@@ -226,25 +215,7 @@ uses xpc, ll, fs, stri, num; {,crtstuff,crt,filstuff,zokstuff; }
     end;
   end;
 }
-  procedure listeditor.home;
-    var
-      c	: byte;
-  begin
-    //  if first = nil then exit;
-    //  thisline := 1;
-    //  topline := first;
-    //  bottomline := topline;
-    //  writeto := @work;
-    //  fillbox(1,y1,80,y2,$0F20);
-    //  txpos := 1; typos := y1;
-    //  for c := y1 to y2-1 do
-    //    if bottomline^.next <> first then
-    //    begin
-    //  	cwriteln('|w'+pstringobj(bottomline)^.s);
-    //  	bottomline := bottomline^.next;
-    //  end;
-    //  show;
-  end;
+
 {
  procedure listeditor._end;
   var
@@ -277,6 +248,7 @@ end;
 
 }
 
+//  never used
 FUNCTION Cipher (St, Passwd: String): String;
 VAR
    SPtr, PPtr: Integer;
@@ -301,11 +273,12 @@ var
   done	  : boolean;
 
 begin
+  crt.clrscr;
   randseed := 193;
   //  doscursoroff;
   //  setupcrt;
-  //  colorxy(1,13,1,chntimes('Ä',80));
-  //  colorxyc( 40, 6, 7, 'Loading...');
+  colorxy(1,13,1,chntimes('Ä',80));
+  colorxyc( 40, 6, 7, 'Loading...');
 
   ed := listeditor.init;
 
@@ -315,6 +288,7 @@ begin
     reset( txt );
     while not eof( txt ) do begin
       readln( txt, s );
+      // writeln( s );
       inc( ed.numlines ); //  move to listviewer.append
       ed.append( new( pstringobj, fromstring( s )));
     end;
