@@ -27,14 +27,15 @@ test:
 
 #-- units -------------------------------------
 
-ll: bin/ll.ppu
-fs: stri bin/fs.ppu
+ll:   bin/ll.ppu
+cw:   bin/cw.ppu
+fs:   bin/fs.ppu       stri
 stri: bin/stri.ppu
 num:  bin/num.ppu
 
 #-- progs -------------------------------------
 
-cedit: ll fs num bin/cedit
-	@bin/cedit Makefile
+cedit: bin/cedit   cw fs ll num stri
+	@bin/cedit README.org
 	@echo ok
 
