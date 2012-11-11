@@ -1,8 +1,9 @@
 B4  = ~/b
-FPC = fpc -Fu./units -Fi/other. -Mobjfpc  -FE./bin -Fu$(B4) -Fi$(B4)
 PROGS = ./progs
 UNITS = ./clean
 OTHER = ./other
+FPC = fpc  -Mobjfpc  -FE./bin -Fu$(B4) -Fi$(B4) \
+	   -Fu./units -Fi/other. -Fu./clean
 
 default: cedit
 
@@ -24,10 +25,11 @@ test:
 ll: bin/ll.ppu
 fs: stri bin/fs.ppu
 stri: bin/stri.ppu
+num:  bin/num.ppu
 
 #-- progs -------------------------------------
 
-cedit: ll fs bin/cedit
+cedit: ll fs num bin/cedit
 	@bin/cedit Makefile
 	@echo ok
 

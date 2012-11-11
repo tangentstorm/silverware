@@ -146,16 +146,16 @@ Var
  function UpStr( s : string ) : String;
  function DnCase( ch : char ) : Char;
  function DnStr( s : string ) : String;
- function chntimes( c : char; n : byte ) : string;
- function flushrt( s : string; n : byte; ch : char ) : string;
  function unpadstr( s : string; ch : char ) : string;
  function cpadstr( s : string; len : byte; ch : char ) : string;
 
  // moved to stri.pas :
+ function chntimes( c : char; n : byte ) : string; deprecated;
+ function flushrt( s : string; n : byte; ch : char ) : string; deprecated;
  function padstr( s : string; len : byte; ch : char ) : string; deprecated;
  function strtrunc( s : string; len : byte ) : string; deprecated;
 
-{ ■ number/conversion commands }
+{ ■ number/conversion commands  : moved to num.pas }
  function min( p, q : longint ) : longint;
  function max( p, q : longint ) : longint;
  function inc2( goesto, amt, max : longint ) : longint;
@@ -797,35 +797,23 @@ Implementation
  function dnstr( s : string ) : string;
   var
    count : Byte;
-  begin
+ begin
    for count := 1 to length( s ) do
     s[ count ] := dncase( s[ count ] );
    dnstr := s;
-   end;
+ end;
 
 
- function chntimes( c : char; n : byte ) : string;
-  var
-   i : byte;
-   s : string;
-  begin
-   s := '';
-   if n <> 0 then for i := 1 to n do s := s + c;
-   chntimes := s;
+  function chntimes( c : char; n : byte ) : string; inline;
+  begin result := stri.chntimes( c, n );
   end;
 
- function flushrt( s : string; n : byte; ch : char ) : string;
-  begin
-   if
-    clength( s ) < n
-   then
-    insert( chntimes( ch, n-clength(s)), s, 1 );
-   flushrt := s;
+  function flushrt( s : string; n : byte; ch : char ) : string; inline;
+  begin result := stri.flushrt( s, n, ch );
   end;
 
   function padstr( s : string; len : byte; ch : char ) : string; inline;
-  begin
-    result := stri.pad( s, len, ch );
+  begin result := stri.pad( s, len, ch );
   end;
 
  function unpadstr( s : string; ch : char ) : string;
@@ -840,154 +828,64 @@ Implementation
    while clength( s ) < len do s := s + ch;
    cpadstr := s;
   end;
-
+
 { ■ number/conversion commands }
 
- function min( p, q : longint ) : longint;
-  begin
-   if p > q then min := q else min := p;
+  function min( p, q : longint ) : longint; inline;
+  begin result := num.min( p, q )
   end;
 
- function max( p, q : longint ) : longint;
-  begin
-   if p < q then max := q else max := p;
+  function max( p, q : longint ) : longint; inline;
+  begin result := num.max( p, q )
   end;
 
- function Inc2( goesto, amt, max : longint ) : longint;
-  begin
-   if
-    goesto + amt <= max
-   then
-    Inc( goesto, amt )
-   else
-    goesto := max;
-    inc2 := goesto;
+  function Inc2( goesto, amt, max : longint ) : longint; inline;
+  begin result := num.inc2( goesto, amt, max )
   end;
 
- function dec2( from, amt, min : longint ) : longint;
-  begin
-   if
-    from - amt >= min
-   then
-    dec( from, amt )
-   else
-    from := min;
-    dec2 := from;
-  end;
-
- function incwrap( goesto, amt, min, max : longint ) : longint;
-  begin
-   if
-    goesto + amt <= max
-   then
-    Inc( goesto, amt )
-   else
-    goesto := min;
-    incwrap := goesto;
+  function dec2( from, amt, min : longint ) : longint; inline;
+  begin result := num.dec2( from, amt, min )
   end;
 
- function decwrap( from, amt, min, max : longint ) : longint;
-  begin
-   if
-    from - amt >= min
-   then
-    dec( from, amt )
-   else
-    from := max;
-    decwrap := from;
+  function incwrap( goesto, amt, min, max : longint ) : longint; inline;
+  begin result := num.incwrap( goesto, amt, min, max : longint );
   end;
 
- function stepwrap( x, amt, min, max : longint ) : longint;
-  begin
-   if
-    x + amt <= max
-   then
-    if
-     x + amt >= min
-    then
-     x := x + amt
-    else
-     x := max
-   else
-    x := min;
-    stepwrap := x;
-  end;
-
- function h2s( w : word ) : string;
-  var
-   h : string;
-  begin
-   h := '0123456789ABCDEF';
-   h2s := '$' + h[ w shr 12 and $000F + 1 ] +
-                h[ w shr  8 and $000F + 1 ] +
-                h[ w shr  4 and $000F + 1 ] +
-                h[ w mod 16 + 1 ];
+  function decwrap( from, amt, min, max : longint ) : longint; inline;
+  begin result := num.decwrap( from, amt, min, max : longint );
   end;
 
- function s2h( s : string ) : word;
-  var
-   c : byte;
-   v : word;
-  begin
-   v := 0;
-   if s[ 1 ] = '$' then delete( s, 1, 1 );
-   for c := 1 to length( s ) do
-    begin
-     v := v shl 4;
-     case s[ 1 ] of
-      '0'..'9' : v := v + ord( s[1] ) - 48;
-      'A'..'F' : v := v + ord( s[1] ) - 55;  { ord('A') -55 = 10 }
-     end;
-     delete( s, 1, 1 );
-    end;
-   s2h := v;
-  end;
-
- function n2s( x : longint ) : string;
-  var
-   s : string;
-  begin
-   str( x, s );
-   n2s := s;
+  function stepwrap( x, amt, min, max : longint ) : longint; inline;
+  begin result := num.stepwrap( x, amt, min, max : longint );
   end;
 
- function s2n( s : String ) : longint;
-  var
-    i, e : Integer;
-  Begin
-    val( s, i, e );
-    if e <> 0 then s2n := 0 else s2n := i;
+  function h2s( w : word ) : string; inline;
+  begin result := num.h2s( w : word );
+  end;
+
+  function s2h( s : string ) : word; inline;
+  begin result := num.s2h( s : string );
+  end;
+  
+  function n2s( x : longint ) : string; inline;
+  begin result := num.n2s( x : longint );
+  end;
+
+  function s2n( s : String ) : longint; inline;
+  Begin result := num.s2n( s : String )
   End;
-
- function truth( p : longint ) : byte;
-  begin
-   if
-    boolean( p )
-   then
-    truth := 1
-   else
-    truth := 0;
+
+  function truth( p : longint ) : byte; inline;
+  begin result := num.truth( p : longint );
   end;
 
- function power( a, b : longint ) : longint;
-  var
-   c, d : longint;
-  begin
-   d := 1;
-   if
-    b > 0
-   then
-    for c := 1 to b do
-     d := d * a;
-   power := d;
+  function power( a, b : longint ) : longint; inline;
+  begin result := num.power( a, b : longint );
   end;
-
-function sgn( x : longint ) : shortint;
- begin
-  if x > 0 then sgn :=  1;
-  if x = 0 then sgn :=  0;
-  if x < 0 then sgn := -1;
- end;
+
+  function sgn( x : longint ) : shortint; inline;
+  begin result := num.sgn( x : longint );
+  end;
 
 { ■ ascii graphics }
 
