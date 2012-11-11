@@ -9,10 +9,13 @@ FPC = fpc  -Mobjfpc  -FE./bin -Fu$(B4) -Fi$(B4) \
 default: cedit
 
 bin/%.ppu: $(CLEAN)/%.pas
+	@mkdir -p bin
 	$(FPC) $<
 
 bin/%: $(PROGS)/%.pas
+	@mkdir -p bin
 	$(FPC) $<
+
 
 
 cleanup:
