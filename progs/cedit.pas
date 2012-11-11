@@ -1,19 +1,20 @@
+{$i xpc.inc }
 program cedit;
-uses ll, fs, stri, num; {,crtstuff,crt,filstuff,zokstuff; }
+uses xpc, ll, fs, stri, num; {,crtstuff,crt,filstuff,zokstuff; }
 
   type
     //  duplicated in vuestuff
     pstringobj = ^stringobj;
     stringobj  = class ( node )
       s	: string[ 180 ];
-      constructor new( st : string );
+      constructor fromstring( st : string );
     end;
     listviewer = class( list )
       thisline, numlines  : longint;
       y1, y2		  : integer;
       //   work	  : screentype;
       topline, bottomline : pnode;
-      constructor new; override;
+      constructor init; override;
       //   procedure show; virtual;
       //   procedure arrowup; virtual;
       //   procedure arrowdown; virtual;
@@ -25,7 +26,7 @@ uses ll, fs, stri, num; {,crtstuff,crt,filstuff,zokstuff; }
     end;
     listeditor = class ( listviewer )
       //  lightbar : pnode;
-      constructor new; override;
+      constructor init; override;
       //  procedure show; virtual;
       //  procedure arrowup; virtual;
       //  procedure arrowdown; virtual;
@@ -35,13 +36,13 @@ uses ll, fs, stri, num; {,crtstuff,crt,filstuff,zokstuff; }
 
   var nlstring : string[ 6 ];
 
-  constructor stringobj.new( st : string );
+  constructor stringobj.fromstring( st : string );
   begin self.s := st;
   end;
 
-  constructor listviewer.new;
+  constructor listviewer.init;
   begin
-    inherited.new;
+    inherited;
     y1 := 2;
     y2 := 24;
     //  work := screen;
@@ -106,7 +107,7 @@ uses ll, fs, stri, num; {,crtstuff,crt,filstuff,zokstuff; }
     //  vt.typos := y1;
     for c := y1 to y2-1 do
       if bottomline^.next <> first then begin
-	{c}writeln( '|w' +pstringobj( bottomline )^.s );
+	{c}writeln( '|w' + pstringobj( bottomline )^.s );
 	self.bottomline := self.bottomline^.next;
       end;
    //  self.show;
@@ -172,11 +173,11 @@ uses ll, fs, stri, num; {,crtstuff,crt,filstuff,zokstuff; }
     }
   end;
 
-  constructor listeditor.new;
+  constructor listeditor.init;
   begin
-    listviewer.new;
-    self.y1 := 1;
-    self.y2 := 12;
+    inherited;
+    y1 := 1;
+    y2 := 12;
   end;
 {
 
@@ -306,7 +307,7 @@ begin
   //  colorxy(1,13,1,chntimes('Ä',80));
   //  colorxyc( 40, 6, 7, 'Loading...');
 
-  ed := listeditor.new;
+  ed := listeditor.init;
 
   path := paramstr( 1 );
   if fs.exists( path ) then begin
@@ -314,8 +315,8 @@ begin
     reset( txt );
     while not eof( txt ) do begin
       readln( txt, s );
-      inc( ed.numlines ); //  move to listeditor
-      ed.append( stringobj.new( s ) );
+      inc( ed.numlines ); //  move to listviewer.append
+      ed.append( new( pstringobj, fromstring( s )));
     end;
     close( txt );
   end;
