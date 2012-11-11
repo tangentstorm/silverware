@@ -10,26 +10,26 @@ uses xpc, ll, fs, stri, num, cw, crt; {,crtstuff,crt,filstuff,zokstuff; }
       constructor fromstring( st : string );
     end;
     listviewer = class( list )
+      lightbar : pnode;
       thisline, numlines  : longint;
       y1, y2		  : integer;
       //   work	  : screentype;
       topline, bottomline : pnode;
       constructor init; override;
       procedure show;
-      //   procedure arrowup; virtual;
-      //   procedure arrowdown; virtual;
+      procedure arrowup; virtual;
+      procedure arrowdown; virtual;
       procedure home;
-      //   procedure _end; virtual;
-      //   procedure pageup; virtual;
-      //   procedure pagedown; virtual;
+      procedure _end; virtual;
+      procedure pageup; virtual;
+      procedure pagedown; virtual;
       procedure run;
     end;
     listeditor = class ( listviewer )
-      //  lightbar : pnode;
       constructor init; override;
-      //  procedure arrowup; virtual;
-      //  procedure arrowdown; virtual;
-      //  procedure _end; virtual;
+      procedure arrowup; override;
+      procedure arrowdown; override;
+      procedure _end; override;
     end;
 
   var nlstring : string[ 6 ];
@@ -46,7 +46,7 @@ uses xpc, ll, fs, stri, num, cw, crt; {,crtstuff,crt,filstuff,zokstuff; }
     //  work := screen;
     topline := nil;
     bottomline := nil;
-    //  lightbar := nil;
+    lightbar := nil;
   end;
 
   procedure listviewer.show;
@@ -60,39 +60,39 @@ uses xpc, ll, fs, stri, num, cw, crt; {,crtstuff,crt,filstuff,zokstuff; }
   end;
 
 
-{
- procedure listviewer.arrowup;
+
+  procedure listviewer.arrowup;
   begin
-   if topline <> first then
+    if topline <> first then
     begin
-     dec(thisline);
-     topline := topline^.prev;
-     bottomline := bottomline^.prev;
-     writeto := @work;
-     scrolldown1(1,80,y1,y2,nil);
-     typos := y1; tcolor := 7;
-     cwrite(pstringobj(topline)^.s);
-     cwriteln('|%');
-     show;
+      dec(thisline);
+      topline := topline^.prev;
+      bottomline := bottomline^.prev;
+      //  writeto := @work;
+      //  scrolldown1(1,80,y1,y2,nil);
+      typos := y1; tcolor := 7;
+      cwrite(pstringobj(topline)^.s);
+      cwriteln('|%');
+      show;
     end;
   end;
-
- procedure listviewer.arrowdown;
+
+  procedure listviewer.arrowdown;
   begin
-   if bottomline^.next <> first then
+    if bottomline^.next <> first then
     begin
-     inc(thisline);
-     bottomline := bottomline^.next;
-     topline := topline^.next;
-     writeto := @work;
-     scrollup1(1,80,y1,y2,nil);
-     typos := y2; tcolor := 7;
-     cwrite(pstringobj(bottomline)^.s);
-     cwriteln('|%');
-     show;
+      inc(thisline);
+      bottomline := bottomline^.next;
+      topline := topline^.next;
+      //  writeto := @work;
+      //  scrollup1(1,80,y1,y2,nil);
+      typos := y2; tcolor := 7;
+      cwrite(pstringobj(bottomline)^.s);
+      cwriteln('|%');
+      show;
     end;
   end;
-}
+
 
   procedure listviewer.home;
     var c : byte;
@@ -113,44 +113,42 @@ uses xpc, ll, fs, stri, num, cw, crt; {,crtstuff,crt,filstuff,zokstuff; }
     self.show;
   end;
 
-{
- procedure listviewer._end;
-  var
-   c : byte;
+
+  procedure listviewer._end;
+    var c : byte;
   begin
-   if first = nil then exit;
-   bottomline := first^.prev;
-   topline := bottomline;
-   writeto := @work;
-   fillbox(1,y1,80,y2,$0F20);
-   txpos := 1; typos := y2;
-   thisline := numlines;
-   for c := y1 to y2-1 do
-    if topline^.prev <> bottomline then
-     begin
-      cwriteln('|w'+pstringobj(topline)^.s);
-      dec(thisline);
-      dec(typos,2);
-      topline := topline^.prev;
-     end;
-     cwriteln('|w'+pstringobj(topline)^.s);
+    if first = nil then exit;
+    bottomline := first^.prev;
+    topline := bottomline;
+    //  writeto := @work;
+    //  fillbox(1,y1,80,y2,$0F20);
+    txpos := 1; typos := y2;
+    thisline := numlines;
+    for c := y1 to y2-1 do
+      if topline^.prev <> bottomline then
+      begin
+	cwriteln('|w'+pstringobj(topline)^.s);
+	dec(thisline);
+	dec(typos,2);
+	topline := topline^.prev;
+      end;
+    cwriteln('|w'+pstringobj(topline)^.s);
     show;
   end;
+
 
- procedure listviewer.pageup;
-  var
-   c : byte;
+  procedure listviewer.pageup;
+    var c : byte;
   begin
-   for c := y1 to y2-1 do arrowup;
+    for c := y1 to y2-1 do arrowup;
   end;
 
- procedure listviewer.pagedown;
-  var
-   c : byte;
+  procedure listviewer.pagedown;
+    var c : byte;
   begin
-   for c := y1 to y2-1 do arrowdown;
+    for c := y1 to y2-1 do arrowdown;
   end;
-}
+
 
   procedure listviewer.run;
     var done : boolean = false;
@@ -158,14 +156,14 @@ uses xpc, ll, fs, stri, num, cw, crt; {,crtstuff,crt,filstuff,zokstuff; }
     self.home;
     repeat
       if crt.keypressed then case crt.readkey of
-	#27, ^C : done := true;
-	#0  : case crt.readkey of
-		#72 :; //  arrowup; // when you press the UP arrow!
-		#80 :; //  arrowdown; // when you press the DOWN arrow!
-		#71 :; //  home;
-		#79 :; //  _end;
-		#73 :; //  pageup;
-		#81 :; //  pagedown;
+	#27, ^C	: done := true;
+	#0	: case crt.readkey of
+		#72 : arrowup; // when you press the UP arrow!
+		#80 : arrowdown; // when you press the DOWN arrow!
+		#71 : home;
+		#79 : _end;
+		#73 : pageup;
+		#81 : pagedown;
 	      end
       end
     until done;
@@ -178,99 +176,93 @@ uses xpc, ll, fs, stri, num, cw, crt; {,crtstuff,crt,filstuff,zokstuff; }
     y2 := 12;
   end;
 
-{
- procedure listeditor.arrowup;
-  begin
-   if topline <> first then
-    begin
-     dec(thisline);
-     topline := topline^.prev;
-     bottomline := bottomline^.prev;
-     writeto := @work;
-     scrolldown1(1,80,y1,y2,nil);
-     scrolldown1(1,80,14,25,nil);
-     typos := y1; tcolor := 7;
-     cwrite(pstringobj(topline)^.s);
-     cwriteln('|%');
-     colorxy(1,14,7,padstr(pstringobj(topline)^.s,80,' '));
-     show;
-    end;
-  end;
 
- procedure listeditor.arrowdown;
+  procedure listeditor.arrowup;
   begin
-   if bottomline^.next <> first then
+    if topline <> first then
     begin
-     inc(thisline);
-     bottomline := bottomline^.next;
-     topline := topline^.next;
-     writeto := @work;
-     scrollup1(1,80,y1,y2,nil);
-     scrollup1(1,80,14,25,nil);
-     typos := y2; tcolor := 7;
-     cwrite(pstringobj(bottomline)^.s);
-     cwriteln('|%');
-     colorxy(1,25,7,padstr(pstringobj(bottomline)^.s,80,' '));
-     show;
-    end;
-  end;
-}
-
-{
- procedure listeditor._end;
-  var
-   c : byte;
-  begin
-   if first = nil then exit;
-   bottomline := first^.prev;
-   topline := bottomline;
-   writeto := @work;
-   fillbox(1,y1,80,y2,$0F20);
-   txpos := 1; typos := y2;
-   thisline := numlines;
-   for c := y1 to y2-1 do
-    if topline^.prev <> bottomline then
-     begin
-      cwriteln('|w'+pstringobj(topline)^.s);
       dec(thisline);
-      dec(typos,2);
       topline := topline^.prev;
-     end;
-     cwriteln('|w'+pstringobj(topline)^.s);
+      bottomline := bottomline^.prev;
+      //  writeto := @work;
+      //  scrolldown1(1,80,y1,y2,nil);
+      //  scrolldown1(1,80,14,25,nil);
+      typos := y1; tcolor := 7;
+      cwrite(pstringobj(topline)^.s);
+      cwriteln('|%');
+      colorxy(1,14,7,padstr(pstringobj(topline)^.s,80,' '));
+      show;
+    end;
+  end;
+
+  procedure listeditor.arrowdown;
+  begin
+    if bottomline^.next <> first then
+    begin
+      inc(thisline);
+      bottomline := bottomline^.next;
+      topline := topline^.next;
+      //  writeto := @work;
+      //  scrollup1(1,80,y1,y2,nil);
+      //  scrollup1(1,80,14,25,nil);
+      typos := y2; tcolor := 7;
+      cwrite(pstringobj(bottomline)^.s);
+      cwriteln('|%');
+      colorxy(1,25,7,padstr(pstringobj(bottomline)^.s,80,' '));
+      show;
+    end;
+  end;
+
+  procedure listeditor._end;
+    var c : byte;
+  begin
+    if first = nil then exit;
+    bottomline := first^.prev;
+    topline := bottomline;
+    //  writeto := @work;
+    //  fillbox(1,y1,80,y2,$0F20);
+    txpos := 1; typos := y2;
+    thisline := numlines;
+    for c := y1 to y2-1 do
+      if topline^.prev <> bottomline then
+      begin
+	cwriteln('|w'+pstringobj(topline)^.s);
+	dec(thisline);
+	dec(typos,2);
+	topline := topline^.prev;
+      end;
+    cwriteln('|w'+pstringobj(topline)^.s);
     show;
   end;
 
 
-procedure prints( n : pnode );
-begin
-  cwriteln( pstringobj(n)^.s );
-end;
+  procedure prints( n : pnode );
+  begin
+    cwriteln( pstringobj(n)^.s );
+  end;
 
-}
-
-//  never used
-FUNCTION Cipher (St, Passwd: String): String;
-VAR
-   SPtr, PPtr: Integer;
-BEGIN
-   IF Length(Passwd) > 0 THEN BEGIN
+  //  not used
+  FUNCTION Cipher (St, Passwd: String): String;
+    VAR SPtr, PPtr: Integer;
+  BEGIN
+    IF Length(Passwd) > 0 THEN BEGIN
       PPtr := 1;
       FOR SPtr := 1 TO Length(St) DO BEGIN
-         St[SPtr] := CHR(Ord(St[SPtr]) XOR Ord(Passwd[PPtr]) XOR $80);
-         INC(PPtr);
-         IF PPtr > Length(Passwd) THEN
-            PPtr := 1;
+	St[SPtr] := CHR(Ord(St[SPtr]) XOR Ord(Passwd[PPtr]) XOR $80);
+	INC(PPtr);
+	IF PPtr > Length(Passwd) THEN
+	  PPtr := 1;
       END;
-   END;
-   Cipher := St;
-END;
+    END;
+    Cipher := St;
+  END;
 
-var
-  ed	  : listeditor;
-  i	  : byte;
-  txt	  : text;
-  path, s : string;
-  done	  : boolean;
+  var
+    ed	    : listeditor;
+    i	    : byte;
+    txt	    : text;
+    path, s : string;
+    done    : boolean;
 
 begin
   crt.clrscr;
