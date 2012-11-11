@@ -1,5 +1,5 @@
 program cedit;
-  uses ll, fs; {,crtstuff,crt,filstuff,zokstuff; }
+  uses ll, fs, stri, num; {,crtstuff,crt,filstuff,zokstuff; }
 
 type
   listviewer = class( list )
@@ -303,17 +303,18 @@ begin
 }
   path := paramstr( 1 );
   if fs.exists( path ) then begin
-    fs.reset( txt, path );
-    while not eof( txt ) do
-    begin
+    assign( txt, path );
+    reset( txt );
+    while not eof( txt ) do begin
       readln( txt, s );
       inc( numlines );
       // viewer.append( new( pstringobj, init( s ) ));
     end;
     close( txt );
   end;
-{
+
   nlstring := flushrt(n2s(numlines),6,'.');
+{
   viewer.run;
   viewer.done;
   doscursoron;
