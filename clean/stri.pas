@@ -3,19 +3,24 @@ interface
 
   function pad( s : string; len : byte; ch : char ) : string;
   function chntimes( c : char; n : byte ) : string;
+  function ntimes( const s : string; n : byte ) : string;
   function flushrt( s : string; n : byte; ch : char ) : string;
   function trunc( s : string; len : byte ) : string;
 
 implementation
 
   function chntimes( c : char; n : byte ) : string; inline;
-    var
-      i	: byte;
-      s	: string;
+    var i : byte; s : string = '';
   begin
-    s := '';
-    if n <> 0 then for i := 1 to n do s := s + c;
-    chntimes := s;
+    for i := 1 to n do s := s + c;
+    result := s;
+  end;
+
+  function ntimes( const s : string; n : byte ) : string; inline;
+    var i : byte;
+  begin
+    result := s;
+    for i := 1 to n - 1 do result := result + s;
   end;
 
   { todo : profile this. }
