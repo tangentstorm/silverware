@@ -1,0 +1,3 @@
+[submodule "fptest"]
+	path = fptest
+	url = git://github.com/graemeg/fptest.git
