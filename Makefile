@@ -1,5 +1,5 @@
-B4  = ~/b
-FPC = fpc -Mobjfpc  -FE./bin -Fu$(B4) -Fi$(B4) \
+XPL = ~/x/code
+FPC = fpc -Mobjfpc  -FE./bin -Fu$(XPL) -Fi$(XPL) \
           -Fi./other. -Fu./units -Fu./old_u \
 	  -gl
 
