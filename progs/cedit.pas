@@ -1,6 +1,6 @@
 {$i xpc.inc }
 program cedit;
-uses xpc, ll, fs, stri, num, cw, crt; {,crtstuff,crt,filstuff,zokstuff; }
+uses ll, fs, stri, num, cw, crt; {,crtstuff,crt,filstuff,zokstuff; }
 
   type
 
@@ -15,7 +15,8 @@ uses xpc, ll, fs, stri, num, cw, crt; {,crtstuff,crt,filstuff,zokstuff; }
       lightbar : pnode;
       nlstring : string[ 6 ];
       thisline, numlines  : longint;
-      y1, y2		  : integer;
+      x, y, h, w : integer;
+      y1, y2 : integer;
       //   work	  : screentype;
       topline, bottomline : pnode;
       constructor init; override;
@@ -30,7 +31,6 @@ uses xpc, ll, fs, stri, num, cw, crt; {,crtstuff,crt,filstuff,zokstuff; }
       procedure run;
     end;
 
-
   constructor stringobj.fromstring( st : string );
   begin self.s := st;
   end;
@@ -38,8 +38,11 @@ uses xpc, ll, fs, stri, num, cw, crt; {,crtstuff,crt,filstuff,zokstuff; }
   constructor listeditor.init;
   begin
     inherited;
-    y1 := 2;
-    y2 := 24;
+    x := 1;
+    y := 1;
+    w := crt.windMaxX;
+    h := crt.windMaxY;
+    y1 := y; y2 := y + h; //  ditch these
     //  work := screen;
     topline := nil;
     bottomline := nil;
@@ -66,11 +69,21 @@ uses xpc, ll, fs, stri, num, cw, crt; {,crtstuff,crt,filstuff,zokstuff; }
   end;
 
   procedure listeditor.show;
+  var i : integer; n : pstringobj;
   begin
-    if self.topline = nil then home;
+    // if self.topline = nil then home;
     cwritexy( 1, 1,
 	     '|B[|C' + flushrt( n2s( self.thisline ), 6, '.') +
 	     '|w/|c' + nlstring + '|B]' );
+    i := 1;
+    n := pstringobj( self.first );
+    for i := thisline to self.h - 1 do begin
+      if n <> nil then begin
+	cwritexy( 1, i, n^.s );
+	n := pstringobj( n^.next );
+	writeln( n^.s );
+      end;
+    end;
     //  writeto := @screen;
     //  screen := work;
   end;
@@ -130,20 +143,28 @@ uses xpc, ll, fs, stri, num, cw, crt; {,crtstuff,crt,filstuff,zokstuff; }
 
 
   procedure listeditor.run;
-    var done : boolean = false;
+    var done : boolean = false; ch : char;
   begin
     self.home;
     repeat
-      if crt.keypressed then case crt.readkey of
+      crt.clrscr;
+      show;
+      ch := crt.readkey;
+      case ch of
 	#27, ^C	: done := true;
+	^N	: arrowdown;
+	^P	: arrowup;
+	^A	: home;
+	^E	: _end;
 	#0	: case crt.readkey of
-		#72 : arrowup; // when you press the UP arrow!
-		#80 : arrowdown; // when you press the DOWN arrow!
-		#71 : home;
-		#79 : _end;
-		#73 : pageup;
-		#81 : pagedown;
-	      end
+		    #72	: arrowup; // when you press the UP arrow!
+		    #80	: arrowdown; // when you press the DOWN arrow!
+		    #71	: home;
+		    #79	: _end;
+		    #73	: pageup;
+		    #81	: pagedown;
+		  end
+	else write( ch );
       end
     until done;
   end;
@@ -161,7 +182,7 @@ uses xpc, ll, fs, stri, num, cw, crt; {,crtstuff,crt,filstuff,zokstuff; }
       typos := y1; tcolor := 7;
       cwrite(pstringobj(topline)^.s);
       cwriteln('|%');
-      colorxy(1,14,7,padstr(pstringobj(topline)^.s,80,' '));
+      colorxy(1,14,7,cpadstr(pstringobj(topline)^.s,80,' '));
       show;
     end;
   end;
@@ -180,7 +201,7 @@ uses xpc, ll, fs, stri, num, cw, crt; {,crtstuff,crt,filstuff,zokstuff; }
       typos := y2; tcolor := 7;
       cwrite(pstringobj(bottomline)^.s);
       cwriteln('|%');
-      colorxy(1,25,7,padstr(pstringobj(bottomline)^.s,80,' '));
+      colorxy(1,25,7,cpadstr(pstringobj(bottomline)^.s,80,' '));
       show;
     end;
   end;
