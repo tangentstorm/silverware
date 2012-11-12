@@ -1,5 +1,5 @@
 program life;           { implements the game of life }
-uses crt, crtstuff, keyboard;
+uses cw, crt, crtstuff, keyboard;
 
 var
   have_cached : boolean;
