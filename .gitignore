@@ -9,4 +9,8 @@
 fp.*
 *~
 bin
+test/*.run
+test/*.def
+test/*.use
+test/*.inc
 
