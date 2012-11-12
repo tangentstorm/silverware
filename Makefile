@@ -1,35 +1,36 @@
 B4  = ~/b
-PROGS = ./progs
-CLEAN = ./clean
-OTHER = ./other
-FPC = fpc  -Mobjfpc  -FE./bin -Fu$(B4) -Fi$(B4) \
-	   -Fu./units -Fi/other. -Fu./clean \
-	   -gl
+FPC = fpc -Mobjfpc  -FE./bin -Fu$(B4) -Fi$(B4) \
+          -Fi./other. -Fu./units -Fu./old_u \
+	  -gl
 
 default: cedit
 
-bin/%.ppu: $(CLEAN)/%.pas
+bin/%.ppu: /%.pas
 	@mkdir -p bin
 	$(FPC) $<
 
-bin/%: $(PROGS)/%.pas
+bin/%: progs/%.pas
 	@mkdir -p bin
-	$(FPC) $<
+	$(FPC) -gl $<
 
-
-
-cleanup:
+clean:
 	@rm -f *~ *.gpi *.o *.pyc
 	@rm -f bin/*
 
-test:
-	echo "no tests yet... :("
+
+test: always run-tests
+	@bin/run-tests
+run-tests: test/*.pas units/*.pas
+	cd test; python gen-tests.py
+	@$(FPC) test/run-tests.pas && clear
+
+always:
 
 #-- units -------------------------------------
 
 ll:   bin/ll.ppu
 cw:   bin/cw.ppu
-fs:   bin/fs.ppu       stri
+fs:   bin/fs.ppu    stri
 stri: bin/stri.ppu
 num:  bin/num.ppu
 
