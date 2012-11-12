@@ -1,0 +1,20 @@
+* a simple test framework for pascal
+
+To compile and run the tests, ~cd ..~ and run ~make test~.
+
+It works like this:
+
+  - Any file named ~test_xxx.pas~ is a test suite.
+  - Inside a test suite, any procedure named ~test_xxx~ is a test case.
+  - When ~gen-tests.py~ runs, it :
+      - generates a list of test suties to include in the =uses= statement in ~run-tests.pas~
+      - generates an =interface= section for each test suite ( so you don't have to declare each test manually )
+      - generates an include file, which calls =run( procedure to_test )= for each individual test.
+  - Next, the makefile compiles ~run-tests.pas~ , ( which includes the generated lists of tests ).
+  - When ~run-tests~ runs, it:
+      - executes each =procedure= ~test_xxx~ inside a =try .. except= statement
+      - counts the number of passed, failed, and broken tests
+      - displays a summary of the results
+
+*Note:* As of this first version, there is not yet a way to distinguish faliing and broken tests. My plan is to hook this up to another testing library that contains various assertion procedures. These will raise an =AssertionFailure=, which will get its own exception handler in ~run-tests.pas~.
+
