@@ -13,9 +13,9 @@ I am currently in the process of reviewing and reviving this code with the help 
 | path  | contents                                                     |
 |-------+--------------------------------------------------------------|
 | [[./old][old]]   | the orignal code ( duplicates from multiple partial backups) |
+| [[./old__u][old_u]] | the original units ( most recent 'old' version of each )     |
+| [[./units][units]] | the modern, refactored versions of the units                 |
 | [[./progs][progs]] | all programs                                                 |
-| [[./units][units]] | the original units ( latest version of each )                |
-| [[./clean][clean]] | the modern refactored versions of the units                  |
 | [[./other][other]] | data files, duplicates, etc                                  |
 
 
