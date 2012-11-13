@@ -1,6 +1,26 @@
+{ cEdit
+----------------------------------------------------------------
+Copyright (c) 199x - 2012 Michal J Wallace  |  MIT/X11 Licensed.
+----------------------------------------------------------------
+Revised Nov 10-12 2012
+
+  This program was intended to be a colorized text editor.
+  See code/cw.pas in the xpl repository for the markup syntax.
+
+  It doesn't look like I implemented the "editor" part, but
+  since it was line-oriented, it should just be a matter of
+  using a zokstuff.zinput ( now xpl/code/ui.zinput.p ) on the
+  current line. It does show colored text though, and I just
+  added some line numbers. :)
+
+  I may return to this once I get the ui stuff under test --
+  sort of still hoping to find a more complete editor somewhere
+  in this codebase. :)
+
+---------------------------------------------------------------}
 {$i xpc.inc }
 program cedit;
-uses ll, fs, stri, num, cw, crt; {,crtstuff,crt,filstuff,zokstuff; }
+uses ll, fs, stri, num, cw, crt;
 
   type
 
