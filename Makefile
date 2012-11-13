@@ -22,7 +22,7 @@ test: always run-tests
 	@bin/run-tests
 run-tests: test/*.pas units/*.pas
 	cd test; python gen-tests.py
-	@$(FPC) test/run-tests.pas && clear
+	@$(FPC) test/run-tests.pas
 
 always:
 
@@ -39,4 +39,3 @@ num:  bin/num.ppu
 cedit: bin/cedit   cw fs ll num stri
 	@bin/cedit README.org
 	@echo ok
-
