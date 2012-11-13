@@ -2,20 +2,70 @@
 
 * about
 
-This repository contains turbo pascal code written from 1992 to 1996 by michal j wallace.
-
-It primarily consists of text-mode MS-DOS programs, including a user interface widget library, many string routines, etc.
+This repository contains turbo pascal code written from 1992 to 1996 by @tangentstorm ( i.e, me -- michal j wallace ).
 
 I am currently in the process of reviewing and reviving this code with the help of the [[http://freepascal.org/][free pascal compiler]].
 
 * repository layout
 
-| path  | contents                                                     |
-|-------+--------------------------------------------------------------|
-| [[./old][old]]   | the orignal code ( duplicates from multiple partial backups) |
-| [[./old__u][old_u]] | the original units ( most recent 'old' version of each )     |
-| [[./units][units]] | the modern, refactored versions of the units                 |
-| [[./progs][progs]] | all programs                                                 |
-| [[./other][other]] | data files, duplicates, etc                                  |
+| path  | contents                                                       |
+|-------+----------------------------------------------------------------|
+| [[./apps][apps]]  | refactored/modernized apps that compile and run under fpc      |
+| [[./old][old]]   | the orignal code ( w/duplicates from multiple partial backups) |
+| [[./old__u][old_u]] | the original units ( most recent 'old' version of each )       |
+| [[./progs][progs]] | broken / untried / unimproved programs from the 90's           |
+| [[./other][other]] | data files, images, fonts, junk.                               |
 
+
+* about the units ( they've moved )
+
+The [[file:old_u/][old_u]] directory contains a bunch of units, mostly dealing with textual user interfaces. These predate Borland's Turbo Vision and ( having been written by a self-taught teenager who knew nothing about event-driven user interfaces ), they offer an interesting viewpoint on how a "procedural" user interface library could work. ( The control flow is somewhat similar in design to that used in the Oberon operating system by pascal creator Niklaus Wirth, though of course not nearly as well-implemented, and also entirely based on 16-color console mode semi-graphics. )
+
+*Modern versions of the units have moved to a separate repository*, [[https://github.com/tangentstorm/xpl][@tangentstorm/xpl]] , where I have also added various new libraries, including a test framework.
+
+* about the programs
+
+Some of the more interesting programs include :
+
+- [[file:progs/doth_2.pas][DOTH]] :: a top down adventure game, similar to the Kingdom of Kroz games ( there are several unreconciled versions of doth in the directory )
+- [[file:progs/dmm.pas][DMM]] :: the doth map-maker ( a level editor / tester )
+- [[file:progs/zmen.pas][ZMENU]] :: a full-screen menu program / application launcher
+- [[file:progs/xmen.pas][XMENU]] :: another menu program ( not sure what it does yet )
+- [[file:progs/ymen.pas][YMENU]] :: a primitive command line shell that also incorporates a menu
+- [[file:progs/life.pas][life]] :: an implementation of Conway's Game of Life ( cellular automata )
+- [[file:progs/adl.pas][ADL]] :: the "advanced directory lister" - a colorful replacement for the =dir= command. ( that's =ls=, for all you young linux fans )
+
+There are about 100 ~*.pas~ files in the progs directory, including some with VGA graphics that I do not yet have running, and probably a great many duplicates, failed experiments
+
+* workflow
+
+I began keeping backups on 3.5" floppies the summer before my senior year in high school, when I lost everything on my hard drive to an uninitialized pointer operation in MS-DOS. ( This was on a 386, long before "protected mode" came along... )
+
+A few files did survive the crash, however. These were things I'd been taking back and forth to school. Unfortunately, I didn't know anything about about version control back then, so I simply copied files back and forth between the disks as I needed them.
+
+The result is that I had a mix of files from different time periods on 5 or 6 different disks ( not to mention various zip files side by side on those disks ).
+
+By looking at md5 hashes of the files, I was able to remove most of the exact duplicates, and since the timestamps on the files appeared to be intact, I was able to arrange what was left by month and year.
+
+If I only had one unique copy of a file for a particular year ( going by filename and size only ), I put it in in that year's directory. If I had two copies, I ordered them by datestamp, and placed the newer copy in a directory named by the year and month. These are what you will find under the [[file:old/][old/]] directory.
+
+I then worked through the directories in order, copying the contents of each directory to one common directory, so that hopefully the common directory contained the latest version of everything. ( But since these were rather large files, there are undoubtably merge conflicts, which is why I've kept the =old/= directory around. )
+
+I then separated the common directory into separate directories for units,  programs, and other miscellaneous files.
+
+As explained above, restoration of the units has moved to a separate repository, but I am moving each restored /program/ to the [[file:apps/][apps/]] directory as I get it working again.
+
+While they are not ( yet ) up to professional standards, many of them do ( or at least did ) work, and some of them may actually be worth salvaging. More importantly, they serve as test cases for the libraries, which I hope to bring up to modern standards.
+
+* licensing
+
+My intent is to put all the code here under an MIT/X11-like license.
+
+* contacting me
+
+You reach me through the email address on my github profile, but I'm also likely to be found in #lpmc on irc.freenode.net -- the official channel of the /r/learnprogramming mentoring communtiy ( http://reddit.com/r//lpmc ), where I would be more than happy to talk your ear off about how awesome pascal is. ( But don't worry, there are plenty of "normal" people in there too. *:)* )
+
+* see also
+
+If you like this, you might also like my modern pascal developments, some of which  are currently located in [[https://github.com/sabren/b4][@sabren/b4]] and  [[https://github.com/tangentstorm/xpl][@tangentstorm/xpl]] .
 
