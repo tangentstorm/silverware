@@ -1,64 +1,79 @@
-Program ZMen;
-
-Uses Zokstuff, CrtStuff,crt,moustuff;
+program zmenu;
+  uses crt, cw, ms, ui, oo;
 
 Type
- options = record
-  MenuText ,
-  Path     ,
-  Filename : String;
- end;
+  Options = record
+    menuText,
+    path,
+    filename : String;
+  end;
 
 Var
- zf : text;
- numentries : byte;
- choice : byte;
- counter : byte;
- data : array[ 1 .. 20 ] of options;
- menu : zmenu;
+  zf         : Text;
+  numEntries : Byte;
+  userChoice : Byte;            { the byte returned based on the user's choice }
+  choice     : ui.zChoice;      { just a variable for working with choices }
+  i          : Byte;
+  data       : array [ 1 .. 20 ] of Options;
+  menu       : ui.pzMenu;
 
+begin
 
-Begin
- fillscreen( bluebox );
- doscursoroff;
- txpos := 1;
- typos := 1;
- numentries := 0;
- menu.init( on );
- assign( zf, 'C:\tp\zmenu.dat');
- reset( zf );
- while
-  not eof(zf)
- do
-  begin
-   inc( numentries, 1 );
-   readln( zf, data[numentries].MenuText );
-   readln( zf, data[numentries].Path );
-   readln( zf, data[numentries].Filename );
+  fillscreen( bluebox );
+  DosCursorOff;
+
+  txPos      := 1;
+  tyPos      := 1;
+  numEntries := 0;
+
+  assign( zf, 'zmenu.dat' );
+  reset( zf );
+  while not eof( zf ) do begin
+    inc( numentries, 1 );
+    readln( zf, data[ numentries ].MenuText );
+    readln( zf, data[ numentries ].Path );
+    readln( zf, data[ numentries ].Filename );
   end;
- close( zf );
- button( 13, 4, 33, numentries + 7 );
- greyshadow( 13, 4, 33, numentries + 7 );
- menu.add ( 15, 5, '|!w|b ═|B═|C═|b[|Y·|WZMenu|Y·|b]|C═|B═|b═', '', false, ' ', 0 );
- for
-  counter := 1 to numentries
- do
-  menu.add( 14, counter + 5, ' |r(|W' + N2S( Counter ) + '|r) |K' + data[counter].MenuText,
-     ' |R(|W' + N2S( Counter ) + '|R) |W' + data[counter].MenuText, true, char( 48 + counter ), counter );
-  menu.add( 14, counter + 6, ' |r(|W0|r)|K Quit          ', ' |R(|W0|R)|W Quit          ', true, '0', 0 );
- mouseon;
- choice := menu.get;
- doscursoron;
- if
-  choice = 0
- then
-  halt(0);
-{ chdir( data[ choice ].path );}
- assign( zf, '\ztemp.bat' );
- rewrite( zf );
- writeln( zf, '@ECHO OFF' );
- writeln( zf, 'Call ' + data[choice].filename );
- writeln( zf, 'cd C:\');
- writeln( zf, 'ZMENU');
- close( zf );
-End.
+  close( zf );
+
+  button( 13, 4, 33, numEntries + 7 );
+  greyshadow( 13, 4, 33, numEntries + 7 );
+
+  menu := ui.newMenu( on, on,
+    ui.newChoiceXY( 15, 5,
+              '|!w |b═|B═|C═|b[|Y·|WZMenu|Y·|b]|C═|B═|b═', '',
+              false, ' ', 0, nil, nil ));
+
+  for i := 1 to numentries
+  do menu.add(
+       ui.newChoiceXY( 14, i + 5,
+         cpadstr('|!w |r(|W' + N2S( i ) + '|r) |K'
+                 + data[ i ].menutext, 20, ' ' ),
+         cpadstr('|!k |R(|W' + N2S( i ) + '|R) |W'
+                 + data[ i ].menutext, 20, ' ' ),
+         true, Char( 48 + i ), i, nil, nil ));
+  menu.add(
+    ui.newChoiceXY( 14, i + 6,
+      cpadstr('|!w |r(|W0|r)|K Quit', 20, ' '),
+      cpadstr('|!k |R(|W0|R)|W Quit', 20, ' '),
+      true, '0', 0, nil, nil ));
+
+  mouseOn;
+  userChoice := menu.get;
+  dosCursorOn;
+
+  if userChoice = 0 then halt( 0 );
+
+  { the batch file generator works,
+    but isn't actually useful to me anymore :)
+    ------------------------------------------
+  // chdir( data[ choice ].path );
+  assign( zf, 'ztemp.bat' );
+  rewrite( zf );
+  writeln( zf, '@ECHO OFF' );
+  writeln( zf, 'Call ' + data[choice].filename );
+  writeln( zf, 'ZMENU' );
+  close( zf );
+  }
+
+end.
