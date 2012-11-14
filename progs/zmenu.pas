@@ -1,5 +1,6 @@
+{$i xpc }
 program zmenu;
-  uses crt, cw, ms, ui, oo;
+uses xpc, ui, fx, cw, num;
 
 Type
   Options = record
@@ -15,12 +16,13 @@ Var
   choice     : ui.zChoice;      { just a variable for working with choices }
   i          : Byte;
   data       : array [ 1 .. 20 ] of Options;
-  menu       : ui.pzMenu;
+  menu       : ui.zMenu;
 
 begin
 
-  fillscreen( bluebox );
-  DosCursorOff;
+  // 
+  // fillscreen( bluebox );
+  // DosCursorOff;
 
   txPos      := 1;
   tyPos      := 1;
@@ -36,8 +38,9 @@ begin
   end;
   close( zf );
 
-  button( 13, 4, 33, numEntries + 7 );
-  greyshadow( 13, 4, 33, numEntries + 7 );
+
+  fx.button( 13, 4, 33, numEntries + 7 );
+  fx.greyshadow( 13, 4, 33, numEntries + 7 );
 
   menu := ui.newMenu( on, on,
     ui.newChoiceXY( 15, 5,
@@ -58,11 +61,13 @@ begin
       cpadstr('|!k |R(|W0|R)|W Quit', 20, ' '),
       true, '0', 0, nil, nil ));
 
-  mouseOn;
+  //  mouseOn;
   userChoice := menu.get;
-  dosCursorOn;
+  //  dosCursorOn;
 
   if userChoice = 0 then halt( 0 );
+
+end.
 
   { the batch file generator works,
     but isn't actually useful to me anymore :)
@@ -75,5 +80,3 @@ begin
   writeln( zf, 'ZMENU' );
   close( zf );
   }
-
-end.
