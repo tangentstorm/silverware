@@ -6,7 +6,7 @@
 
 |!B"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz
 |!B|K"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz
-|!bИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгде|!b|KИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгде
+|!bв•љв•”в•©в•¦в• в•ђв•¬в•§в•Ёв•¤в•Ґв•™в•в•’в•“в•«в•Єв”в”Њв–€в–„в–Њв–ђв–ЂО±ГџО“ПЂОЈПѓ|!b|Kв•љв•”в•©в•¦в• в•ђв•¬в•§в•Ёв•¤в•Ґв•™в•в•’в•“в•«в•Єв”в”Њв–€в–„в–Њв–ђв–ЂО±ГџО“ПЂОЈПѓ
 
 colors: |011|022|033|044|055|066|077|088|099|10A|11B|12C|13D|14E|15F|00
 
@@ -91,9 +91,9 @@ begin
  sw := 180;
  randseed := 193;
  fillchar( screen, 180*28, 0 );
- colorxy(1,1, $10,chntimes('Д',90));
+ colorxy(1,1, $10,chntimes('в”Ђ',90));
  colorxyc( 45,12, $70, 'Loading...');
- colorxy(1,25,$10,chntimes('Д',90));
+ colorxy(1,25,$10,chntimes('в”Ђ',90));
  viewer.init;
  viewer.x2 := 90;
  {$I-}

@@ -44,7 +44,7 @@ begin
 
   menu := ui.newMenu( on, on,
     ui.newChoiceXY( 15, 5,
-              '|!w |b═|B═|C═|b[|Y·|WZMenu|Y·|b]|C═|B═|b═', '',
+              '|!w |bΓòÉ|BΓòÉ|CΓòÉ|b[|Y┬╖|WZMenu|Y┬╖|b]|CΓòÉ|BΓòÉ|bΓòÉ', '',
               false, ' ', 0, nil, nil ));
 
   for i := 1 to numentries

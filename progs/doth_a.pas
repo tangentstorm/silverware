@@ -620,7 +620,7 @@ procedure obj.setfields;        { update these later for better interface }
   isdefault := true;
   Bar( 5, 5, 65, 10, $08 );
   greyshadow( 5, 5, 65, 10 );
-  cwritexy( 25, 6, '|rÄÄÄÄÄ|WS|Ge|WTF|Gie|WLDS|rÄÄÄÄÄ|W' );
+  cwritexy( 25, 6, '|râ”€â”€â”€â”€â”€|WS|Ge|WTF|Gie|WLDS|râ”€â”€â”€â”€â”€|W' );
   cwritexy( 10, 7, '|WC|Go|WL|Go|WR|Y: |W');
   cwritexy( 35, 7, '|WCH|Ga|WR|Ga|WCT|GE|WR|Y: |W');
   cwritexy( 10, 8, '|WD|Ge|WL|Ga|WY|Y: |W' );
@@ -782,13 +782,13 @@ destructor obj.done;
 
 constructor wallobj.default( a1, b1 : byte );
  begin
-  obj.init( a1, b1, 0, wallatr, 'Û' );
+  obj.init( a1, b1, 0, wallatr, 'â–ˆ' );
   touch := '|WYou can|w''|Wt walk through walls|w.';
  end;
 
 constructor breakablewallobj.default( a1, b1 : byte );
  begin
-  obj.init( a1, b1, 0, wallatr, '²');
+  obj.init( a1, b1, 0, wallatr, 'â–“');
   touch := '|WA breakable wall blocks your path|w.';
  end;
 
@@ -873,7 +873,7 @@ constructor heroobj.init( a1, b1 : byte; nam : string );
   obj.init( a1, b1, 0, $0E, '' );
   namestat.init( namex, namey, '|!k|B' + nam );
   msgstat.init( msgx, msgy,
-                '|WD|Go|WTH |B(|WC|B)|W1993 |KÄ|WS|wÅîâL³NG|KÄ|WS|w³LVîâWêâî|KÄ');
+                '|WD|Go|WTH |B(|WC|B)|W1993 |Kâ”€|WS|wâ”¼ÎµÎ“Lâ”‚NG|Kâ”€|WS|wâ”‚LVÎµÎ“WÎ©Î“Îµ|Kâ”€');
   hpoints := hpstart;
   hmax := hpstmax;
   healthstat.init( hpx, hpy, '|w0000' );
@@ -1044,7 +1044,7 @@ constructor doppelgangerobj.init( a1, b1 : byte; m : pobj );
    end
   else
    begin
-    obj.init( a1, b1, 0, 0, '±' );
+    obj.init( a1, b1, 0, 0, 'â–’' );
     xlast := 0;
     ylast := 0;
     touch := '|WIt|w''|Ws a doppelganger|w,|W but it|w''|Ws not doing anything|w.';
@@ -1195,7 +1195,7 @@ constructor ammoobj.default( a1, b1 : byte );
 
 constructor movingwallobj.default( a1, b1 : byte );
  begin
-  obj.init( a1, b1, 4, wallatr, '±' );
+  obj.init( a1, b1, 4, wallatr, 'â–’' );
  end;
 
 procedure movingwallobj.walk( d : direction );
@@ -1229,7 +1229,7 @@ procedure movingwallobj.update;
 
 constructor scuzzyobj.default( a1, b1 : byte );
  begin
-  obj.init(  a1, b1, 3, $04, 'ê' );
+  obj.init(  a1, b1, 3, $04, 'Î©' );
  end;
 
 procedure scuzzyobj.walk( d : direction );
@@ -1270,7 +1270,7 @@ function scuzzyobj.blocked( d : direction ) : boolean;
 
 constructor bulletobj.init( a1, b1 : byte; d : direction );
  begin
-  obj.init( a1, b1, 0, $07, 'ù' );
+  obj.init( a1, b1, 0, $07, 'âˆ™' );
   facing := d;
   kind := bullet;
  end;
@@ -1378,7 +1378,7 @@ procedure cowardobj.walk( d: direction );
 
 constructor snakeobj.default( a1, b1 : byte );
  begin
-  obj.init( a1, b1, 3, $02, '‡' );
+  obj.init( a1, b1, 3, $02, 'Ã§' );
  end;
 
 procedure snakeobj.walk( d: direction );
@@ -1397,7 +1397,7 @@ procedure snakeobj.update;
 
 constructor moronobj.default( a1, b1 : byte );
  begin
-  obj.init( a1, b1, 3, $0B, 'Õ' );
+  obj.init( a1, b1, 3, $0B, 'â•’' );
  end;
 
 procedure moronobj.walk( d : direction );
@@ -1407,7 +1407,7 @@ procedure moronobj.walk( d : direction );
 
 constructor stairsobj.default( a1, b1 : byte );
  begin
-  obj.init( a1, b1, 0, $07, 'ð' );
+  obj.init( a1, b1, 0, $07, 'â‰¡' );
   stairwayto := currentroom + 1;
  end;
 
@@ -1536,7 +1536,7 @@ procedure errorbox;
    begin
     bar( 15, 7, 55, 13, $08 );
     greyshadow( 15, 7, 55, 13 );
-    cwritexy( 17, 8, '|!k|rÄÄÄÄÄÄÄÄÄÄÄÄÄÄ|!K|Y!!|!k|RERROR|!K|Y!!|!k|rÄÄÄÄÄÄÄÄÄÄÄÄÄÄ');
+    cwritexy( 17, 8, '|!k|râ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€|!K|Y!!|!k|RERROR|!K|Y!!|!k|râ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€');
     cwritexy( 17, 9, '|W Something really bad just happened|w!');
     cwritexy( 17, 10, '|W |B(|WMost likely|w,|W you|w''|Wre out of memory|B)');
     cwritexy( 17, 11, '|W  I|w''|Wll attempt to save as |GERROR|Y.|GSAV');
@@ -1556,7 +1556,7 @@ procedure loaderrorbox;
    begin
     bar( 15, 7, 55, 12, $08 );
     greyshadow( 15, 7, 55, 12 );
-    cwritexy( 17, 8, '|!k|rÄÄÄÄÄÄÄÄÄÄÄÄÄÄ|!K|Y!!|!k|RERROR|!K|Y!!|!k|rÄÄÄÄÄÄÄÄÄÄÄÄÄÄ');
+    cwritexy( 17, 8, '|!k|râ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€|!K|Y!!|!k|RERROR|!K|Y!!|!k|râ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€');
     cwritexy( 17, 9, '|W          Unable to load|w!');
     cwritexy( 17, 10, '|W |B(|WMost likely|w,|W you|w''|Wre out of memory|B)');
     cwritexy( 17, 11, '|W   Address: '+n2s(seg(erroraddr^))+':'+n2s(ofs(erroraddr^))+' Code:'+n2s(exitcode));
@@ -1828,7 +1828,7 @@ procedure plot;
    screen := temp;
    writeto := @screen;
    cursortog := not cursortog;
-   if cursortog then colorxy( cursorx + 1, cursory + 1, $0F, 'Û' );
+   if cursortog then colorxy( cursorx + 1, cursory + 1, $0F, 'â–ˆ' );
    colorxy( arrow + 3, 24, $0E, '' );
    if keypressed then
    begin

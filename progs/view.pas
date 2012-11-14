@@ -39,10 +39,10 @@ var
 begin
  randseed := 193;
  doscursoroff;
- colorxy(1,1,1,chntimes('Ä',80));
+ colorxy(1,1,1,chntimes('â”€',80));
  fillbox( 1, 2, 80, 24, $0F20 );
  colorxyc( 40, 12, 7, 'Loading...');
- colorxy(1,25,1,chntimes('Ä',80));
+ colorxy(1,25,1,chntimes('â”€',80));
  viewer.init;
  filereset(t, paramstr(1));
  while not eof(t) do

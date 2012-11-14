@@ -1,15 +1,15 @@
-{ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ }
+{ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ }
 {    The Cult of Boffology's Electronic Megazine       }
-{         Source code (c)1992-93 S³LVîâWêRî            }
-{ ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ }
+{         Source code (c)1992-93 Sâ”‚LVÎµÎ“WÎ©RÎµ            }
+{ â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€ }
 Program TCoBEM;
 
 uses
  Objects, Menus, Drivers, Views, Gadgets, App, CrtStuff, Dialogs, StdDlg, dos;
 
-{ÄÄÄÄÄÄÄÄÄÄÄ}
+{â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€}
 { Commands  }
-{ÄÄÄÄÄÄÄÄÄÄÄ}
+{â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€}
 Const
   cmPrevPage = 100;
   cmNextPage = 101;
@@ -20,9 +20,9 @@ Const
   cmInform   = 1001;
   CmSet      = [ cmNextPage, cmPrevPage, cmTitlPage, cmContents, cmIndex ];
 
-{ÄÄÄÄÄÄÄÄÄÄÄ}
+{â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€}
 { Types     }
-{ÄÄÄÄÄÄÄÄÄÄÄ}
+{â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€}
 Type
  PIssueView = ^TIssueView;
  TIssueView = Object( TView )
@@ -99,9 +99,9 @@ Type
 Var
  Megazine : TMag;
 
-{ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ}
+{â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€}
 { TIndexCollection  }
-{ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ}
+{â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€}
 function TIndexCollection.Compare( key1, key2 : pointer ) : integer;
  begin
   if PContent( key1 )^.Name < PContent( key2 )^.Name
@@ -112,17 +112,17 @@ function TIndexCollection.Compare( key1, key2 : pointer ) : integer;
    compare := 1;
  end;
 
-{ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ}
+{â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€}
 { TContentBox    }
-{ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ}
+{â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€}
 Function TContentBox.GetText( Item: integer; MaxLen : Integer ) : String;
  begin
   GetText := PContent( List^.At( Item ))^.Name;
  end;
 
-{ÄÄÄÄÄÄÄÄÄÄÄÄÄÄ}
+{â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€}
 { TIssueView   }
-{ÄÄÄÄÄÄÄÄÄÄÄÄÄÄ}
+{â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€}
 constructor TIssueView.Init( var Bounds : TRect );
  begin
   TView.Init( Bounds );
@@ -142,13 +142,13 @@ Procedure TIssueView.Draw;
   C: byte;
  begin
   WriteChar( 0, 0, ' ', 2, Size.X );
-  WriteStr( 0, 0, '³  ', 4 );
+  WriteStr( 0, 0, 'â”‚  ', 4 );
   WriteStr( 2, 0, Message, 2 );
  end;
 
-{ÄÄÄÄÄÄÄÄÄÄÄÄ}
+{â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€}
 { TMainView  }
-{ÄÄÄÄÄÄÄÄÄÄÄÄ}
+{â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€}
 
 Procedure TMainview.DisableBrowse;
  begin
@@ -344,9 +344,9 @@ Destructor TMainView.Done;
   TView.Done;
  end;
 
-{ÄÄÄÄÄÄÄÄÄÄÄ}
+{â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€}
 { TMag      }
-{ÄÄÄÄÄÄÄÄÄÄÄ}
+{â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€}
 
 Constructor TMag.Init;
  begin
@@ -401,7 +401,7 @@ Procedure TMag.InfoBox;
     R.Assign( 10, 4, 35, 5 );
     Insert( New( PStaticText, Init( R, 'Reader Program v1.0' )));
     R.Assign( 7, 5, 35, 6 );
-    Insert( New( PStaticText, Init( R, '(c)1993 SÅîâL³NG S³LVîâWêâî')));
+    Insert( New( PStaticText, Init( R, '(c)1993 Sâ”¼ÎµÎ“Lâ”‚NG Sâ”‚LVÎµÎ“WÎ©Î“Îµ')));
     R.Assign( 15, 7, 25, 9 );
     Insert( New( PButton, Init( R, '~O~K', cmOk, bfDefault )));
    end;
@@ -454,7 +454,7 @@ Procedure TMag.InitMenuBar;
   R.B.Y := R.A.Y + 1;
   R.B.X := 70;
   MenuBar := New( PMenuBar, Init( R, NewMenu(
-   NewSubMenu( '~ğ~', hcNoContext, NewMenu(
+   NewSubMenu( '~â‰¡~', hcNoContext, NewMenu(
     NewItem( '~I~nformation', '', kbNoKey, cmInform, hcNoContext,
     NewLine(
     NewItem( 'E~x~it', 'Alt-X', kbAltX, cmQuit, hcNoContext,

@@ -17,9 +17,9 @@ procedure send( value : byte );
    if
     boolean(truth( value and power( 2, c ) ))
    then
-    colorxy( 66 + c, 4, lightred, 'þ' )
+    colorxy( 66 + c, 4, lightred, 'â– ' )
    else
-    colorxy( 66 + c, 4, darkgray, 'þ' );
+    colorxy( 66 + c, 4, darkgray, 'â– ' );
   port[ 888 ] := value;
  end;
 
@@ -34,9 +34,9 @@ procedure setstick( towhat : byte );
    if
     towhat = c
    then
-    colorxy( 9 * c + 3, 10, $4C, '±' )
+    colorxy( 9 * c + 3, 10, $4C, 'â–’' )
    else
-    colorxy( 9 * c + 3, 10, $70, 'Å' )
+    colorxy( 9 * c + 3, 10, $70, 'â”¼' )
  end;
 
 procedure moveright( d : byte );

@@ -27,10 +27,10 @@ begin
 end.
 
 
- cwriteln('|!k|W|_Altered State|r... |WFreeware by |b[[|WS|Ca|WBâ|Ce|WN|b]]');
- cwriteln('|b|#Ä40|_|WThis program uses the sound blaster|r''|Ws FM Music');
+ cwriteln('|!k|W|_Altered State|r... |WFreeware by |b[[|WS|Ca|WBÎ“|Ce|WN|b]]');
+ cwriteln('|b|#â”€40|_|WThis program uses the sound blaster|r''|Ws FM Music');
  cwriteln('capabilities to generate tones at 400 and 404 hz in the left and');
  cwriteln('right speakers, respectively|r... |WSupposedly|r, |Wthis should put');
  cwriteln('users in an altered state of consciousness|r...');
- cwriteln('|CNote|r: |CHeadphones might help|r...|_|b|#Ä40');
+ cwriteln('|CNote|r: |CHeadphones might help|r...|_|b|#â”€40');
  cwriteln('|WPress |w'+ enter + '|W to quit|r, |Wor Esc to play tones in DOS|r..');

@@ -30,7 +30,7 @@ begin
  p := new( pstringobj, init( 'Two' ) );
  strlist.append( p );
  strlist.append( new( pstringobj, init( 'Three' ) ) );
- strlist.insert( new( pstringobj, init( '|K|#Ä10|W' ) ) );
+ strlist.insert( new( pstringobj, init( '|K|#â”€10|W' ) ) );
  strlist.foreachdo( prints );
  p := pstringobj( strlist.first );
  if p^.prev = nil then write( 'nil!' ) else write ( p^.s );

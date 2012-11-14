@@ -1,6 +1,6 @@
 Program Project;
 
-{ The Project BBS (c)1993 ДSЕовLіNGДSіLVовWквоД }
+{ The Project BBS (c)1993 в”ЂSв”јОµО“Lв”‚NGв”ЂSв”‚LVОµО“WО©О“Оµв”Ђ }
 
 uses
  crtstuff;

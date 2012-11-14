@@ -1,7 +1,7 @@
 program Doth;
 Uses Crt,crtstuff,zokstuff,sndstuff,filstuff,pntstuff;
 
-{ þ Global Types }
+{ â–  Global Types }
 Type
  Pobj = ^obj;
  obj = object ( node )
@@ -13,7 +13,7 @@ Type
  end;
  roomstring = array [ 1 .. 1400 ] of pobj; { for speedier broadcasting }
 
-{ þ Global Variables }
+{ â–  Global Variables }
 var
  progdone,
  gameon : boolean;
@@ -22,7 +22,7 @@ var
 
 {$I DOTHSCR.Pas}
 
-{ þ Global Procedures and Functions }
+{ â–  Global Procedures and Functions }
 
 function confirm( Message : string ) : boolean;
  var
@@ -83,7 +83,7 @@ procedure menu;
   writeto := writetemp;
  end;
 
-{ þ Object Procedures and Functions }
+{ â–  Object Procedures and Functions }
 
 constructor obj.init;
  begin
@@ -103,11 +103,11 @@ procedure obj.act;
  begin
  end;
 
-{ þ Normal Variables }
+{ â–  Normal Variables }
 var
  Masterheap : pointer;
 
-{ þ Normal Procedures and Functions }
+{ â–  Normal Procedures and Functions }
 
 Procedure nilObjects;
  var

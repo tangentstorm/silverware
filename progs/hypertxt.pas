@@ -13,9 +13,9 @@ procedure updateclock;
 
 procedure updatemsgbar( s : string );
  begin
-  cwritexy( 1, 25, '|!k|K|#²80' );
+  cwritexy( 1, 25, '|!k|K|#â–“80' );
   if s = '' then s := '|WHypertext Reader |B(|Wc|B)|W1994 '+silverware;
-  ccenterxy( 41, 25, '±° |W'+s+'|K °±');
+  ccenterxy( 41, 25, 'â–’â–‘ |W'+s+'|K â–‘â–’');
  end;
 
 procedure drawscreen;

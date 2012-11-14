@@ -24,9 +24,9 @@ procedure send( value : byte );
    if
     boolean(truth( value and power( 2, c ) ))
    then
-    colorxy( 66 + c, 4, lightred, 'þ' )
+    colorxy( 66 + c, 4, lightred, 'â– ' )
    else
-    colorxy( 66 + c, 4, darkgray, 'þ' );
+    colorxy( 66 + c, 4, darkgray, 'â– ' );
   port[ 888 ] := value;
  end;
 
@@ -39,34 +39,34 @@ procedure setstick( whichone, towhat : byte );
     stick0 := towhat;
     speed0 := -1 * sgn( stick0 - 4 ) * ( 4 - abs( stick0 - 4) ) * 10;
     currentstick := 0;
-    colorxy( 7,  9, $7A, 'ß' );
-    colorxy( 7, 15, $70, 'ß' );
+    colorxy( 7,  9, $7A, 'â–€' );
+    colorxy( 7, 15, $70, 'â–€' );
     for
      c := 1 to 7
     do
      if
       towhat = c
      then
-      colorxy( 9 * c + 3, 10, $4C, '±' )
+      colorxy( 9 * c + 3, 10, $4C, 'â–’' )
      else
-      colorxy( 9 * c + 3, 10, $70, 'Å' )
+      colorxy( 9 * c + 3, 10, $70, 'â”¼' )
    end { if }
   else
    begin
     stick1 := towhat;
     speed1 := -1 * sgn( stick1 - 4 ) * ( 4 - abs( stick1 - 4) ) * 10;
     currentstick := 1;
-    colorxy( 7,  9, $70, 'ß' );
-    colorxy( 7, 15, $7A, 'ß' );
+    colorxy( 7,  9, $70, 'â–€' );
+    colorxy( 7, 15, $7A, 'â–€' );
     for
      c := 1 to 7
     do
      if
       towhat = c
      then
-      colorxy( 9 * c + 3, 16, $4C, '±' )
+      colorxy( 9 * c + 3, 16, $4C, 'â–’' )
      else
-      colorxy( 9 * c + 3, 16, $70, 'Å' )
+      colorxy( 9 * c + 3, 16, $70, 'â”¼' )
    end; { if }
  end;
 

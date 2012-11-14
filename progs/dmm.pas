@@ -1,5 +1,5 @@
 { Doth MapMaker (c) 1992 }
-{ by SЕовLіNG SіLVовWкво }
+{ by Sв”јОµО“Lв”‚NG Sв”‚LVОµО“WО©О“Оµ }
 
 program DMM;
 Uses Crt,CrtStuff,SSWStuff;

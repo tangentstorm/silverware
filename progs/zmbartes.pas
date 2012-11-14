@@ -16,7 +16,7 @@ begin
  z.add( 9, 1, '|!k|RThree ', '|!r|ktHREE ', on, 'H', 3 );
  o.init( 1, 2, 21, '', true,
     newline( ' |)|WE|(dit            ... ', '', true, 'E', 1,
-    newline( ' |)|WO|(pen            <ÄÙ ', '', true, 'O', 2,
+    newline( ' |)|WO|(pen            <â”€â”˜ ', '', true, 'O', 2,
     newline( ' |)|WC|(opy       Ctrl-Ins ', '', true, 'C', 3,
     newline( ' |)|WD|(elete     Ctrl-Del ', '', true, 'D', 4,
     newline( ' |)|WM|(ove      Shift-Del ', '', true, 'M', 5,
@@ -27,7 +27,7 @@ begin
    nil ))))))))));
  t.init( 5, 2, 21, '', true,
     newline( ' |)|WE|(dit            ... ', '', true, 'E', 1,
-    newline( ' |)|WO|(pen            <ÄÙ ', '', true, 'O', 2,
+    newline( ' |)|WO|(pen            <â”€â”˜ ', '', true, 'O', 2,
     newbar(
     newline( ' |)|WR|(un             ... ', '', true, 'R', 6,
     newbar(

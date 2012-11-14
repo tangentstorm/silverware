@@ -8,7 +8,7 @@ Var B     : byte;
 Procedure Title;
  Begin
    WriteLn; WriteLn;
-   cWriteln('|rî|RÀ|YÅ|GY|BP|Mð |Wv2|Y.|W0 |G(|Wc|G)|W1993 ' + Silverware + '|W all rights reserved.');
+   cWriteln('|rÎµ|Râ””|Yâ”¼|GY|BP|Mâ‰¡ |Wv2|Y.|W0 |G(|Wc|G)|W1993 ' + Silverware + '|W all rights reserved.');
  End;
 
 

@@ -19,10 +19,10 @@ function pstring( s : string ) : string;
   temp : string;
  begin
   temp := '';
-  while pos( 'ž', s ) > 0 do
+  while pos( 'â‚§', s ) > 0 do
    begin
-    temp := temp + copy( s, 1, pos( 'ž', s ) - 1 );
-    delete( s, 1, pos( 'ž', s ) );
+    temp := temp + copy( s, 1, pos( 'â‚§', s ) - 1 );
+    delete( s, 1, pos( 'â‚§', s ) );
     case s[ 1 ] of
      'T','t' : temp := temp + '!|C'+stardate+'@'
     end;
@@ -261,14 +261,14 @@ procedure init;
  begin
   done := false;
   badlogin := false;
-  divider := '|b'+chntimes('Ä',40)+'|W';
-  boxes  := '|rþ|Rþ|Yþ |W';
-  prompt := '|bÄ|BÄ|CÄ|W>';
+  divider := '|b'+chntimes('â”€',40)+'|W';
+  boxes  := '|râ– |Râ– |Yâ–  |W';
+  prompt := '|bâ”€|Bâ”€|Câ”€|W>';
   banner :=
-    '|!k|# 19|WÂÄÄ¿|K'#13+'Ú|#Ä14|BTHE|KÄ|W³|KÄ|wÄ|WÙ|BROJECT|K|#Ä18¿'#13+
-    '³|# 18|WÁ|# 27|K³'#13+'³ |Woo |wlines!    |W12|w/|W24|w/|W96oo |wbaud'+
+    '|!k|# 19|Wâ”¬â”€â”€â”|K'#13+'â”Œ|#â”€14|BTHE|Kâ”€|Wâ”‚|Kâ”€|wâ”€|Wâ”˜|BROJECT|K|#â”€18â”'#13+
+    'â”‚|# 18|Wâ”´|# 27|Kâ”‚'#13+'â”‚ |Woo |wlines!    |W12|w/|W24|w/|W96oo |wbaud'+
 
-    '   |w(|Wxxx|w)|Wxxx|w-|Wxxxx |K³'#13+'À|#Ä26|w|B(|Wc|B)1994'+silverware+'ÄÙ'#13;
+    '   |w(|Wxxx|w)|Wxxx|w-|Wxxxx |Kâ”‚'#13+'â””|#â”€26|w|B(|Wc|B)1994'+silverware+'â”€â”˜'#13;
 
   sprompt := '|BSay|C>';
   maxerr := 4;

@@ -2,7 +2,7 @@ Program App3;
 Uses AppStuff,crt,crtstuff,TvrStuff;
 
 const
- prompt = '|bÄ|BÄ|CÄ|W>';
+ prompt = '|bâ”€|Bâ”€|Câ”€|W>';
 
 Var
  Progdone : Boolean;
@@ -17,7 +17,7 @@ Procedure docommand( s : string );
   if
    s = ''
   then
-   cwriteln( '|Yş |GEh|g?');
+   cwriteln( '|Yâ–  |GEh|g?');
   if
    s = 'CLS'
   then
@@ -29,7 +29,7 @@ Procedure docommand( s : string );
    (s = 'QUIT') or (s = 'Q')
   then
    begin
-    Cwriteln(' |Yş |GAre you |Ysure|G you want to quit|g? ');
+    Cwriteln(' |Yâ–  |GAre you |Ysure|G you want to quit|g? ');
    end;
   if
    (s = '/Q')
@@ -40,13 +40,13 @@ Procedure docommand( s : string );
   then
    begin
     cwriteln('');
-    cwriteln('|KÄ|WUsers|KÄ|WOnline|KÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ');
+    cwriteln('|Kâ”€|WUsers|Kâ”€|WOnline|Kâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€');
     cwriteln('|w Battle Axe    Cybernet - yay!');
     cwriteln('|w Pirate        Has anyone seen my bottle of rum?');
-    cwriteln('|Yú|wFigment       ');
-    cwriteln('|Yú|cSterling      |GWelcome to CyberNet|g...');
+    cwriteln('|YÂ·|wFigment       ');
+    cwriteln('|YÂ·|cSterling      |GWelcome to CyberNet|g...');
     cwriteln('|w Yagi Hito     ');
-    cwriteln('|KÄ|WFree|KÄ|WLines|B:|KÄÄ|W05|KÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ');
+    cwriteln('|Kâ”€|WFree|Kâ”€|WLines|B:|Kâ”€â”€|W05|Kâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€');
     cwriteln('');
    end;
  end;

@@ -64,9 +64,9 @@ type
       then
        colorxy( j, i, $0F, char(buffer^[(ofsy+(i-scry1)) * (bufx+1) + ofsx + j -scrx1+1]))
       else
-       colorxy( j, i, $0A, 'þ' )
+       colorxy( j, i, $0A, 'â– ' )
     else
-     colorxy( scrx1, i, $0A, chntimes( 'þ', scrx2-scrx1+1 ));
+     colorxy( scrx1, i, $0A, chntimes( 'â– ', scrx2-scrx1+1 ));
   end;
 
  procedure viewer.scrollh; { lr }
@@ -111,10 +111,10 @@ begin
  colorxy( 5, 23, $4C, 'X' );
  colorxy( 60, 5, $4C, 'X' );
  colorxy( 60, 23, $4C, 'X' );
- colorxy( 4, 4, $4E, 'þ' );
- colorxy( 4, 24, $4E, 'þ' );
- colorxy( 61, 4, $4E, 'þ' );
- colorxy( 61, 24, $4E, 'þ' );
+ colorxy( 4, 4, $4E, 'â– ' );
+ colorxy( 4, 24, $4E, 'â– ' );
+ colorxy( 61, 4, $4E, 'â– ' );
+ colorxy( 61, 24, $4E, 'â– ' );
  v.init( 1, 1, 80, 25, 0, 0, @blah, 60, 15 );
  v.display;
  ch := #0;
@@ -127,6 +127,6 @@ begin
     '6' : v.scrollh( right );
     '2' : v.scrollv( down );
    end;
-   colorxy( 31+5, 15+5, $0E, 'þ' );
+   colorxy( 31+5, 15+5, $0E, 'â– ' );
   end;
 end.

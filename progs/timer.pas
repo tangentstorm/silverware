@@ -4,7 +4,7 @@ var
  h,m,s,ms : word;
 
 begin
-  cwritexy(1,2,'|KÄ|WS|wÅîâL³NG|KÄ');
+  cwritexy(1,2,'|Kâ”€|WS|wâ”¼ÎµÎ“Lâ”‚NG|Kâ”€');
  repeat
   gettime(h,m,s,ms);
   cwritexy(75,2,'|W'+flushrt(n2s(h mod 12),2)+'|w:');

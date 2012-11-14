@@ -4,7 +4,7 @@ uses crt, vuestuff,crtstuff, zokstuff, filstuff, moustuff, dos;
 {$I XMTAGG}
 
 const
- version = '1.9.1‡';
+ version = '1.9.1Œ±';
  kXmenuPath = 'c:\michal\xmenu\';    { TODO: find home directory }
  kXmCfgPath = kXmenuPath + 'xmenu.cfg';
  kZmCfgPath = kXmenuPath + 'zmenu.dat';
@@ -171,7 +171,7 @@ function pwok : boolean;
   greyshadow( 25, 10, 53, 12 );
   colorxy( 26, 11, diaback * 16 + diatext, ' Password: ');
     p.init( 37, 11, 15, 15, diafieldback * 16 + diafieldfore,
-                            diaback * 16 + diafore, '˛', '' );
+                            diaback * 16 + diafore, '‚ñ†', '' );
   pwok := upstr( p.get) = upstr( data[choice].password);
   }
   pwok := true
@@ -212,7 +212,7 @@ procedure Navigator;
    showmouse(on);
 
    dirmenu.init( on, on, on,
-    newchoicexy( 1, 2, '|!w|k⁄|#ƒ10ø|!k ', '', false, #255, 0, nil, nil ));
+    newchoicexy( 1, 2, '|!w|k‚îå|#‚îÄ10‚îê|!k ', '', false, #255, 0, nil, nil ));
    numentries := 0;
    findfirst('*.*', anyfile, DirInfo);
    derror := doserror;
@@ -223,8 +223,8 @@ procedure Navigator;
       begin
        if dirinfo.name = '.' then dirinfo.name := '\';
        dirmenu.add( newchoicexy( 1, numentries + 3,
-                   '|!w|k≥|k '+padstr(Dirinfo.name,8,' ')+' ≥|!k ',
-                   '|!w|k≥|!b|W '+padstr(Dirinfo.name,8,' ')+' |!w|k≥|!k ',
+                   '|!w|k‚îÇ|k '+padstr(Dirinfo.name,8,' ')+' ‚îÇ|!k ',
+                   '|!w|k‚îÇ|!b|W '+padstr(Dirinfo.name,8,' ')+' |!w|k‚îÇ|!k ',
                    true, #255, 50, nil, nil ));
        inc( numentries );
       end;
@@ -239,13 +239,13 @@ procedure Navigator;
      if (disksize(i) <> -1) then
       begin
        dirmenu.add( newchoicexy( 1, numentries + 3,
-                    '|!w|k≥|k|# 03['+char(i+ord('a')-1)+':]|# 03≥|!k ',
-                 '|!w|k≥|!b|W|# 03['+char(i+ord('a')-1)+':]|# 03|!w|k≥|!k ',
+                    '|!w|k‚îÇ|k|# 03['+char(i+ord('a')-1)+':]|# 03‚îÇ|!k ',
+                 '|!w|k‚îÇ|!b|W|# 03['+char(i+ord('a')-1)+':]|# 03|!w|k‚îÇ|!k ',
                  true, #255, i, nil, nil ));
        inc( numentries );
       end;
    dirmenu.add (
-    newchoicexy( 1, numentries+3, '|!w|k¿|#ƒ10Ÿ|!k ', '', false, ' ', 0, nil,
+    newchoicexy( 1, numentries+3, '|!w|k‚îî|#‚îÄ10‚îò|!k ', '', false, ' ', 0, nil,
     newchoicexy( 2, numentries+4, '|!k|# 12', '', false, #255, 0, nil, nil )));
   i := dirmenu.get;
   case i of
@@ -269,9 +269,9 @@ procedure Navigator;
 {$F+}
 procedure help( cline : string );
  begin
-  cwriteln('|b|#ƒ55');
+  cwriteln('|b|#‚îÄ55');
   cwriteln('|WXMenu commands |r(|WRegular DOS commands also valid|r):');
-  cwriteln('|b|#ƒ55|W');
+  cwriteln('|b|#‚îÄ55|W');
   cwriteln('|Y?|w.............|Wthis help message');
   cwriteln('|Yx|w.............|Wexit XMenu');
   cwriteln('|Yadl|w...........|WAdvanced Directory Lister');
@@ -283,10 +283,10 @@ procedure help( cline : string );
   cwriteln('|Ynow|w.......|Wshow the time and date');
   cwriteln('|Yrnd|w...........|Wturns on the screen saver');
   cwriteln('|Ytrash|w.........|Wshows the TRASH directory');
-  cwriteln('|b|#ƒ55');
+  cwriteln('|b|#‚îÄ55');
   cwriteln('|WPlacing a semicolon |r(|Y;|r)|W at the start of the command|_'+
            'line removes XMenu from memory while the program runs|r.');
-  cwriteln('|b|#ƒ55');
+  cwriteln('|b|#‚îÄ55');
  end;
 
 procedure moo( cline : string );
@@ -297,7 +297,7 @@ procedure moo( cline : string );
   { lines had the status message from xmtag.pas / xmagg.pas }
   { it looks like this is meant to clear that. }
   word(writeto) := word(@screen) + 4000;
-  colorxy( 1, 1, 8, chntimes( 'ƒ', 80 ) );
+  colorxy( 1, 1, 8, chntimes( '‚îÄ', 80 ) );
   colorxy( 1, 2, 8, chntimes( ' ', 80 ) );
   colorxy( 1, 3, 8, chntimes( ' ', 80 ) );
   colorxy( 1, 4, 8, chntimes( ' ', 80 ) );
@@ -465,15 +465,15 @@ procedure parse( s : string );
 procedure makemenu;
  begin
   appmenu.init( on, on, on,
-     newchoicexy( 1, 2, '|!w|k⁄|#ƒ20ø|!k ', '', false, #255, 0, nil, nil ));
+     newchoicexy( 1, 2, '|!w|k‚îå|#‚îÄ20‚îê|!k ', '', false, #255, 0, nil, nil ));
   appmenu.add(
-     newchoicexy( 1, 3, '|!w|k≥ |b˛|k Navigator   ...  ≥|!k ',
-                        '|!w|k≥|!b |Y˛|W Navigator   ...  |!w|k≥|!k ',
+     newchoicexy( 1, 3, '|!w|k‚îÇ |b‚ñ†|k Navigator   ...  ‚îÇ|!k ',
+                        '|!w|k‚îÇ|!b |Y‚ñ†|W Navigator   ...  |!w|k‚îÇ|!k ',
                        on, ' ', 253, nil, nil ));
   if fileexists( kZmCfgPath ) then
    begin
     appmenu.add(
-     newchoicexy(1, 4, '|!w|k√|#ƒ20¥|!k ', '', no, #255, 0, nil, nil ));
+     newchoicexy(1, 4, '|!w|k‚îú|#‚îÄ20‚î§|!k ', '', no, #255, 0, nil, nil ));
     assign( xf, kZmCfgPath);
     reset( xf );
     numentries := 0;
@@ -488,10 +488,10 @@ procedure makemenu;
       readln( xf, data[numentries].Filename );
       with data[ numentries ] do
         appmenu.add( newchoicexy( 1, numentries + 4,
-              '|!w|k≥(|b' + shortcut + '|k) ' +
-               padstr( MenuText, 16, ' ') + '≥|!k ',
-               '|!w|k≥|!b|W(|Y' + shortcut + '|W) ' +
-               padstr( MenuText, 16, ' ') + '|!w|k≥|!k ',
+              '|!w|k‚îÇ(|b' + shortcut + '|k) ' +
+               padstr( MenuText, 16, ' ') + '‚îÇ|!k ',
+               '|!w|k‚îÇ|!b|W(|Y' + shortcut + '|W) ' +
+               padstr( MenuText, 16, ' ') + '|!w|k‚îÇ|!k ',
                true, shortcut[1], numentries, nil, nil ));
      end;
      close( xf );
@@ -499,15 +499,15 @@ procedure makemenu;
   if exitchoice then
    begin
     appmenu.add (
-     newchoicexy( 1, numentries+5, '|!w|k√|#ƒ20¥|!k ', '', false, #255, 0, nil,
+     newchoicexy( 1, numentries+5, '|!w|k‚îú|#‚îÄ20‚î§|!k ', '', false, #255, 0, nil,
      newchoicexy( 1, numentries + 6,
-              '|!w|k≥(|b˛|k) Exit XMenu      ≥|!k ',
-               '|!w|k≥|!b|W(|Y˛|W) Exit XMenu      |!w|k≥|!k ',
+              '|!w|k‚îÇ(|b‚ñ†|k) Exit XMenu      ‚îÇ|!k ',
+               '|!w|k‚îÇ|!b|W(|Y‚ñ†|W) Exit XMenu      |!w|k‚îÇ|!k ',
                true, #254, 254, nil, nil )));
     inc(numentries,2);
    end;
    appmenu.add (
-    newchoicexy( 1, numentries+5, '|!w|k¿|#ƒ20Ÿ|!k ', '', false, ' ', 0, nil,
+    newchoicexy( 1, numentries+5, '|!w|k‚îî|#‚îÄ20‚îò|!k ', '', false, ' ', 0, nil,
     newchoicexy( 2, numentries+6, '|!k|# 22', '', false, #255, 0, nil, nil )));
  end;
 
@@ -569,11 +569,11 @@ procedure init;
    end;
   exitchoice := (paramcount > 1) and (paramstr(2) = '!');
   makemenu;
-  cwritexy( 1,1, '|!w|%  |b  X|kMenu |!k');
+  cwritexy( 1,1, '|!w|%  |b‚â°  X|kMenu |!k');
   tymin := 2;
   if paramcount > 2 then parse( paramstr( 3 ) );
   z.init( txpos, typos+1, 255, 79-txpos, $0F, $0A, false, '' );
-  p.init( 6, 1, 72, 74, $09, $0F, '˛', '' );
+  p.init( 6, 1, 72, 74, $09, $0F, '‚ñ†', '' );
   mouseon;
   setmpos(0,0);
   showmouse( off );
@@ -587,7 +587,7 @@ begin
   GetTime(h,om,s,hund);
   min := 0;
   tymin := 1;
-  cwritexy( 1,1, '|!w  |b  X|kMenu |# 47|b|^D |!k');
+  cwritexy( 1,1, '|!w  |b‚â°  X|kMenu |# 47|b|^D |!k');
   tymin := 2;
 
   ox := txpos; oy := typos;

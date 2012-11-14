@@ -24,12 +24,12 @@ Const
   ThingArray : array[Ord(Hero)..Ord(TLast)] of ThingRec =
   ( ( Name: 'Hero';   At: $0E; Token: #2 ),
     ( Name: 'Grass';  At: $2A; Token: '.'),
-    ( Name: 'Wall';   At: $08; Token: '²'),
+    ( Name: 'Wall';   At: $08; Token: 'â–“'),
     ( Name: 'Water';  At: $1F; Token: '                                   '+
             '                                                           -_'),
-    ( Name: 'Box';    At: $0C; Token: 'þ'),
-    ( Name: 'Door';   At: $0F; Token: 'ï'),
-    ( Name: 'Scroll'; At: $09; Token: '÷'),
+    ( Name: 'Box';    At: $0C; Token: 'â– '),
+    ( Name: 'Door';   At: $0F; Token: 'âˆ©'),
+    ( Name: 'Scroll'; At: $09; Token: 'â‰ˆ'),
     ( Name: 'Last' ) );
 
 
@@ -158,7 +158,7 @@ Procedure GameScreen;
   StWriteXY( 73, 11,    '/: Sword' );
   StWriteXY( 73, 12,    '*: Fire'  );
   StWriteXY( 73, 13,    '.: Item'  );
-  StWriteXY( 73, 14,    'þ: Stats' );
+  StWriteXY( 73, 14,    'â– : Stats' );
   StWriteXY( 73, 15,    '0: Notes' );
   StWriteXY( 73, 17,    'P: Pause' );
   StWriteXY( 73, 18,    'S: Sound' );
@@ -255,7 +255,7 @@ Procedure Ahero.Create;
   Rectangle(17,7,50,10,$08);
   StWriteXY(18,8,'Enter a name for your hero(ine):' );
   StWriteXY(18,9,'Name:                           ' );
-  i.init(25,9,20,$0F,$89,'±');
+  i.init(25,9,20,$0F,$89,'â–’');
   Name    := i.Get;
   Rank    := Novice;
   Status  := Healthy;

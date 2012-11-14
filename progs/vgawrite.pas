@@ -145,7 +145,7 @@ begin
  getenter;
  vWriteLn('|Wthis is an AUTOEXEC.BAT-lister by...');
  vwriteln('|b[|B[|WS|Ca|WBR|Ce|WN|B]|b]');
- vwriteln('|gÄ|GÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ|YÄ|w');
+ vwriteln('|gâ”€|Gâ”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€|Yâ”€|w');
  vga := tempvga^;
      assign( t, 'C:\AUTOEXEC.BAT' );
      reset( t );

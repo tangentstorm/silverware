@@ -383,24 +383,24 @@ procedure edit;
     bar( 4, 8, 77, 15, diaback * 16 + diafore );
     if shadowson then greyshadow( 4, 8, 77, 15 );
     editmenu2.init( true );
-    editmenu2.add(  6,  9, ntxt+'Drive',     htxt+'Drive',  true, 'ª', 1 );
+    editmenu2.add(  6,  9, ntxt+'Drive',     htxt+'Drive',  true, 'Â¬', 1 );
     cwritexy( 11, 9, rtxt+':');
-    editmenu2.add( 31,  9, ntxt+'Path',      htxt+'Path',   true, '«', 2 );
+    editmenu2.add( 31,  9, ntxt+'Path',      htxt+'Path',   true, 'Â½', 2 );
     cwritexy( 35, 9, ':');
-    editmenu2.add(  7, 10, ntxt+'File',      htxt+'File',   true, '¬', 3 );
+    editmenu2.add(  7, 10, ntxt+'File',      htxt+'File',   true, 'Â¼', 3 );
     cwritexy( 11, 10, ':');
-    editmenu2.add( 30, 10, ntxt+'Param',     htxt+'Param',  true, '­', 4 );
+    editmenu2.add( 30, 10, ntxt+'Param',     htxt+'Param',  true, 'Â¡', 4 );
     cwritexy( 35, 10, ':');
-    editmenu2.add(  7, 12, ntxt+'Prompt for params', htxt+'Prompt for params', true, '®', 5 );
+    editmenu2.add(  7, 12, ntxt+'Prompt for params', htxt+'Prompt for params', true, 'Â«', 5 );
     cwritexy( 24, 12, '?');
-    editmenu2.add( 31, 12, ntxt+'Save params', htxt+'Save params', true, '¯', 6 );
+    editmenu2.add( 31, 12, ntxt+'Save params', htxt+'Save params', true, 'Â»', 6 );
     cwritexy( 42, 12, '?');
-    editmenu2.add( 49, 12, ntxt+'Wait for key when done', htxt+'Wait for key when done', true, '°', 7 );
+    editmenu2.add( 49, 12, ntxt+'Wait for key when done', htxt+'Wait for key when done', true, 'â–‘', 7 );
     cwritexy( 71, 12, '?');
-    editmenu2.add( 33, 14, ntxt+'Save and Return', htxt+'Save and Return', true, '±', 8 );
+    editmenu2.add( 33, 14, ntxt+'Save and Return', htxt+'Save and Return', true, 'â–’', 8 );
     cwritexy( 48, 14, '...');
-    colorxy( 4, 11, diaback*16+diafore, 'Ã'+ chntimes( 'Ä', 72 ) + '´' );
-    colorxy( 4, 13, diaback*16+diafore, 'Ã'+ chntimes( 'Ä', 72 ) + '´' );
+    colorxy( 4, 11, diaback*16+diafore, 'â”œ'+ chntimes( 'â”€', 72 ) + 'â”¤' );
+    colorxy( 4, 13, diaback*16+diafore, 'â”œ'+ chntimes( 'â”€', 72 ) + 'â”¤' );
     d := mc.drive;
     drive.init( 13, 9, 1, 1, tcol, acol, d );
     drive.show;
@@ -422,31 +422,31 @@ procedure edit;
       1 : begin
            d := drive.get;
            mc.drive := d[ 1 ];
-           editmenu2.setto( editmenu2.shortcut( '«' ) );
+           editmenu2.setto( editmenu2.shortcut( 'Â½' ) );
           end;
       2 : begin
            mc.path := path.get;
-           editmenu2.setto( editmenu2.shortcut( '¬' ) );
+           editmenu2.setto( editmenu2.shortcut( 'Â¼' ) );
           end;
       3 : begin
            mc.filename := filenm.get;
-           editmenu2.setto( editmenu2.shortcut( '­' ) );
+           editmenu2.setto( editmenu2.shortcut( 'Â¡' ) );
           end;
       4 : begin
            mc.params := param.get;
-           editmenu2.setto( editmenu2.shortcut( '®' ) );
+           editmenu2.setto( editmenu2.shortcut( 'Â«' ) );
           end;
       5 : begin
            mc.paramchk := pprm.toggle;
-           editmenu2.setto( editmenu2.shortcut( '¯' ) );
+           editmenu2.setto( editmenu2.shortcut( 'Â»' ) );
           end;
       6 : begin
            mc.saveparams := sprm.toggle;
-           editmenu2.setto( editmenu2.shortcut( '°' ) );
+           editmenu2.setto( editmenu2.shortcut( 'â–‘' ) );
           end;
       7 : begin
            mc.pausaftr := wwd.toggle;
-           editmenu2.setto( editmenu2.shortcut( '±' ) );
+           editmenu2.setto( editmenu2.shortcut( 'â–’' ) );
           end;
       8 : begin
            data[ choice ] := mc;
@@ -473,10 +473,10 @@ procedure edit;
     bar( 4, 9, 77, 13, diaback * 16 + diafore );
     if shadowson then greyshadow( 4, 9, 77, 13 );
     editmenu2.init( true );
-    editmenu2.add( 25, 10, ntxt+'Submenu Filename', htxt+'Submenu Filename',  true, 'ª', 1 );
-    editmenu2.add( 33, 12, ntxt+'Save and Return', htxt+'Save and Return', true, '«', 2 );
+    editmenu2.add( 25, 10, ntxt+'Submenu Filename', htxt+'Submenu Filename',  true, 'Â¬', 1 );
+    editmenu2.add( 33, 12, ntxt+'Save and Return', htxt+'Save and Return', true, 'Â½', 2 );
     cwritexy( 41, 10, rtxt+':' );
-    colorxy( 4, 11, diaback*16+diafore, 'Ã'+ chntimes( 'Ä', 72 ) + '´' );
+    colorxy( 4, 11, diaback*16+diafore, 'â”œ'+ chntimes( 'â”€', 72 ) + 'â”¤' );
     filenm.init( 43, 10, 8, 8, tcol, acol, mc.filename );
     filenm.show; doscursoroff;
     editmenu2.show;
@@ -484,7 +484,7 @@ procedure edit;
      case editmenu2.get of
       1 : begin
            mc.filename := filenm.get;
-           editmenu2.setto( editmenu2.shortcut( '«' ) );
+           editmenu2.setto( editmenu2.shortcut( 'Â½' ) );
           end;
       2 : begin
            data[ choice ] := mc;
@@ -514,12 +514,12 @@ procedure edit;
   statusline( '|!k|w Use |B<|WTab|B>|K/|WShift|K-|B<|WTab|B>|w to move '+
               'cursor|K,|w press |B<|WEsc|B> |wto discard changes|K...' );
   bar( 4, 8, 77, 15, diaback * 16 + diafore );
-  editmenu.add(  6,  9, ntxt+'Title',     htxt+'Title',     true, 'ª', 1 );
-  editmenu.add( 51,  9, ntxt+'Password',  htxt+'Password',  true, '«', 2 );
-  editmenu.add(  7, 10, ntxt+'Info',      htxt+'Info',      true, '¬', 3 );
-  editmenu.add( 50, 10, ntxt+'InfoColor', htxt+'InfoColor', true, '­', 4 );
-  editmenu.add( 27, 12, ntxt+'Program or Submenu', htxt+'Program or Submenu', true, '®', 5 );
-  editmenu.add( 37, 14, ntxt+'More', htxt+'More', true, '¯', 6 );
+  editmenu.add(  6,  9, ntxt+'Title',     htxt+'Title',     true, 'Â¬', 1 );
+  editmenu.add( 51,  9, ntxt+'Password',  htxt+'Password',  true, 'Â½', 2 );
+  editmenu.add(  7, 10, ntxt+'Info',      htxt+'Info',      true, 'Â¼', 3 );
+  editmenu.add( 50, 10, ntxt+'InfoColor', htxt+'InfoColor', true, 'Â¡', 4 );
+  editmenu.add( 27, 12, ntxt+'Program or Submenu', htxt+'Program or Submenu', true, 'Â«', 5 );
+  editmenu.add( 37, 14, ntxt+'More', htxt+'More', true, 'Â»', 6 );
   cwritexy( 11,  9, rtxt+':' ); {title}
   cwritexy( 11, 10, ':' );      {info}
   cwritexy( 59,  9, ':' );      {password}
@@ -530,7 +530,7 @@ procedure edit;
   acol := diaback * 16 + diafore;
   title.init( 13, 9, 35, 35, tcol, acol, unpadstr(mc.menutext,' '));
   title.show;
-  passwd.init( 61, 9, 15, 15, tcol, acol, 'þ', mc.password );
+  passwd.init( 61, 9, 15, 15, tcol, acol, 'â– ', mc.password );
   passwd.show;
   info.init( 13, 10, 72, 35, tcol, acol, mc.infotext );
   info.show; doscursoroff;
@@ -538,31 +538,31 @@ procedure edit;
   progsub.show;
   icolor.init( 61, 10, tcol, acol, mc.infoattr );
   icolor.show;
-  colorxy( 4, 11, acol, 'Ã'+ chntimes( 'Ä', 72 ) + '´' );
-  colorxy( 4, 13, acol, 'Ã'+ chntimes( 'Ä', 72 ) + '´' );
+  colorxy( 4, 11, acol, 'â”œ'+ chntimes( 'â”€', 72 ) + 'â”¤' );
+  colorxy( 4, 13, acol, 'â”œ'+ chntimes( 'â”€', 72 ) + 'â”¤' );
   editmenu.show;
   if shadowson then greyshadow( 4, 8, 77, 15 );
   repeat
    case editmenu.get of
     1 : begin
          mc.menutext := padstr( title.get, 36, ' ' );
-         editmenu.setto( editmenu.shortcut( '«' ) );
+         editmenu.setto( editmenu.shortcut( 'Â½' ) );
         end;
     2 : begin
          mc.password := passwd.get;
-         editmenu.setto( editmenu.shortcut( '¬' ) );
+         editmenu.setto( editmenu.shortcut( 'Â¼' ) );
         end;
     3 : begin
          mc.infotext := info.get;
-         editmenu.setto( editmenu.shortcut( '­' ) );
+         editmenu.setto( editmenu.shortcut( 'Â¡' ) );
         end;
     4 : begin
          mc.infoattr := icolor.get;
-         editmenu.setto( editmenu.shortcut( '®' ) );
+         editmenu.setto( editmenu.shortcut( 'Â«' ) );
         end;
     5 : begin
          mc.prgorsub := progsub.toggle;
-         editmenu.setto( editmenu.shortcut( '¯' ) );
+         editmenu.setto( editmenu.shortcut( 'Â»' ) );
         end;
     6 : if mc.prgorsub then programedit else submenuedit;
     255 : editdone := true; { discard changes }
@@ -628,7 +628,7 @@ function pwok : boolean;
   greyshadow( 25, 10, 53, 12 );
   colorxy( 26, 11, diaback * 16 + diatext, ' Password: ');
     apassword.init( 37, 11, 15, 15, diafieldback * 16 + diafieldfore,
-                            diaback * 16 + diafore, 'þ', '' );
+                            diaback * 16 + diafore, 'â– ', '' );
   pwok := upstr( apassword.get) = upstr( data[choice].password);
  end;
 
@@ -663,7 +663,7 @@ procedure doaltmenu;
    mark( fileptr );
    filemenu.init( 1, 3, 21, mb+mf+mt+hb+hf, true,
     newline( ' |)|'+mn+'E|(dit            ... ', '', true, 'E', 1,
-    newline( ' |)|'+mn+'O|(pen            <ÄÙ ', '', true, 'O', 2,
+    newline( ' |)|'+mn+'O|(pen            <â”€â”˜ ', '', true, 'O', 2,
     newline( ' |)|'+mn+'C|(opy       Ctrl-Ins ', '', true, 'C', 3,
     newline( ' |)|'+mn+'D|(elete     Ctrl-Del ', '', true, 'D', 4,
     newline( ' |)|'+mn+'M|(ove      Shift-Del ', '', true, 'M', 5,

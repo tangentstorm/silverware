@@ -133,7 +133,7 @@ procedure save( s, y, n : string );
  end;
 
 begin
- cwriteln('|B|#Ä10|_|W Animals|b!|_|B|#Ä10');
+ cwriteln('|B|#â”€10|_|W Animals|b!|_|B|#â”€10');
  current := 1; animalcount := 1;
  {$I-} filereset( f, 'animals.dat' ); close( f ); {$I+}
  if not (ioresult = 0) then

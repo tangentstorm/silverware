@@ -16,8 +16,8 @@ const               {1234567890AB}
  cancan = 'C.C..DFEDG.G..GAEFD.D..DFEDC.';
                 { bitmapped tone/chord: }
                 { 2^X: FEDCBA987654   32   1   0 }
-                { Bit: þþþþþþþþþþþþ | þþ | þ | þ }
-                { Map: BbAaGfFeEDcC | Ln | ^ | ú }
+                { Bit: â– â– â– â– â– â– â– â– â– â– â– â–  | â– â–  | â–  | â–  }
+                { Map: BbAaGfFeEDcC | Ln | ^ | Â· }
 
 
 type
@@ -401,7 +401,7 @@ procedure domusicmenu; { main routine }
   sbcol1 := Boolchar(spkr.sbon,'W','K');
   musicmenu.init( 25, 6, 30, '', yes, no,
    newchoice( '(|)|WF|()lashcards', '', on,'F', 1, nil,
-   newchoice( '|G(|)|WO|()bjectlab', '|K³|!g(|WO|Y)bjectlab|# 19|!k|K³', on, 'O', 2, nil,
+   newchoice( '|G(|)|WO|()bjectlab', '|Kâ”‚|!g(|WO|Y)bjectlab|# 19|!k|Kâ”‚', on, 'O', 2, nil,
    newchoice( '(|)|WM|()usic composition', '', on, 'M', 3, nil,
    newchoice( '(|)|'+sbcol1+'I|()nstruments', '', spkr.sbon, 'I', 4, nil,
    newchoice( '(|)|WP|()rint utilities', '', on, 'P', 5, nil,

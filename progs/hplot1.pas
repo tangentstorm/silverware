@@ -27,7 +27,7 @@ procedure drawline( a, b, c, d, color : byte );
  procedure drawvertical( a, b, d : byte );
   var count : byte;
   begin
-   for count := min( b, d ) to max( b, d ) do colorxy( a, count, color, 'Û' );
+   for count := min( b, d ) to max( b, d ) do colorxy( a, count, color, 'â–ˆ' );
   end;
  begin
   if min( a, c ) = a then lasty := b else lasty := d;
@@ -49,7 +49,7 @@ procedure drawline( a, b, c, d, color : byte );
       else
        drawvertical( x, lasty+1, y );
      lasty := y;
-     colorxy( x, y, color, 'Û' );
+     colorxy( x, y, color, 'â–ˆ' );
     end; { for x.. }
    end { if..then }
   else
@@ -61,7 +61,7 @@ type
 
 const
  hplotstr = '|rHappy Plot II |k: The Plot Thickens';
- adefault = '|k(|Bc|k)|K1994 |kÄ|BS|b³LVîâWêâî|kÄ';
+ adefault = '|k(|Bc|k)|K1994 |kâ”€|BS|bâ”‚LVÎµÎ“WÎ©Î“Îµ|kâ”€';
  filename = 'HPLOT1.HAP';
  paperx = 20;
  papery = 40;

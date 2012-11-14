@@ -47,7 +47,7 @@ procedure zcolor.show;
  var
   s : string;
  begin
-  colorxy( x, y, byte( value > 0 ) * acol, '®' );
+  colorxy( x, y, byte( value > 0 ) * acol, 'Â«' );
   case value of
    $0 : s := 'black';
    $1 : s := 'blue';
@@ -72,7 +72,7 @@ procedure zcolor.show;
    colorxyc( x + 7, y, $F, s )
   else
    colorxyc( x + 7, y, value, s );
-  colorxy( x + 15, y, byte( value < 16 ) * acol, '¯' );
+  colorxy( x + 15, y, byte( value < 16 ) * acol, 'Â»' );
  end;
 
 function zcolor.get : byte;

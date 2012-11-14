@@ -7,13 +7,13 @@ var
  s : string;
 
 const
- prompt1 = #13'|BC:\'#13'|RGUâU|Y>|W';
- prompt2 = #13'|GWOâD|Y>|W';
+ prompt1 = #13'|BC:\'#13'|RGUÎ“U|Y>|W';
+ prompt2 = #13'|GWOÎ“D|Y>|W';
 
 procedure dir;
  begin
   cwriteln('|W'#13);
-  cwriteln(' Volume in drive C is GUâU');
+  cwriteln(' Volume in drive C is GUÎ“U');
   cwriteln(' Volume Serial Number is 3330-15D2');
   cwriteln(' Directory of C:\');
   cwriteln('');
@@ -23,7 +23,7 @@ procedure dir;
 begin
  checkbreak := false;
  z.init( 6, 1, 75, 75, $0F, $0F, '' );
- p.init( 6, 1, 75, 75, $09, $0F, 'þ', '' );
+ p.init( 6, 1, 75, 75, $09, $0F, 'â– ', '' );
  repeat
   repeat
    cwrite( prompt1 );

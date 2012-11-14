@@ -9,7 +9,7 @@ var
 begin
  cwriteln('');
  cwriteln('|WNote.exe |B(|Wc|B)|W1994 '+silverware);
- cwriteln('|b|#Ä50');
+ cwriteln('|b|#â”€50');
  assign( f, 'C:\extras\notes.txt' );
  if paramcount > 0 then
   begin
@@ -27,7 +27,7 @@ begin
    if not fileexists('C:\EXTRAS\NOTES.TXT') then
     begin
      cwriteln('|GNothing in notepad file|g...');
-     cwriteln('|b|#Ä50');
+     cwriteln('|b|#â”€50');
      exit;
     end;
    reset( f );
@@ -37,6 +37,6 @@ begin
     cwriteln( '|w'+s );
    end;
   end;
- cwriteln('|b|#Ä50');
+ cwriteln('|b|#â”€50');
  close( f );
 end.
