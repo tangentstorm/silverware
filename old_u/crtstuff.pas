@@ -1,10 +1,7 @@
 unit Crtstuff;
-interface
-{$IFDEF FPC}
-  uses num, cw, stri, dos, crt, fpcstuff, keyboard;
-    {$ELSE}
-uses num, cw, stri, dos, crt;
-  {$ENDIF}
+interface uses num, cw, stri, dos, crt, fx
+  {$IFDEF FPC}, fpcstuff, keyboard
+  {$ENDIF};
 
 {note: (1,1) is ALWAYS top left corner of a screen or window }
 
@@ -40,7 +37,6 @@ Const
  Sterling   = '|K─|WS|w┼εΓL│NG|K─';
  SilverWare = '|K─|WS|w│LVεΓWΩΓε|K─';
 
-
 { keyboard shift states }
  rshiftpressed  = $01;
  lshiftpressed  = $02;
@@ -49,46 +45,25 @@ Const
  altpressed     = $08;
  scrolllockon   = $10;
  numlockon      = $20;
- capslockon     = $40;
+capslockon     = $40;
  inserton       = $80;
 
-Type
- ScreenType  = array[ 0..7999 ] of byte;          { 80x50 screen }
- VGAtype = array [ 0..319, 0..200 ] of byte;
- DChar = array[ 1..2 ] of char;                   { double char }
- LongStr = array[ 1 .. 3 ] of string;             { about 7 lines }
- Cel = array[ 0 .. 0 ] of byte;
- PCel = ^Cel;                                     { ^TextPicture }
- ScreenTypePtr = ^ScreenType;
+type
+ { double char }
+ DChar	= array[ 1..2 ] of char;
+ { about 7 lines }
+ LongStr	= array[ 1 .. 3 ] of string;
+
 
-  Var
-    sw	       : word;                     { width of screen * 2}
-    Screen     : ScreenType                { co80 screen  }
-		 {$IFDEF TPC}{absolute $B800:$0000}{$ENDIF};
-    WriteTo    : ScreenTypePtr;            { Directs Writes }
-    DOSscreen  : ScreenTypePtr;            { saved DOS screen }
-    DOSxPos,                               { saved xpos from DOS }
-    DOSyPos    : byte;                     { saved ypos from DOS }
-    CursorOn   : boolean;                  { is cursor on? }
-    CursorAttr : word;                     { cursorattribs }
 
   Function Boolchar( bool: boolean; t, f : char ) : Char;
 
-{ ■ screen/window handling commands }
-  { procedure setmode( mode : word );
-    procedure settextheight( h : byte );  }
-  procedure fillscreen( atch : word ); {ATTR then CHAR}
-  procedure fillbox( a1, b1, a2, b2 : byte; atch : word );
-  procedure slidedown( x1, x2, y1, y2 : byte; offwhat : screentypeptr );
-  procedure slidedownoff( offwhat : screentypeptr );
-  procedure scrollup1( x1, x2, y1, y2 : byte; offwhat : screentypeptr );
-  procedure scrolldown1( x1, x2, y1, y2 : byte; offwhat : screentypeptr );
-  procedure scrolldown( x1, x2, y1, y2 : byte; offwhat : screentypeptr );
-  procedure scrolldownoff( offwhat : screentypeptr );
-  procedure scrollright(  x1, x2, y1, y2 : byte; offwhat : screentypeptr );
-  procedure scrollrightoff( offwhat : screentypeptr );
+{■ screen/window handling commands }
+  
+  // procedure setmode( mode : word );
+  // procedure settextheight( h : byte );  }
 
-{ ■ string formatting commands }
+{■ string formatting commands }
 
   function UpStr( s : string ) : String;
   function DnCase( ch : char ) : Char;
@@ -96,36 +71,40 @@ Type
   function unpadstr( s : string; ch : char ) : string;
 
   // moved to stri.pas :
-  function chntimes( c : char; n : byte ) : string; deprecated;
-  function flushrt( s : string; n : byte; ch : char ) : string; deprecated;
-  function padstr( s : string; len : byte; ch : char ) : string; deprecated;
-  function strtrunc( s : string; len : byte ) : string; deprecated;
+  { function chntimes( c : char; n : byte ) : string;  }
+  { function flushrt( s : string; n : byte; ch : char ) : string; }
+  { function padstr( s : string; len : byte; ch : char ) : string; }
+  { function strtrunc( s : string; len : byte ) : string; }
 
 { ■ number/conversion commands  : moved to num.pas }
-  function min( p, q : longint ) : longint;
-  function max( p, q : longint ) : longint;
-  function inc2( goesto, amt, max : longint ) : longint;
-  function dec2( from, amt, min : longint ) : longint;
-  function incwrap( goesto, amt, min, max : longint ) : longint;
-  function decwrap( from, amt, min, max : longint ) : longint;
-  function stepwrap( x, amt, min, max : longint ) : longint;
-  function h2s( w : word ) : string;
-  function s2h( s : string ) : word;
-  function n2s( x : longint ) : string;
-  function s2n( s : string ) : longint;
-  function truth( p : longint ) : byte;
-  function power( a, b : longint ) : longint;
-  function sgn( x : longint ) : shortint;
+{────────────────────────────}
+  { function min( p, q : longint ) : longint; }
+  { function max( p, q : longint ) : longint; }
+  { function inc2( goesto, amt, max : longint ) : longint; }
+  { function dec2( from, amt, min : longint ) : longint; }
+  { function incwrap( goesto, amt, min, max : longint ) : longint; }
+  { function decwrap( from, amt, min, max : longint ) : longint; }
+  { function stepwrap( x, amt, min, max : longint ) : longint; }
+  { function h2s( w : word ) : string; }
+  { function s2h( s : string ) : word; }
+  { function n2s( x : longint ) : string; }
+  { function s2n( s : string ) : longint; }
+  { function truth( p : longint ) : byte; }
+  { function power( a, b : longint ) : longint; }
+  { function sgn( x : longint ) : shortint; }
 
-{ ■ ascii graphics }
-  procedure txtline( a, b, x, y, c : byte );
-  procedure Rectangle( a, b, x, y, c : byte );
-  procedure Bar( a, b, x, y, at: byte );
-  procedure metalbar( a1, b1, a2, b2 : byte );
-  procedure metalbox( a1, b1, a2, b2 : byte );
-  procedure Button( a1, b1, a2, b2 : byte );
-  procedure greyshadow( a1, b1, a2, b2 : byte );
-  procedure blackshadow( a1, b1, a2, b2 : byte );
+{■ ascii graphics -> fx.pas }
+{────────────────────────────}  
+  { procedure txtline( a, b, x, y, c : byte ); }
+  { procedure Rectangle( a, b, x, y, c : byte ); }
+  { procedure Bar( a, b, x, y, at: byte ); }
+  { procedure metalbar( a1, b1, a2, b2 : byte ); }
+  { procedure metalbox( a1, b1, a2, b2 : byte ); }
+  { procedure Button( a1, b1, a2, b2 : byte ); }
+  { procedure greyshadow( a1, b1, a2, b2 : byte ); }
+  { procedure blackshadow( a1, b1, a2, b2 : byte ); }
+
+{ ■ thedraw graphics }
   procedure stamp( a1, b1, a2, b2 : byte; pic : pcel );
 
 { ■ screen savers }
@@ -133,6 +112,7 @@ Type
   procedure rnd2;
 
 { ■ misc other commands }
+{────────────────────────────}
   procedure SetupCrt;
   procedure hitakey;
   procedure doscursoroff;
@@ -168,7 +148,8 @@ Type
   function readkey: char;
 {$ENDIF}
 
-
+{────────────────────────────}
+  
 implementation
 
   { origin: 0,0 }
@@ -508,17 +489,6 @@ implementation
     ColorXY(A1,B2,$7F,'└');
   End;
 
-  procedure greyshadow( a1, b1, a2, b2 : byte );
-    var i, w, h : byte;
-  begin
-    w := a2 - a1;
-    h := b2 - b1;
-    for i := 1 to w do
-      writeto^[ (a1 + i) * 2 - 1 + (b2 * sw) ] := $08;
-    if a2 < txmax-txmin+1 then
-      for i := 0 to h do
-	writeto^[ (a2 * 2) + 1 + ( b1 + i ) * sw ] := $08;
-  end;
 
   procedure blackshadow( a1, b1, a2, b2 : byte );
   begin
