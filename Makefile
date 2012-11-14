@@ -16,7 +16,6 @@ bin/%: apps/%.pas
 tmp/%: progs/%.pas
 	@mkdir -p tmp
 	$(FPC) -gl -FE./tmp $<
-	tmp/%s
 
 clean:
 	@delp . apps progs
@@ -26,6 +25,7 @@ clean:
 #-- progs ( legacy code ) ---------------------
 
 zmenu: tmp/zmenu
+	tmp/zmenu
 ymenu: tmp/ymenu
 xmenu: tmp/xmenu
 life:  tmp/life
