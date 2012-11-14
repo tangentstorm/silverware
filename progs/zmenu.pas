@@ -39,7 +39,7 @@ Begin
  close( zf );
  button( 13, 4, 33, numentries + 7 );
  greyshadow( 13, 4, 33, numentries + 7 );
- menu.add ( 15, 5, '|!w|b Í|BÍ|CÍ|b[|Yú|WZMenu|Yú|b]|CÍ|BÍ|bÍ', '', false, ' ', 0 );
+ menu.add ( 15, 5, '|!w|b â•|Bâ•|Câ•|b[|YÂ·|WZMenu|YÂ·|b]|Câ•|Bâ•|bâ•', '', false, ' ', 0 );
  for
   counter := 1 to numentries
  do
