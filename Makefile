@@ -1,41 +1,40 @@
+# you need the xpl library
 XPL = ~/x/code
-FPC = fpc -Mobjfpc  -FE./bin -Fu$(XPL) -Fi$(XPL) \
+FPC = fpc -Mobjfpc -Fu$(XPL) -Fi$(XPL) \
           -Fi./other. -Fu./units -Fu./old_u \
 	  -gl
 
-default: cedit
-
-bin/%.ppu: /%.pas
-	@mkdir -p bin
-	$(FPC) $<
-
-bin/%: progs/%.pas
-	@mkdir -p bin
-	$(FPC) -gl $<
-
-clean:
-	@rm -f *~ *.gpi *.o *.pyc
-	@rm -f bin/*
-
-
-test: always run-tests
-	@bin/run-tests
-run-tests: test/*.pas units/*.pas
-	cd test; python gen-tests.py
-	@$(FPC) test/run-tests.pas
-
+default: zmenu
 always:
 
-#-- units -------------------------------------
+apps: bin/cedit bin/cp437-to-utf8
 
-ll:   bin/ll.ppu
-cw:   bin/cw.ppu
-fs:   bin/fs.ppu    stri
-stri: bin/stri.ppu
-num:  bin/num.ppu
+bin/%: apps/%.pas
+	@mkdir -p bin
+	$(FPC) -gl -FE./bin $<
 
-#-- progs -------------------------------------
+tmp/%: progs/%.pas
+	@mkdir -p tmp
+	$(FPC) -gl -FE./tmp $<
+	tmp/%s
 
-cedit: bin/cedit   cw fs ll num stri
+clean:
+	@delp . apps progs
+	@rm -f bin/*
+	@rm -f tmp/*
+
+#-- progs ( legacy code ) ---------------------
+
+zmenu: tmp/zmenu
+ymenu: tmp/ymenu
+xmenu: tmp/xmenu
+life:  tmp/life
+doth:  tmp/doth_2
+dmm:   tmp/dmm
+adl:   tmp/adl
+
+#-- apps ( modern / refactored ) --------------
+
+cedit: bin/cedit
 	@bin/cedit README.org
-	@echo ok
+
