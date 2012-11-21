@@ -29,7 +29,7 @@ Some of the more interesting programs include :
 
 - [[./silverware/tree/master/work/doth_a.pas][DOTH]] :: a top down adventure game, similar to the Kingdom of Kroz games ( there are several unreconciled versions of doth in the directory )
 - [[./silverware/tree/master/work/dmm.pas][DMM]] :: the doth map-maker ( a level editor / tester )
-- [[./silverware/tree/master/work/zmen.pas][ZMENU]] :: a full-screen menu program / application launcher
+- [[./silverware/tree/master/work/zmenu.pas][ZMENU]] :: a full-screen menu program / application launcher
 - [[./silverware/tree/master/work/xmen.pas][XMENU]] :: another menu program ( not sure what it does yet )
 - [[./silverware/tree/master/work/ymen.pas][YMENU]] :: a primitive command line shell that also incorporates a menu
 - [[./silverware/tree/master/work/life.pas][life]] :: an implementation of Conway's Game of Life ( cellular automata )
