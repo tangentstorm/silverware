@@ -1,7 +1,7 @@
 Program aheeb;
 { $R+}
 Uses Crt,crtstuff,zokstuff,sndstuff,filstuff;
-
+
 type
  kinds = ( none, wall, breakablewall, boulder, hero, doppelganger, slider,
            coin, gem, heart, ammo, key, scroll, spell, item, grapplinghook,
@@ -20,6 +20,7 @@ type
  direction = ( north, northeast, east, southeast,
                south, southwest, west, northwest, nowhere );
  directions = set of direction;
+
  pstat = ^stat;
  stat = object
   x, y : word;
@@ -30,6 +31,7 @@ type
   procedure draw;
   procedure erase;
  end;
+
  Pobj = ^obj;
  obj = object
   x,y,a,delay,dcounter : byte;
@@ -60,10 +62,12 @@ type
   function blocked( d : direction ) : boolean; virtual;
   destructor done; virtual;
  end;
+
  pwallobj = ^wallobj;
  wallobj = object( obj )
   constructor default( a1, b1 : byte );
  end;
+
  pbreakablewallobj = ^breakablewallobj;
  breakablewallobj = object( wallobj )
   constructor default( a1, b1 : byte );
@@ -102,6 +106,7 @@ type
   procedure die; virtual;
   function blocked( d : direction ) : boolean; virtual;
  end;
+
  pdoppelgangerobj = ^doppelgangerobj;
  doppelgangerobj = object( boulderobj )
   mimic : pobj;
@@ -124,6 +129,7 @@ type
   procedure loadfields( var f : file ); virtual;
   procedure savefields( var f : file ); virtual;
  end;
+
  pcoinobj = ^coinobj;
  coinobj = object( boulderobj )
   message : word;
@@ -155,6 +161,7 @@ type
  pitemobj = ^itemobj;
  itemobj = object( coinobj )
  end;
+
  pgrapplinghookobj = ^grapplinghookobj;
  grapplinghookobj = object( itemobj )
  end;
@@ -179,6 +186,7 @@ type
  planternobj = ^lanternobj;
  lanternobj = object( torchobj )
  end;
+
  puseritemobj = ^useritemobj;
  useritemobj = object( itemobj )
  end;
@@ -188,6 +196,7 @@ type
  pgeneratorobj = ^generatorobj;
  generatorobj = object( boulderobj  )
  end;
+
  pmovingwallobj = ^movingwallobj;
  movingwallobj = object( boulderobj )
   constructor default( a1, b1 : byte );
@@ -196,6 +205,7 @@ type
   procedure getshot( from : direction ); virtual;
   procedure update; virtual;
  end;
+
  pscuzzyobj = ^scuzzyobj;
  scuzzyobj = object( movingwallobj )
   constructor default( a1, b1 : byte );
@@ -211,6 +221,7 @@ type
   procedure walk( d : direction ); virtual;
   function blocked( d : direction ) : boolean; virtual;
  end;
+
  ppusherobj = ^pusherobj;
  pusherobj = object( bulletobj )
   constructor init( a1, b1, dlay, atr: byte; heading: direction );
@@ -221,6 +232,7 @@ type
   procedure runinto( bywhat : pobj; from : direction ); virtual;
   procedure walk( d : direction ); virtual;
  end;
+
  pcowardobj = ^cowardobj;
  cowardobj = object( scuzzyobj )
   constructor default( a1, b1 : byte );
@@ -237,6 +249,7 @@ type
   constructor default( a1, b1 : byte );
   procedure walk( d : direction ); virtual;
  end;
+
  pheadobj = ^headobj;
  headobj = object( scuzzyobj )
  end;
@@ -252,6 +265,7 @@ type
  pcomputerobj = ^computerobj;
  computerobj = object( oracleobj )
  end;
+
  puseractorobj = ^useractorobj;
  useractorobj = object( actorobj )
  end;
@@ -1147,7 +1161,7 @@ procedure sliderobj.savefields( var f : file );
   obj.savefields( f );
   saveboolean( f, northsouth );
  end;
-
+
 constructor coinobj.init( a1, b1, atr : byte; ch : char; msg : word );
  begin
   obj.init( a1, b1, 0, atr, ch );
@@ -1174,7 +1188,7 @@ procedure coinobj.runinto( bywhat : pobj; from : direction );
     player^.walk( oppositedirection( from ) );
    end;
  end;
-
+
 constructor gemobj.default( a1, b1 : byte );
  begin
   coinobj.init( a1, b1, gematr, '', getgemmsg );
@@ -1192,7 +1206,7 @@ constructor ammoobj.default( a1, b1 : byte );
   coinobj.init( a1, b1, $07, '', getammomsg );
   touch := '|WAmmunition |w-|W 5 shots|w!';
  end;
-
+
 constructor movingwallobj.default( a1, b1 : byte );
  begin
   obj.init( a1, b1, 4, wallatr, '▒' );
@@ -1226,7 +1240,7 @@ procedure movingwallobj.update;
   if dcounter >= delays[ delay ] then dcounter := 0;
   if dcounter = 0 then walk( herodirectionfrom( x, y ) );
  end;
-
+
 constructor scuzzyobj.default( a1, b1 : byte );
  begin
   obj.init(  a1, b1, 3, $04, 'Ω' );
@@ -1267,7 +1281,7 @@ function scuzzyobj.blocked( d : direction ) : boolean;
  begin
   blocked := obj.blocked( d );
  end;
-
+
 constructor bulletobj.init( a1, b1 : byte; d : direction );
  begin
   obj.init( a1, b1, 0, $07, '∙' );
@@ -1313,7 +1327,7 @@ function bulletobj.blocked( d : direction ) : boolean;
  begin
   blocked := neighbor( d ) <> nextlevel; { can't stop a bullet }
  end;
-
+
 constructor pusherobj.init( a1, b1, dlay, atr: byte; heading: direction );
  begin
   case heading of
@@ -1361,7 +1375,7 @@ procedure pusherobj.walk( d : direction );
  begin
   boulderobj.walk( facing );
  end;
-
+
 constructor cowardobj.default( a1, b1 : byte );
  begin
   obj.init( a1, b1, 3, $09, '' );
@@ -1375,7 +1389,7 @@ procedure cowardobj.walk( d: direction );
    scuzzyobj.walk( d );
   end;
  end;
-
+
 constructor snakeobj.default( a1, b1 : byte );
  begin
   obj.init( a1, b1, 3, $02, 'ç' );
@@ -1394,7 +1408,7 @@ procedure snakeobj.update;
    inc( dcounter, 10 );
   cowardobj.update;
  end;
-
+
 constructor moronobj.default( a1, b1 : byte );
  begin
   obj.init( a1, b1, 3, $0B, '╒' );
@@ -1404,7 +1418,7 @@ procedure moronobj.walk( d : direction );
  begin
   scuzzyobj.walk( randomdirection );
  end;
-
+
 constructor stairsobj.default( a1, b1 : byte );
  begin
   obj.init( a1, b1, 0, $07, '≡' );
@@ -1426,7 +1440,7 @@ constructor nextroomobj.init;
  end;
 
 {--- end of object listings ---}
-
+
 Procedure LoadBackground;
  begin
   temp := screentype( dplay );
@@ -1449,7 +1463,7 @@ Procedure nilObjects;
    for x := 1 to 70 do
      room[x,y] := nil;
  end;
-
+
 procedure loadobjectss;
  begin
   loadgame('DOTH.SAV');
@@ -1484,7 +1498,7 @@ Procedure DisposeObjects;
    for x := 1 to 70 do
     if room[x,y] <> nil then room[x,y]^.done;
  end;
-
+
 Procedure UpdateScreen;
  begin
   {ModifyBackground;}
@@ -1495,7 +1509,7 @@ Procedure UpdateScreen;
   WriteTo := @Screen;
   Screen := Temp;
  end;
-
+
 procedure newgame;
  begin
   gameon := true;
@@ -1514,7 +1528,7 @@ function quitconfirm : boolean;
   quitconfirm := confirm.get;
   screen := s;
  end;
-
+
 function newgameconfirm : boolean;
  var
   s : screentype;
@@ -1527,7 +1541,7 @@ function newgameconfirm : boolean;
   newgameconfirm := confirm.get;
   screen := s;
  end;
-
+
 {$F+}
 procedure errorbox;
 {$F-}
@@ -1547,7 +1561,7 @@ procedure errorbox;
    end;
   exitproc := savedexit;
  end;
-
+
 {$F+}
 procedure loaderrorbox;
 {$F-}
@@ -1565,7 +1579,7 @@ procedure loaderrorbox;
    end;
   exitproc := savedexit;
  end;
-
+
 function newobject( x, y : byte; k : kinds ) : pobj;
  var
   nobj : pobj;
@@ -1657,7 +1671,7 @@ function newobject( x, y : byte; k : kinds ) : pobj;
   nobj^.isdefault := true;
   newobject := nobj;
  end;
-
+
 procedure loadgame( filename : string );
  var x, y : byte;
  t : file;
@@ -1683,7 +1697,7 @@ procedure loadgame( filename : string );
   close( t );
   exitproc := @errorbox;
  end;
-
+
 procedure gotoroom( roomnum : integer );  (****CHANGE THIS LATER!!!!****)
  var
   f : string;
@@ -1692,7 +1706,7 @@ procedure gotoroom( roomnum : integer );  (****CHANGE THIS LATER!!!!****)
   currentroom := roomnum;
   loadgame( f );
  end;
-
+
 procedure savegame( filename : string );
  var x, y : byte;
  t : file;
@@ -1710,7 +1724,7 @@ procedure savegame( filename : string );
     savebyte( t, 0 );
   close( t );
  end;
-
+
 procedure menu;
  var
   m : zbouncemenu;
@@ -1746,7 +1760,7 @@ procedure menu;
    5: if quitconfirm then begin gameon := false; progdone := true; end;
   end;
  end;
-
+
 Procedure Initialize;
  begin
   savedexit := exitproc;
@@ -1765,7 +1779,7 @@ Procedure Initialize;
   loadbackground;
   updatescreen;
  end;
-
+
 Procedure ShutDown;
  begin
   DisposeObjects;
@@ -1773,7 +1787,7 @@ Procedure ShutDown;
 {  Clrscr;}
   DosCursorOn;
  end;
-
+
 { $I dmmscr.pic }
 
 procedure edit;
@@ -1809,7 +1823,7 @@ procedure plot;
    readln( s );
    getinteger := s;
   end;
-
+
  begin
   spkr.on;
   arrow := 1;
@@ -1920,7 +1934,7 @@ procedure plot;
  {  progdone := true;}
   doscursoroff;
 end;
-
+
 begin
  Initialize;
  while not progdone do
