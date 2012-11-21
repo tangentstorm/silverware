@@ -52,7 +52,7 @@ type
 function cmd( s : string ) : commands;
 begin
   s := upstr( s );
-  while ( s[ 1 ] = ' ') and ( length( s )  > 0 ) do delete( s, 1, 1 );
+  while ( length( s )  > 0 ) and ( s[ 1 ] = ' ') do delete( s, 1, 1 );
   case nwords( s ) of
     0 : cmd := nocmd;
     1 : case s[1] of
@@ -175,15 +175,15 @@ end;
 
 procedure pquickhelp;
 begin
-  cwriteln( divider+divider );
+  cwriteln( divider );
   cwriteln( boxes + 'Available commands |r(|WOnly the first letter is necessary|r):');
-  cwriteln( divider+divider );
+  cwriteln( divider );
   cwriteln( ' |WA|wction    |WB|wrief     |WC|what      |WD|wown      |WD|wrop      |WE|wast      |WF|wollow    |WG|wive');
   cwriteln( ' |WH|welp      |WI|wtems     |WJ|wump      |WL|wook      |WN|worth     |WN|wotice    |WO|wpen      |WR|wead');
   cwriteln( ' |WP|wrivate   |WS|way       |WS|wouth     |WT|wake      |WU|wp        |WU|wse       |WW|west      |WY|well');
-  cwriteln( divider+divider );
+  cwriteln( divider );
   cwriteln( boxes+ 'Type |r"|Y?|r"|W for this screen anytime|r,|W or |r"|Y/|r"|W for system menu|r.');
-  cwriteln( divider+divider );
+  cwriteln( divider );
 end;
 
 procedure psysmen;
@@ -268,28 +268,28 @@ begin
   crt.clrscr;
   done := false;
   badlogin := false;
-  divider := '|b' + stri.ntimes( '─', 40 ) + '|W';
+  divider :='|b|#─50|w';
   boxes  := '|r■|R■|Y■ |W';
   prompt := '|b─|B─|C─|W>';
   banner :=
-    '|!k|# 19|W┬──┐|K'#13+
-    '┌──────────────|BTHE|K─|W│|K─|w─|W┘|BROJECT|K───────────────────┐'#13+
-    '│|# 18|W┴|# 27|K│'#13+
-    '│ |Woo |wlines!    |W12|w/|W24|w/|W96oo |wbaud    |w(|Wxxx|w)|Wxxx|w-|Wxxxx |K│'#13+
-    '└───────────────────────────|w|B(|Wc|B)1994'+silverware+'─┘'#13;
+    '|!k|# 19|W┬──┐|K|_'+
+    '┌──────────────|BTHE|K─|W│|K─|w─|W┘|BROJECT|K──────────────────┐|_'+
+    '│|# 18|W┴|# 27|K│|_'+
+    '│ |Woo |wlines!   |W12|w/|W24|w/|W96oo |wbaud!   |w(|Wxxx|w)|Wxxx|w-|Wxxxx |K│|_'+
+    '└──────────────────────────|w|B(|Wc|B)1994'+silverware+'─┘|_';
 
   sprompt := '|BSay|C>';
   maxerr := 4;
   error := boxes + 'Say What|R?';
-  gotoxy( 1, 1 );
+  gotoxy( 1, scr.h );
   cwriteln( banner );
-  cwriteln( divider + divider );
+  cwriteln( divider );
   plogin;
   if badlogin then
   begin
-    cwriteln(divider);
-    cwriteln(boxes+'Try again when you''re sober, okay?'+#13);
-    cwriteln('NO CARRIER');
+    cwriteln( divider );
+    cwriteln( boxes + 'Try again when you''re sober, okay?|_' );
+    cwriteln( 'NO CARRIER' );
     halt;
   end;
   plook;
