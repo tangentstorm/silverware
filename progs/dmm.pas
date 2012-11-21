@@ -2,10 +2,10 @@
 { by S┼εΓL│NG S│LVεΓWΩΓε }
 
 program DMM;
-Uses Crt,CrtStuff,SSWStuff;
+Uses Crt,CrtStuff,SSWStuff, fx;
 
-{$I THARRAY.PAS}
-{$I DMMTTL.PIC }
+{$i tharray.pas}
+{$i dmmttl.pic }
 
 type
  AMap  =  Array[ 0..71, 0..21 ] of Things; { 70x20, with border }
@@ -16,7 +16,8 @@ var
  Map : AMap;
 
 function Confirm( m1, m2 : string ) : boolean;
- begin
+begin
+result :=false;
  end;
 
 procedure Load;
@@ -45,7 +46,7 @@ procedure New;
 procedure init;
  begin
   setupcrt;
-  slidescreenoff( screentype( DMMTtl ) );
+//  slidescreenoff( screentype( DMMTtl ) );
   Get_Enter;
  end;
 
