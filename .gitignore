@@ -9,6 +9,7 @@
 fp.*
 *~
 bin
+tmp
 test/*.run
 test/*.def
 test/*.use
