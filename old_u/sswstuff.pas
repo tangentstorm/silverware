@@ -1,6 +1,7 @@
 Unit SSWStuff;
 
-INTERFACE
+INTERFACE Uses cw,Crt,CrtStuff,Dos,SSWSound,fx;
+
 Type Input = Object
        x,y,tcol,ccol,len : byte;
        crs : char;
@@ -24,7 +25,7 @@ Var
 Function RepeatingStuff : Boolean;
 
 IMPLEMENTATION
-Uses Crt,CrtStuff,Dos,SSWSound;
+
 { $I SSWStuf1.Pic}
 
 Procedure Input.Init(a,b,lngth,tc,cc : byte; cursr: char);
@@ -80,7 +81,7 @@ Procedure EndUser.Get;
    Name := NomDeUser.Get;
  end;
 
-Function Enduser.GetName;
+  Function Enduser.GetName : String;
   begin
     Getname := Name;
   end;
