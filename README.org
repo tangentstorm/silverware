@@ -10,16 +10,16 @@ I am currently in the process of reviewing and reviving this code with the help 
 
 | path  | contents                                                       |
 |-------+----------------------------------------------------------------|
-| [[./apps][apps]]  | refactored/modernized apps that compile and run under fpc      |
-| [[./old][old]]   | the orignal code ( w/duplicates from multiple partial backups) |
-| [[./old__u][old_u]] | the original units ( most recent 'old' version of each )       |
-| [[./progs][progs]] | broken / untried / unimproved programs from the 90's           |
-| [[./other][other]] | data files, images, fonts, junk.                               |
+| [[./tree/master/apps][apps]] | refactored/modernized apps that compile and run under fpc      |
+| [[./tree/master/old][old]] | the orignal code ( w/duplicates from multiple partial backups) |
+| [[./tree/master/old_u][old_u]] | the original units ( most recent 'old' version of each )       |
+| [[./tree/master/work][work]]  | broken / untried / unimproved programs from the 90's           |
+| [[./tree/master/other][other]] | data files, images, fonts, junk.                               |
 
 
 * about the units ( they've moved )
 
-The [[file:old_u/][old_u]] directory contains a bunch of units, mostly dealing with textual user interfaces. These predate Borland's Turbo Vision and ( having been written by a self-taught teenager who knew nothing about event-driven user interfaces ), they offer an interesting viewpoint on how a "procedural" user interface library could work. ( The control flow is somewhat similar in design to that used in the Oberon operating system by pascal creator Niklaus Wirth, though of course not nearly as well-implemented, and also entirely based on 16-color console mode semi-graphics. )
+The [[./tree/master/old_u/][old_u]] directory contains a bunch of units, mostly dealing with textual user interfaces. These predate Borland's Turbo Vision and ( having been written by a self-taught teenager who knew nothing about event-driven user interfaces ), they offer an interesting viewpoint on how a "procedural" user interface library could work. ( The control flow is somewhat similar in design to that used in the Oberon operating system by pascal creator Niklaus Wirth, though of course not nearly as well-implemented, and also entirely based on 16-color console mode semi-graphics. )
 
 *Modern versions of the units have moved to a separate repository*, [[https://github.com/tangentstorm/xpl][@tangentstorm/xpl]] , where I have also added various new libraries, including a test framework.
 
@@ -27,13 +27,13 @@ The [[file:old_u/][old_u]] directory contains a bunch of units, mostly dealing w
 
 Some of the more interesting programs include :
 
-- [[file:progs/doth_2.pas][DOTH]] :: a top down adventure game, similar to the Kingdom of Kroz games ( there are several unreconciled versions of doth in the directory )
-- [[file:progs/dmm.pas][DMM]] :: the doth map-maker ( a level editor / tester )
-- [[file:progs/zmen.pas][ZMENU]] :: a full-screen menu program / application launcher
-- [[file:progs/xmen.pas][XMENU]] :: another menu program ( not sure what it does yet )
-- [[file:progs/ymen.pas][YMENU]] :: a primitive command line shell that also incorporates a menu
-- [[file:progs/life.pas][life]] :: an implementation of Conway's Game of Life ( cellular automata )
-- [[file:progs/adl.pas][ADL]] :: the "advanced directory lister" - a colorful replacement for the =dir= command. ( that's =ls=, for all you young linux fans )
+- [[./tree/master/work/doth_a.pas][DOTH]] :: a top down adventure game, similar to the Kingdom of Kroz games ( there are several unreconciled versions of doth in the directory )
+- [[./tree/master/work/dmm.pas][DMM]] :: the doth map-maker ( a level editor / tester )
+- [[./tree/master/work/zmen.pas][ZMENU]] :: a full-screen menu program / application launcher
+- [[./tree/master/work/xmen.pas][XMENU]] :: another menu program ( not sure what it does yet )
+- [[./tree/master/work/ymen.pas][YMENU]] :: a primitive command line shell that also incorporates a menu
+- [[./tree/master/work/life.pas][life]] :: an implementation of Conway's Game of Life ( cellular automata )
+- [[./tree/master/old_u/adlstuff.pas][ADL]] :: the "advanced directory lister" - a colorful replacement for the =dir= command. ( that's =ls=, for all you young linux fans )
 
 There are about 100 ~*.pas~ files in the progs directory, including some with VGA graphics that I do not yet have running, and probably a great many duplicates, failed experiments
 
@@ -47,7 +47,7 @@ The result is that I had a mix of files from different time periods on 5 or 6 di
 
 By looking at md5 hashes of the files, I was able to remove most of the exact duplicates, and since the timestamps on the files appeared to be intact, I was able to arrange what was left by month and year.
 
-If I only had one unique copy of a file for a particular year ( going by filename and size only ), I put it in in that year's directory. If I had two copies, I ordered them by datestamp, and placed the newer copy in a directory named by the year and month. These are what you will find under the [[file:old/][old/]] directory.
+If I only had one unique copy of a file for a particular year ( going by filename and size only ), I put it in in that year's directory. If I had two copies, I ordered them by datestamp, and placed the newer copy in a directory named by the year and month. These are what you will find under the [[./tree/master/old/][old/]] directory.
 
 I then worked through the directories in order, copying the contents of each directory to one common directory, so that hopefully the common directory contained the latest version of everything. ( But since these were rather large files, there are undoubtably merge conflicts, which is why I've kept the =old/= directory around. )
 
