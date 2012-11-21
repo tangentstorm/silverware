@@ -78,22 +78,45 @@ uses ll, fs, stri, num, cw, crt;
   end;
 
   procedure listeditor.show;
-    var i : integer; s : stringobj;
+    var
+      i	: integer = 1;
+      s	: stringobj;
+
+    procedure show_curpos;
+    begin
+        cwritexy( 1, 1,
+		 '|B[|C' + flushrt( n2s( self.thisline ), 6, '.' ) +
+		 '|w/|c' + flushrt( n2s( self.count ), 6, '.' ) +
+		 '|B]' );
+    end;
+
+    procedure show_highlight;
+    begin if i = thisline then cwrite( '|!b' ) else cwrite( '|!k' )
+    end;
+
+    procedure show_nums;
+    begin
+      cwritexy( 1, i + 1, '|Y|!m' );
+      write( flushrt( n2s( i ), 3, ' ' ));
+      cwrite( '|w' );
+    end;
+
+    procedure show_text;
+    begin
+      cwrite( stri.trunc( s.s, cw.scr.w - cw.cur.x ));
+      cwrite( '|%' ); // clreol
+    end;
+
   begin
     clrscr; //  fillbox( 1, 1, crt.windmaxx, crt.windmaxy, $0F20 );
-    cwritexy( 1, 1,
-	     '|B[|C' + flushrt( n2s( self.thisline ), 6, '.' ) +
-	     '|w/|c' + flushrt( n2s( self.count ), 6, '.' ) +
-	     '|B]' );
-    i := 1;
+    show_curpos;
     s := self.first as stringobj;
     while ( i < self.h ) and ( i < self.count ) do begin
-      cwritexy( 1, i + 1, '|Y|!m' );
-      cwrite( flushrt( n2s( i ), 3, ' ' ));
-      cwrite( '|w|!k' );
-      if i = thisline then cwrite( '|!b' ) else cwrite( '|!k' );
-      cwriteln( cpadstr( s.s, crt.windmaxx - crt.wherex - 1, ' ' ));
-      inc( i ); s := s.next as stringobj;
+      show_nums;
+      show_highlight;
+      show_text;
+      inc( i );
+      s := s.next as stringobj;
     end;
   end;
 
