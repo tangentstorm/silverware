@@ -2,7 +2,7 @@
 program zmenu;
 uses xpc, ui, fx, cw, num;
 
-Type
+type
   Options = record
     menuText,
     path,
@@ -44,7 +44,7 @@ begin
 
   menu := ui.newMenu( on, on,
     ui.newChoiceXY( 15, 5,
-              '|!w |bΓòÉ|BΓòÉ|CΓòÉ|b[|Y┬╖|WZMenu|Y┬╖|b]|CΓòÉ|BΓòÉ|bΓòÉ', '',
+              '|!w |b═|B═|C═|b[|Y·|WZMenu|Y·|b]|C═|B═|b═', '',
               false, ' ', 0, nil, nil ));
 
   for i := 1 to numentries
