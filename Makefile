@@ -1,28 +1,39 @@
 # you need the xpl library
 XPL = ~/x/code
 FPC = fpc -Mobjfpc -Fu$(XPL) -Fi$(XPL) \
-          -Fi./other. -Fu./units -Fu./old_u \
+          -Fi./other -Fu./other -Fu./old_u \
 	  -gl
 
-default: zmenu
-always:
+targets:
+	@echo
+	@echo 'available targets:'
+	@echo
+	@echo '  test    : run test cases'
+	@echo '  clean   : delete compiled binaries and backup files'
+	@echo
+	@echo 'also:'
+	@echo '   bin/%   : compiles apps/%.pas'
+	@echo '   tmp/%   : compiles work/%.pas'
+	@echo
 
 apps: bin/cedit bin/cp437-to-utf8
 
-bin/%: apps/%.pas
+bin/%: apps/%.pas always
 	@mkdir -p bin
-	$(FPC) -gl -FE./bin $<
+	$(FPC) -gl -B -FE./bin $<
 
-tmp/%: progs/%.pas
+tmp/%: work/%.pas always
 	@mkdir -p tmp
 	$(FPC) -gl -FE./tmp $<
 
 clean:
-	@delp . apps progs
+	@delp . apps work
 	@rm -f bin/*
 	@rm -f tmp/*
 
-#-- progs ( legacy code ) ---------------------
+.PHONY: always
+
+#-- work ( legacy code ) ---------------------
 
 zmenu: tmp/zmenu
 	tmp/zmenu
