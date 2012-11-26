@@ -1,10 +1,10 @@
-# you need the xpl library
-XPL = ~/x/code
+# XPL will be downloaded automatically when you run make
+XPL = ./lib/xpl/code
 FPC = fpc -Mobjfpc -Fu$(XPL) -Fi$(XPL) \
           -Fi./other -Fu./other -Fu./old_u \
 	  -gl
 
-targets:
+targets: init
 	@echo
 	@echo 'available targets:'
 	@echo
@@ -16,14 +16,18 @@ targets:
 	@echo '   tmp/%   : compiles work/%.pas'
 	@echo
 
+init:
+	@mkdir -p bin
+	@mkdir -p tmp
+	@git submodule init
+	@git submodule update
+
 apps: bin/cedit bin/cp437-to-utf8
 
-bin/%: apps/%.pas always
-	@mkdir -p bin
+bin/%: apps/%.pas always init
 	$(FPC) -gl -B -FE./bin $<
 
-tmp/%: work/%.pas always
-	@mkdir -p tmp
+tmp/%: work/%.pas always init
 	$(FPC) -gl -FE./tmp $<
 
 clean:

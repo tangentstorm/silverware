@@ -1,0 +1,3 @@
+[submodule "lib/xpl"]
+	path = lib/xpl
+	url = https://github.com/tangentstorm/xpl.git
