@@ -18,23 +18,22 @@ Revised Nov 10-12 2012
   in this codebase. :)
 
 ---------------------------------------------------------------}
-{$i xpc.inc }
+{$i xpc.inc}
 program cedit;
-uses ll, fs, stri, num, cw, crt;
+uses ll, li, fs, stri, num, cw, crt;
 
   type
 
-    //  duplicated in vuestuff
-    stringobj  = class ( node )
-      s	: string[ 180 ];
+    //  the idea is to allow nesting here, eventually
+    stringobj  = class ( li.node )
+      content : string;
       constructor fromstring( st : string );
     end;
 
-    listeditor = class( list )
-      thisline : longint;
+    listeditor = class( specialize list<stringobj> )
       x, y, h, w : integer;
-      topline, bottomline : stringobj;
-      constructor init; override;
+      topline, position : listeditor.cursor;
+      constructor create;
       function load( path : string ) : boolean;
       procedure show;
       procedure arrowup;
@@ -47,18 +46,19 @@ uses ll, fs, stri, num, cw, crt;
     end;
 
   constructor stringobj.fromstring( st : string );
-  begin self.s := st;
+  begin self.content := st;
   end;
 
-  constructor listeditor.init;
+  constructor listeditor.create;
   begin
     inherited;
     x := 1;
     y := 1;
     w := crt.windMaxX;
     h := crt.windMaxY;
-    topline := nil;
-    bottomline := nil;
+    //pause( 'windmaxy = ' + n2s( h ));
+    topline := self.make_cursor;
+    position := self.make_cursor;
   end;
 
   function listeditor.load( path : string ) : boolean;
@@ -79,63 +79,71 @@ uses ll, fs, stri, num, cw, crt;
 
   procedure listeditor.show;
     var
-      i	: integer = 1;
-      s	: stringobj;
+      ypos : cardinal;
+      cur  : cursor;
 
     procedure show_curpos;
     begin
-        cwritexy( 1, 1,
-		 '|B[|C' + flushrt( n2s( self.thisline ), 6, '.' ) +
-		 '|w/|c' + flushrt( n2s( self.count ), 6, '.' ) +
-		 '|B]' );
+      cwritexy( 1, 1,
+                '|B[|C' + flushrt( n2s( self.position.index ), 6, '.' ) +
+		'|w/|c' + flushrt( n2s( self.count ), 6, '.' ) +
+		'|B]' +
+                '|%' );
     end;
 
     procedure show_highlight;
-    begin if i = thisline then cwrite( '|!b' ) else cwrite( '|!k' )
+    begin
+      if cur.index = position.index
+        then cwrite( '|!b' )
+        else cwrite( '|!k' )
     end;
 
     procedure show_nums;
     begin
-      cwritexy( 1, i + 1, '|Y|!m' );
-      write( flushrt( n2s( i ), 3, ' ' ));
+      cwritexy( 1, ypos, '|Y|!m' );
+      write( flushrt( n2s( cur.index ), 3, ' ' ));
       cwrite( '|w' );
     end;
 
     procedure show_text;
     begin
-      cwrite( stri.trunc( s.s, cw.scr.w - cw.cur.x ));
+      cwrite( stri.trunc( cur.value.content, cw.scr.w - cw.cur.x ));
       cwrite( '|%' ); // clreol
     end;
 
   begin
-    clrscr; //  fillbox( 1, 1, crt.windmaxx, crt.windmaxy, $0F20 );
+    // clrscr; //  fillbox( 1, 1, crt.windmaxx, crt.windmaxy, $0F20 );
     show_curpos;
-    s := self.first as stringobj;
-    while ( i < self.h ) and ( i < self.count ) do begin
+    ypos := 2;
+    cur := self.make_cursor;
+    cur.move_to( self.topline );
+    repeat
       show_nums;
       show_highlight;
       show_text;
-      inc( i );
-      s := s.next as stringobj;
-    end;
+      inc( ypos )
+    until ( ypos = self.h ) or ( not cur.move_next );
+    while ypos < self.h do begin
+      cwritexy( 1, ypos, '|%' );
+      inc( ypos )
+    end
   end;
 
 
   procedure listeditor.home;
-    var c : byte;
   begin
     if self.first = nil then exit;
-    self.thisline := 1;
-    self.topline := mfirst as stringobj;
-    self.bottomline := self.topline;
+    self.position.to_top;
+    self.topline.to_top;
   end;
 
   procedure listeditor._end;
-    var c : byte;
+    var i : byte;
   begin
-    if last = nil then exit;
-    bottomline := last as stringobj;
-    thisline := self.count - 1;
+    self.position.to_end;
+    self.topline.to_end;
+    for i := crt.windmaxy div 2 downto 1 do
+      self.topline.move_prev;
   end;
 
 
@@ -176,29 +184,32 @@ uses ll, fs, stri, num, cw, crt;
     until done;
   end;
 
- procedure listeditor.arrowup;
+  procedure listeditor.arrowup;
   begin
-    if topline <> first then
+    if self.position.move_prev then
     begin
-      dec( thisline );
-      topline := topline.prev as stringobj;
-      bottomline := bottomline.prev as stringobj;
+      if self.position.index - self.topline.index < 5 then
+          if self.topline.index > 1 then
+             self.topline.move_prev;
       //  scrolldown1(1,80,y1,y2,nil);
       //  scrolldown1(1,80,14,25,nil);
-    end;
+    end
+    else self.position.move_next;
   end;
 
 
   procedure listeditor.arrowdown;
+    var screenline : word;
   begin
-    if bottomline.next <> last then
-    begin
-      inc(thisline);
-      bottomline := bottomline.next as stringobj;
-      topline := topline.next as stringobj;
-      //  scrollup1(1,80,y1,y2,nil);
-      //  scrollup1(1,80,14,25,nil);
-    end;
+    if self.position.move_next then
+      begin
+        assert( self.topline.index <= self.position.index );
+        screenline := self.position.index - self.topline.index;
+        if ( screenline > self.h - 5 ) and ( self.topline.index < self.count ) then
+           self.topline.move_next
+          //  scrollup1(1,80,y1,y2,nil);
+          //  scrollup1(1,80,14,25,nil);
+      end
   end;
 
 
@@ -221,7 +232,8 @@ uses ll, fs, stri, num, cw, crt;
 
   var ed : listeditor;
 begin
-  ed := listeditor.init;
+  crt.clrscr;
+  ed := listeditor.create;
   if paramcount = 0 then
     writeln( 'usage : cedit <filename>' )
   else if ed.load( paramstr( 1 )) then
