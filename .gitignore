@@ -1,3 +1,5 @@
+*.a
+*.bak
 *.exe
 *.tpu
 *.mid
@@ -6,7 +8,7 @@
 *.ppu
 *.o
 *.$$$
-fp.*
+fp__*.*
 *~
 bin
 tmp
@@ -14,4 +16,3 @@ test/*.run
 test/*.def
 test/*.use
 test/*.inc
-
