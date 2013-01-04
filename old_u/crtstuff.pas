@@ -32,10 +32,7 @@ Const
 
 
 { string constants }
- Enter      = '┘';
- BoNK       = '|WB|Go|WNK|Y!';
- Sterling   = '|K─|WS|w┼εΓL│NG|K─';
- SilverWare = '|K─|WS|w│LVεΓWΩΓε|K─';
+{ Enter, Bonk, Sterling, Silverware all moved to mjw.pas }
 
 { keyboard shift states }
  rshiftpressed  = $01;
