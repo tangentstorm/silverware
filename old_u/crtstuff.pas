@@ -132,7 +132,7 @@ type
   function stardate : string;
   procedure error( msg : string );
   function thisdir : string;
-  function paramline : string;
+  // function paramline : string; { moved to xpc.pas }
   procedure installfont( fontseg, fontofs : word );
   procedure installfont2( fontseg, fontofs : word );
   procedure loadfont(s: string);
@@ -754,16 +754,6 @@ implementation
     thisdir := s;
   end;
 
-  function paramline : string;
-    var
-      i	: byte;
-      s	: string;
-  begin
-    s := '';
-    for i := 1 to paramcount do
-      s := s + paramstr( i )+ ' ';
-    paramline := s;
-  end;
 
   procedure installfont( fontseg, fontofs : word );
   begin
