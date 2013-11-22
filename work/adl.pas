@@ -1,7 +1,8 @@
+{$mode objfpc}{$h+}
 { Advanced_Direcory_Lister }
 { version 7.0 - free pascal edition }
 program adl;
-uses xpc, dos, cw, ustr, num, mjw, kvm, cli;
+uses xpc, cw, ustr, num, mjw, kvm, cli, dos, sysutils;
 
 function LastPart( s : string ) : string;
   var counter : byte;
@@ -13,28 +14,27 @@ function LastPart( s : string ) : string;
     Lastpart := S;
   end;
 
-function LZ( w : Word ) : string;
-  var s : string;
+function LZ( w : Word ) : string; // leading zero if necessary
   begin
-    Str( w:0, s );
-    if length( s ) = 1 then s := '0' + s;
-    lz := s;
+    Str( w:0, result );
+    if length( result ) = 1 then result := '0' + result;
   end;
 
 const
   ver = '|B6|w.|B0';
 
 var
-  c, c2 : byte;
+  fcount : byte = 0;
+  dcount : byte = 0;
   cd, searchstr, cline : string;
+  dirinfo : TSearchRec;
   searchattr : word;
-  dirinfo : searchrec;
-  dowide,
-  doattr,
-  dohelp,
-  dopause,
-  dodirsonly,
-  doprgsonly : boolean;
+  optWide,
+  optAttr,
+  optHelp,
+  optPause,
+  optDirsOnly,
+  optPrgsOnly : boolean;
 
 procedure init(cline :string);
   var pchk : byte;
@@ -43,12 +43,12 @@ procedure init(cline :string);
     cwriteln('|_');
     GetDir(0,CD);
     if CD[length(cd)]='\' then Delete(CD,length(cd),1);
-    dowide     := pos('/W', upstr(cline)) > 0;
-    doattr     := pos( '/A', upstr(cline)) > 0;
-    dopause    := pos( '/P', upstr(cline)) > 0;
-    doprgsonly := pos( '/E', upstr(cline)) > 0;
-    dodirsonly := pos( '/D', upstr(cline)) > 0;
-    dohelp     := (pos('/?', cline ) > 0) or  (pos('/H', upstr(cline)) > 0);
+    optwide     := pos( '-W', upstr(cline)) > 0;
+    optattr     := pos( '-A', upstr(cline)) > 0;
+    optpause    := pos( '-P', upstr(cline)) > 0;
+    optprgsonly := pos( '-E', upstr(cline)) > 0;
+    optdirsonly := pos( '-D', upstr(cline)) > 0;
+    opthelp     := (pos('-?', cline ) > 0) or  (pos('-H', upstr(cline)) > 0);
     for pchk := 1 to nwords( cline ) do
       if pos('/', wordn( cline, pchk )) = 0
 	then SearchStr := wordn( cline, pchk);
@@ -60,9 +60,9 @@ procedure init(cline :string);
       end; { of what to do for x: }
     {$I-} chdir( copy( searchstr , 1, length(searchstr)-1 ) ); {$I+}
     if Searchstr[Length(searchstr)] = '\' then searchstr := searchstr + '*.*';
-    SearchAttr := Directory;
+    SearchAttr := faAnyFile and faDirectory;
     Findfirst( SearchStr, searchattr, DirInfo );
-    if (( DirInfo.Attr = Directory) and
+    if (( DirInfo.Attr = faDirectory) and
 	( DirInfo.name = upstr(lastpart( searchstr ))))
     or (Searchstr = '..')
     then searchstr := searchstr + '\*.*';
@@ -105,59 +105,49 @@ procedure Help;
  end;
 
 
+function JoinDirs(paths : array of variant) : string;
+  var s : string;
+  begin
+    result := '';
+    for s in paths do AppendStr(result, s);
+  end;
+
 procedure adl( cline : string );
   var
-    SearchStr : string;
-    Thing     : Word;
-    D	      : DirStr;
-    na	      : NameStr;
-    ex	      : extstr;
-    pstr, N,E : string;
+    SearchStr : string = '';
+    Thing     : Word = faDirectory;
+    pstr      : string = '';
+    N,E	      : string;
     T	      : DateTime;
-    X,
-    Wide,
-    Pause,
-    Hid,
-    prgsonly,
-    dirsonly  : Boolean;
+    X	      : boolean = false;
+    Pause     : boolean = false;
+    Hid	      : boolean = false;
+    Wide      : boolean = false;
+    prgsonly  : boolean = false;
+    dirsonly  : boolean = false;
     TA,
     TA2	      : Byte;
-    C,
-    C2,
-    C3	      : Integer;
+    C3	      : Integer = 0;
     CD	      : string;
     Pchk      : integer;
     S2	      : string;
     nl	      : byte;
 
-
   begin
-    SearchStr := '';
-    cwriteln('');
-    cwriteln('');
-    Thing := Directory;
-    X := False;
-    C := 0;
-    C2 := 0;
-    C3 := 0;
-    Wide := False;
-    Hid := False;
-    Pause := False;
     GetDir(0,CD);
-    pstr := '';
     if nwords( cline ) > 0 then
       for pchk := 1 to nwords( cline ) do
 	pstr := pstr + ' ' + wordn( cline, pchk );
     if CD[length(cd)]='\' then Delete(CD,length(cd),1);
     if (pos('/?', pstr) > 0) or  (pos('/H', upstr(pstr)) > 0) then help;
-    hid   := pos( '/A', upstr(pstr)) > 0;
-    wide  := pos( '/W', upstr(pstr)) > 0;
-    pause := pos( '/P', upstr(pstr)) > 0;
-    prgsonly := pos( '/E', upstr(pstr)) > 0;
-    dirsonly := pos( '/D', upstr(pstr)) > 0;
+    hid   := pos( '-A', upstr(pstr)) > 0;
+    wide  := pos( '-W', upstr(pstr)) > 0;
+    pause := pos( '-P', upstr(pstr)) > 0;
+    prgsonly := pos( '-E', upstr(pstr)) > 0;
+    dirsonly := pos( '-D', upstr(pstr)) > 0;
     if wordn( cline, 1) = '' then
       begin
-	SearchStr := cd+'\'
+	SearchStr := cd + '\'
       end
     else
       for Pchk := 1 to nwords( cline ) do
@@ -175,25 +165,23 @@ procedure adl( cline : string );
   if Searchstr[Length(searchstr)] = '\' then searchstr := searchstr + '*.*';
     Findfirst( SearchStr, Thing, DirInfo );
     s2 := Upstr( lastpart( SearchStr ) );
-    if (( DirInfo.Attr = Directory ) and
+    if (( DirInfo.Attr = FaDirectory ) and
 	( DirInfo.name = s2 ))
       or ( Searchstr = '..' )
       then searchstr := searchstr + '\*.*';
-    if Hid then Thing := Anyfile;
+    if Hid then Thing := faAnyfile;
     Findfirst( SearchStr, Thing, DirInfo );
     Stwrite( 'Looking at : '+dnstr( SearchStr ) );
     cwriteln('');
-    cwriteln('');
     nl := 4;
-    while DosError = 0 do
+    repeat
       begin
-	FSplit( DirInfo.name, d, na, ex );
-	n := na;
-	e := ex;
+        e := extractfileext(dirinfo.name);
+        n := extractfilename(dirinfo.name);
 	Delete( E, 1, 1 );
 	n := dnstr( normaltext( n ) );
 	e := dnstr( normaltext( e ) );
-	if ( dirInfo.Attr and VolumeID <> 0 ) then
+	if ( dirInfo.Attr and faVolumeID ) <> 0 then
           begin
 	    Textattr := $08;
 	    cwrite( flushrt( DirInfo.name, 12, ' ' ) );
@@ -202,53 +190,50 @@ procedure adl( cline : string );
 	      else cwrite('    |B[|WVolume ID|B]            ');
 	    C3 := 1;
 	  end
-	else if ( DirInfo.Attr and Hidden ) <> 0 then
+	else if ( DirInfo.Attr and faHidden ) <> 0 then
           begin
 	    ta := 1;
 	    Textattr := $01;
-	    if (dirInfo.Attr and Directory) <> 0 then
+	    if (dirInfo.Attr and FaDirectory) <> 0 then
 	      cwrite( flushrt( DirInfo.name, 12, ' ' ))
 	    else cwrite( flushrt( N, 8, ' ' ) + ' ' + flushrt( E, 3, ' ' ) );
 	    if (not Wide) then
-	      if (dirinfo.Attr and Directory <> 0) then
+	      if (dirinfo.Attr and faDirectory <> 0) then
 		cwrite('    |B[|WDir|B]')
 	      else
 		cwrite(' ' + flushrt( n2s( DirInfo.Size ), 8, ' ' ) );
 	    if not wide then
 	      if X then cWriteLn(' |B[|WHid|B]')
 	      else cwrite(' |B[|WHid|B]            ');
-	    if dirinfo.attr and directory <> 0 then inc( c2, 1 )
-	    else inc( c, 1 );
+	    if dirinfo.attr and faDirectory <> 0 then inc( dcount )
+	    else inc( fcount );
 	  end
 	else case DirInfo.Attr of
-	  Directory :
+	  faDirectory :
 	    begin
-	      Ta := $09;
-	      Textattr := $09;
+	      Ta := $09; Textattr := $09;
 	      cwrite( flushrt( DirInfo.name, 12, ' ' ) );
 	      if ( not wide ) then
 		if x then cwriteln('    |B[|WDir|B]')
 		else cwrite('    |B[|WDir|B]                  ');
-	      Inc(C2,1);
+	      inc( dcount );
 	    end;
 	  else if dirsonly then ta := 0
 	  else
 	    begin
 	      TA := $0F; TA2 := $07;
-	      if ( e = 'exe' ) or ( e = 'com' ) then TA := $0E;
-	      if e = 'bat' then TA := $0A;
+              case e of
+                'com' : ta := $0E;
+                'exe' : ta := $0E;
+                'bat' : ta := $0A;
+              end;
 	      if (ta = $0F) and prgsonly then ta := 0
-	      else begin
-		if pos(ustr.rpad( e,3,'*'),
-		       'zip/arc/lzh/pak/zoo/arj') <> 0 then TA := $0D;
-		if pos(ustr.rpad( e,3,'*'),
-		       'gif/jpg/gl/fli/pic/bmp/tga/pcx') <> 0 then TA := $0C;
-		if pos(ustr.rpad( e,3,'*'),
-		       'bas/pas/asm/inc/c/h/cpp/lsp') <> 0 then TA := $0B;
-		if pos(ustr.rpad( e,3,'*'),
-		       'bak/bk!/old/tmp/$$$') <> 0 then TA := $07;
-		if pos(ustr.rpad( e,3,'*'),
-		       'rep/qwk') <> 0 then TA := $04;
+	      else case e of
+                'zip','arc','lzh','pak','zoo','arj' : ta := $0D;
+                'gif','jpg','gl','fli','pic','bmp','tga','pcx' : TA := $0C;
+		'bas','pas','asm','inc','c','h','cpp','lsp' : TA := $0B;
+                'bak','bk!','old','tmp','$$$' : TA := $07;
+                'rep','qwk' : TA := $04;
 	      end;
 	      case TA of
 		$0A : TA2 := $02;
@@ -260,34 +245,30 @@ procedure adl( cline : string );
 		$04 : ta2 := $08;
 	      end;
 	      if ta <> 0 then
-	      begin
-		Textattr := TA;
-		cwrite( flushrt( N, 8, ' ' ) );
-		Textattr := TA2;
-		cwrite( flushrt( E, 4, ' ' ) );
-		if not Wide then
-		  begin
-		    Textattr := TA;
-		    UnPacktime(DirInfo.Time,T);
-		    cwrite( ' ' + flushrt( n2s( DirInfo.Size ), 8, ' ' ) + ' ' );
-		    Textattr := TA2;
-		    cwrite(LZ(T.Hour)+':'+LZ(T.Min));
-		    Textattr := TA;
-		    // !! if x then writeln ' ' else write(' ');
-		    if X then
-		      cwriteln(' '+LZ(T.Month)+'/'+LZ(T.Day)+'/'+n2s(T.Year))
-		    else
-		      cwrite((' '+LZ(T.Month)+'/'+LZ(T.Day)+'/'+N2S(T.Year))+' ');
-		  end; { if not wide }
-		Inc(c,1);
-	      end; { if ta <> 0 }
+		begin
+		  Textattr := TA;
+		  cwrite( flushrt( N, 8, ' ' ) );
+		  Textattr := TA2;
+		  cwrite( flushrt( E, 4, ' ' ) );
+		  if not Wide then
+		    begin
+		      Textattr := TA;
+		      UnPacktime(DirInfo.Time,T);
+		      cwrite( ' ' + flushrt( n2s( DirInfo.Size ), 8, ' ' ) + ' ' );
+		      Textattr := TA2;
+		      cwrite(LZ(T.Hour)+':'+LZ(T.Min));
+		      Textattr := TA;
+		      cwrite(' '+LZ(T.Month)+'/'+LZ(T.Day)+'/'+n2s(T.Year));
+		      if x then writeln else write(' ');
+		    end;
+		  Inc(fcount);
+		end; { if ta <> 0 }
 	    end; { if ta <> 0 }
 	end;  { case dirinfo }
-	FindNext(DirInfo);
 	if ta <> 0 then begin
 	  Textattr := $08;
 	  if Wide then
-	    if ((C + C2 + C3) mod 5 = 0) then cwriteln('')
+	    if ((fcount + dcount + C3) mod 5 = 0) then cwriteln('')
 	    else cwrite( ' │ ')
 	  else if (not X) then cwrite('│ ');
 	  if wherex = 1 then begin
@@ -297,13 +278,15 @@ procedure adl( cline : string );
 	  X := not X;
 	end;
       end;
+    until FindNext(DirInfo) <> 0;
+    FindClose(DirInfo);
     if wherex > 1 then cwriteln('');
   end;
 
 procedure footer;
   begin
     cwriteln('');
-    CWriteLn( '|B'+N2S(C)+' |Wfile|B(|Ws|B)|w,|B '+N2s(c2)+
+    CWriteLn( '|B' + n2s(fcount) + ' |Wfile|B(|Ws|B)|w,|B '+ n2s(dcount) +
 	     ' |Wdirectories in this listing|w,|B '+ N2S(DiskFree(0))+'|W bytes free|w.');
     Cwrite('|WA|wdvanced |WD|wir |WL|wister '+ver+' |K(|Wc|K)|w1994 ' + SilverWare );
     StWriteLn(' type "ADL /?" for help.');
