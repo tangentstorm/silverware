@@ -1,4 +1,4 @@
-{$mode objfpc}{$h+}
+{$mode objfpc}{$h+}{$i xpc.inc}
 { Advanced_Direcory_Lister }
 { version 7.0 - free pascal edition }
 program adl;
@@ -11,17 +11,17 @@ const
 var
   fcount : byte = 0;
   dcount : byte = 0;
-  cd, searchstr : string;
+  cd, searchstr : TStr;
   dirinfo : TSearchRec;
   searchattr : word;
   optWide    : boolean = false;
-  optAll     : boolean = false;
   optHelp    : boolean = false;
+  optAll     : boolean = false;
   optPause   : boolean = false;
   optDirOnly : boolean = false;
   optExeOnly : boolean = false;
 
-function LastPart( s : string ) : string;
+function LastPart( s : TStr ) : TStr;
   var counter : byte;
   begin
     s := sep + s;
@@ -31,17 +31,15 @@ function LastPart( s : string ) : string;
     Lastpart := S;
   end;
 
-function LZ( w : Word ) : string; // leading zero if necessary
+function LZ( w : Word ) : TStr; // leading zero if necessary
   begin
     Str( w:0, result );
     if length( result ) = 1 then result := '0' + result;
   end;
 
-function PathJoin(path, child : string) : string;
+function PathJoin(path, child : TStr) : TStr;
   begin
-    result := path;
-    AppendStr(result, sep);
-    AppendStr(result, child);
+    result := path + sep + child;
   end;
 
 procedure init;
@@ -63,7 +61,7 @@ procedure init;
           '-h' : optHelp := true;
         else
           if searchstr = '' then SearchStr := ParamStr(i)
-          else AppendStr(SearchStr, ' '+ParamStr(i))
+	  else SearchStr += ' '+ParamStr(i);
         end;
     if SearchStr = '' then SearchStr := CD;
     if Searchstr[Length(searchstr)] = ':' then
@@ -73,11 +71,11 @@ procedure init;
       end; { of what to do for x: }
     {$I-} chdir( searchstr );{$I+}
     SearchAttr := faAnyFile and faDirectory;
-    Findfirst( SearchStr, searchattr, DirInfo );
+    Findfirst( utf8encode( SearchStr ), searchattr, DirInfo );
     if ( DirInfo.Attr and faDirectory) = faDirectory then
       searchstr := PathJoin(searchstr, '*');
     FindClose( DirInfo );
-    FindFirst( SearchStr, searchattr, DirInfo );
+    FindFirst( utf8encode( SearchStr ), searchattr, DirInfo );
   end; { init }
 
 procedure Help;
@@ -120,13 +118,13 @@ procedure Help;
 
 procedure adl;
   var
-    N,E	      : string;
+    N,E	      : TStr;
     T	      : DateTime;
     X	      : boolean = false;
     TA,
     TA2	      : Byte;
     C3	      : Integer = 0;
-    CD	      : string;
+    CD	      : TStr;
     nl	      : byte;
 
   begin
@@ -136,12 +134,12 @@ procedure adl;
     StWriteLn( 'Looking at : '+ dnstr( SearchStr ) );
     nl := 4;
     repeat
-      e := extractfileext(dirinfo.name);
-      n := extractfilename(dirinfo.name);
-      n := LeftStr(n, length(n)-length(e));
+      e := extractfileext(utf8decode(dirinfo.name));
+      n := extractfilename(utf8decode(dirinfo.name));
+      n := utf8decode(LeftStr(utf8encode(n), length(utf8encode(n))-length(utf8encode(e))));
       Delete( E, 1, 1 );
-      n := dnstr( normaltext( n ) );
-      e := dnstr( normaltext( e ) );
+      n := dnstr( cwesc( n ) );
+      e := dnstr( cwesc( e ) );
       if ( dirInfo.Attr and faVolumeID ) <> 0 then
         begin
           Textattr := $08;
