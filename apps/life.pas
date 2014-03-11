@@ -1,8 +1,8 @@
 { conway's game of life
 ------------------------------------------------------}
-{$i xpc.inc}
+{$mode delphiunicode}{$i xpc.inc}
 program life;
-uses cw, crt, num, xpc;
+uses cw, kvm, kbd, num, xpc;
 
 const
   up	= #72;
@@ -13,10 +13,10 @@ const
 {--[ Defines & Variables ]--------------------------------}
 
 const
-  dead_char  = '.'; //'·';  { dot operator }
-  alive_char = 'x'; //'▪';  { small square }
-  dead	     = 0;
-  alive	     = 1;
+  dead_char  : TChr = '·';  { dot operator }
+  alive_char : TChr = '▪';  { small square }
+  dead	       = 0;
+  alive	       = 1;
 type
   array2d = array of array of byte;
   agrid	  = class
@@ -50,35 +50,38 @@ var
   procedure drawthegrid;
     var a, b : integer;
   begin
-    crt.cursoroff;
-    gotoxy( 1, 1 );
-    for b := 1 to grid.h do begin
-      for a := 1 to grid.w do begin
+    kvm.hidecursor;
+    for b := 0 to grid.h do begin
+      for a := 0 to grid.w do begin
 	if grid.cells[ a, b ] = alive
-	  then colorxy( a, b, $02, alive_char )
-	  else colorxy( a, b, $08, dead_char )
+	  then cxy( $02, a, b, alive_char )
+	  else cxy( $08, a, b, dead_char )
       end;
     end
   end;
 
+
+
+  var a : cardinal = 999; b : cardinal = 0;
+ 
   procedure seedthegrid;
-    var
-      ch   : char;
-      a, b : cardinal;
+    var ch : char;
   begin
     iteration := 0;
-    a := grid.w div 2;
-    b := grid.h div 2;
-
+    if a = 999 then begin
+      a := grid.w div 2;
+      b := grid.h div 2;
+    end else ok; // center cursor at start, then let it persist.
     drawthegrid;
-    cwritexy( 1, 1, 'move cursor with arrows. use space to toggle cell; enter to start sim.' );
+    cwritexy(0,0,'|wmove cursor with |Warrows|w. use |Wspace to toggle|w cell. ');
+    cwritexy(0,1,'press |Wenter to start|w the simulation.' );
 
-    crt.gotoxy( a, b);
-    crt.cursoron;
-    repeat ch := crt.readkey;
+    kvm.gotoxy( a, b);
+    repeat
+      kvm.showcursor; ch := kbd.readkey;
       case ch of
 	#0  : begin
-	       ch := crt.readkey;
+	       ch := kbd.readkey;
 	       case ch of
 		 up    : b := num.decwrap( b, 1, 1, grid.h );
 		 down  : b := num.incwrap( b, 1, 1, grid.h );
@@ -97,18 +100,18 @@ var
 		drawthegrid;
 	      end;
 	^C  : halt( 1 );
-	else pass { ignore key }
+	else ok { ignore key }
       end;
       gotoxy( a, b );
     until ch = #13;
-    crt.cursoroff;
+    kvm.hidecursor;
   end;
 
   procedure init;
   begin
-    crt.clrscr;
-    grid := agrid.create( crt.windMaxX, crt.windMaxY );
-    temp := agrid.create( crt.windMaxX, crt.windMaxY );
+    kvm.clrscr;
+    grid := agrid.create( kvm.width, kvm.height );
+    temp := agrid.create( kvm.width, kvm.height );
     seedthegrid;
   end;
 
@@ -152,7 +155,8 @@ var
 	  else
 	end;
     inc( iteration );
-    for a := 1 to grid.w do for b := 1 to grid.h do grid.cells[ a, b ] := temp.cells[ a,b ]
+    for a := 1 to grid.w do for b := 1 to grid.h do
+      grid.cells[ a, b ] := temp.cells[ a,b ]
   end;
 
   procedure run;
@@ -173,7 +177,7 @@ var
 
   procedure done;
   begin
-    crt.cursoron;
+    kvm.showcursor;
   end;
 
 {--[ Main Program ]---------------------------------------}
